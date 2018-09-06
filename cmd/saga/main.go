@@ -4,6 +4,8 @@ import (
 	"flag"
 	"fmt"
 	"os"
+
+	"github.com/tombell/saga"
 )
 
 const helpText = `usage: saga [options]
@@ -28,5 +30,9 @@ func main() {
 	if *version {
 		fmt.Fprintf(os.Stdout, "saga %s (%s)\n", Version, Commit)
 		os.Exit(0)
+	}
+
+	if err := saga.Run(); err != nil {
+		panic(err)
 	}
 }
