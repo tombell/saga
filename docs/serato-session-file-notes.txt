@@ -3,7 +3,7 @@ Serato Session File Format
 
  TAG     Description
 
-Chck VRSN
+Chunk VRSN
  vrsn     4 byte string/tag denoting version start
  <LENGTH> 4 byte int denoting data length
  <DATA>   n byte string representing the DB version
