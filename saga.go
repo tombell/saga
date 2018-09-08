@@ -1,6 +1,10 @@
 package saga
 
+// Config ...
+type Config struct {
+}
+
 // Run ...
-func Run() error {
+func Run(cfg *Config) error {
 	return nil
 }
