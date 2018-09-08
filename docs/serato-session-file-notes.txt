@@ -1,12 +1,27 @@
 Serato Session File Format
 ==========================
 
-Field #    TAG     Description
+ TAG     Description
 
-Header
- 01        vrsn     4 byte string/tag denoting version start
- 02        <LENGTH> 4 byte int denoting data length
- 03        <DATA>   n byte string representing the DB version
+Chck VRSN
+ vrsn     4 byte string/tag denoting version start
+ <LENGTH> 4 byte int denoting data length
+ <DATA>   n byte string representing the DB version
+
+Chunk OENT
+ oent     4 byte string/tag denoting oent start
+ <LENGTH> 4 byte int denoting data length
+ <DATA>   n bytes of adat chunk data
+
+Chunk ADAT
+ adat     4 byte string/tag denoting adat start
+ <LENGTH> 4 byte int denoting data length of all fields
+ <DATA>   n bytes of field chunk data
+
+Chunk Field
+ field#   4 byte int denoting field ID
+ <LENGTH> 4 byte int denoting field length
+ <DATA>   n bytes of field data
 
 Sample Serato Session File Dump
 -------------------------------
