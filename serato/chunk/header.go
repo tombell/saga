@@ -1,5 +1,10 @@
 package chunk
 
+import (
+	"encoding/binary"
+	"io"
+)
+
 // Header ...
 type Header struct {
 	Identifier [4]byte
@@ -12,6 +17,8 @@ func (h *Header) Type() string {
 }
 
 // NewHeader ...
-func NewHeader() *Header {
-	return &Header{}
+func NewHeader(r io.Reader) *Header {
+	var hdr Header
+	binary.Read(r, binary.LittleEndian, &hdr)
+	return &hdr
 }
