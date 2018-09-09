@@ -32,7 +32,7 @@ func main() {
 		os.Exit(0)
 	}
 
-	if err := saga.Run(); err != nil {
+	if err := saga.Run(&saga.Config{}); err != nil {
 		panic(err)
 	}
 }
