@@ -17,8 +17,12 @@ func (h *Header) Type() string {
 }
 
 // NewHeader ...
-func NewHeader(r io.Reader) *Header {
+func NewHeader(r io.Reader) (*Header, error) {
 	var hdr Header
-	binary.Read(r, binary.LittleEndian, &hdr)
-	return &hdr
+
+	if err := binary.Read(r, binary.BigEndian, &hdr); err != nil {
+		return nil, err
+	}
+
+	return &hdr, nil
 }
