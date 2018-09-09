@@ -5,7 +5,7 @@ VERSION?=dev
 COMMIT=$(shell git rev-parse HEAD | cut -c -8)
 
 LDFLAGS=-ldflags "-X main.Version=${VERSION} -X main.Commit=${COMMIT}"
-MODFLAGS=-mod=vendor
+# MODFLAGS=-mod=vendor
 
 PACKAGE=./cmd/saga
 
