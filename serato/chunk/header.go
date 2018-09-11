@@ -17,9 +17,9 @@ func (h *Header) Type() string {
 }
 
 // TODO: implement for debugging purposes.
-func (h *Header) String() string {
-	return ""
-}
+// func (h *Header) String() string {
+// 	return ""
+// }
 
 // NewHeader returns an initialised Header by reading the next header.
 func NewHeader(r io.Reader) (*Header, error) {
