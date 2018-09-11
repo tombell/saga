@@ -29,6 +29,6 @@ windows:
 	GOOS=windows GOARCH=${GOARCH} go build ${LDFLAGS} -o dist/${BINARY}-windows-${GOARCH} ${PACKAGE}
 
 test:
-	@go test ${MODFLAGS} -v ./...
+	@go test ${MODFLAGS} ./...
 
 .PHONY: all clean dev cibuild dist darwin windows test
