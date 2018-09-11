@@ -8,7 +8,8 @@ import (
 	"golang.org/x/text/transform"
 )
 
-func decodeUTF16(data []byte) string {
+// DecodeUTF16 decodes UTF-16 byte slice to a UTF-8 string.
+func DecodeUTF16(data []byte) string {
 	buf := bytes.NewBuffer(data)
 	transformer := unicode.UTF16(unicode.BigEndian, unicode.IgnoreBOM)
 	decoder := transformer.NewDecoder()
