@@ -19,6 +19,6 @@ cibuild:
 	go build ${MODFLAGS} ${LDFLAGS} -o dist/${SAGA_BINARY} ${SAGA_PACKAGE}
 
 test:
-	@go test ${MODFLAGS} ./...
+	go test ${MODFLAGS} ./...
 
 .PHONY: all clean dev cibuild test
