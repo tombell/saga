@@ -1,13 +1,11 @@
-BINARY=saga
-GOARCH=amd64
-
 VERSION?=dev
 COMMIT=$(shell git rev-parse HEAD | cut -c -8)
 
 LDFLAGS=-ldflags "-X main.Version=${VERSION} -X main.Commit=${COMMIT}"
 MODFLAGS=-mod=vendor
 
-PACKAGE=./cmd/saga
+SAGA_PACKAGE=./cmd/saga
+SAGA_BINARY=saga
 
 all: dev
 
@@ -15,20 +13,12 @@ clean:
 	rm -fr dist/
 
 dev:
-	go build ${LDFLAGS} -o dist/${BINARY} ${PACKAGE}
+	go build ${LDFLAGS} -o dist/${SAGA_BINARY} ${SAGA_PACKAGE}
 
 cibuild:
-	go build ${MODFLAGS} ${LDFLAGS} -o dist/${BINARY} ${PACKAGE}
-
-dist: darwin windows
-
-darwin:
-	GOOS=darwin GOARCH=${GOARCH} go build ${LDFLAGS} -o dist/${BINARY}-darwin-${GOARCH} ${PACKAGE}
-
-windows:
-	GOOS=windows GOARCH=${GOARCH} go build ${LDFLAGS} -o dist/${BINARY}-windows-${GOARCH} ${PACKAGE}
+	go build ${MODFLAGS} ${LDFLAGS} -o dist/${SAGA_BINARY} ${SAGA_PACKAGE}
 
 test:
 	@go test ${MODFLAGS} ./...
 
-.PHONY: all clean dev cibuild dist darwin windows test
+.PHONY: all clean dev cibuild test
