@@ -2,7 +2,6 @@ package chunk
 
 import (
 	"encoding/binary"
-	"fmt"
 	"io"
 )
 
@@ -33,7 +32,6 @@ func NewVrsnChunk(header *Header, r io.Reader) (*Vrsn, error) {
 	data := make([]byte, header.Length)
 
 	if err := binary.Read(r, binary.BigEndian, &data); err != nil {
-		fmt.Println(err)
 		return nil, err
 	}
 
