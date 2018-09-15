@@ -24,7 +24,7 @@ func (o *Oent) Type() string {
 	return o.header.Type()
 }
 
-// NewOentChunk returns new oent chunk, using the header data to read the oent
+// NewOentChunk returns a new oent chunk, using the header data to read the oent
 // chunk data.
 func NewOentChunk(header *Header, r io.Reader) (*Oent, error) {
 	data := make([]byte, header.Length)
