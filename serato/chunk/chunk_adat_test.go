@@ -3,6 +3,7 @@ package chunk_test
 import (
 	"bytes"
 	"encoding/hex"
+	"io"
 	"testing"
 
 	"github.com/tombell/saga/serato/chunk"
@@ -37,8 +38,8 @@ func TestNewAdatChunkUnexpectedEOF(t *testing.T) {
 	}
 
 	_, err = chunk.NewAdatChunk(hdr, buf)
-	if err == nil {
-		t.Error("expected NewAdatChunk err to not be nil")
+	if err != io.ErrUnexpectedEOF {
+		t.Error("expected NewAdatChunk err to be ErrUnexpectedEOF")
 	}
 }
 
