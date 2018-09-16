@@ -33,7 +33,7 @@ func TestNewHeader(t *testing.T) {
 }
 
 func TestNewHeaderError(t *testing.T) {
-	data := []byte{00, 01, 02}
+	data, _ := hex.DecodeString("000102")
 	buf := bytes.NewBuffer(data)
 
 	_, err := chunk.NewHeader(buf)
