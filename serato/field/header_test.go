@@ -28,7 +28,7 @@ func TestNewHeader(t *testing.T) {
 }
 
 func TestNewHeaderUnexpectedEOF(t *testing.T) {
-	data := []byte{00, 01, 02}
+	data, _ := hex.DecodeString("000102")
 	buf := bytes.NewBuffer(data)
 
 	_, err := field.NewHeader(buf)
