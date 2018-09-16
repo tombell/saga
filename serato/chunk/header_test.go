@@ -19,7 +19,6 @@ func TestNewHeader(t *testing.T) {
 	buf := bytes.NewBuffer(data)
 
 	hdr, err := chunk.NewHeader(buf)
-
 	if err != nil {
 		t.Fatal("expected NewHeader to return nil error")
 	}
@@ -38,7 +37,6 @@ func TestNewHeaderError(t *testing.T) {
 	buf := bytes.NewBuffer(data)
 
 	_, err := chunk.NewHeader(buf)
-
 	if err != io.ErrUnexpectedEOF {
 		t.Error("expected err to be unexpected eof error")
 	}
@@ -58,16 +56,15 @@ func TestHeaderType(t *testing.T) {
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
 			buf := bytes.NewBuffer(tc.input)
-			hdr, err := chunk.NewHeader(buf)
 
+			hdr, err := chunk.NewHeader(buf)
 			if err != nil {
 				t.Error("expected err to be nil")
 			}
 
-			result := hdr.Type()
-
-			if result != tc.expectedType {
-				t.Errorf("expected type to be %v, got %v", tc.expectedType, result)
+			actual := hdr.Type()
+			if actual != tc.expectedType {
+				t.Errorf("expected type to be %s, got %s", tc.expectedType, actual)
 			}
 		})
 	}
