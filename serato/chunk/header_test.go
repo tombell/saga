@@ -32,7 +32,7 @@ func TestNewHeader(t *testing.T) {
 	}
 }
 
-func TestNewHeaderError(t *testing.T) {
+func TestNewHeaderUnexpectedEOF(t *testing.T) {
 	data, _ := hex.DecodeString("000102")
 	buf := bytes.NewBuffer(data)
 
