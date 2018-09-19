@@ -5,6 +5,8 @@ import (
 	"io"
 )
 
+// TODO: Row is field #1
+
 // Row ...
 type Row struct {
 	header *Header
