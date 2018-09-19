@@ -3,6 +3,8 @@ package chunk
 import (
 	"encoding/binary"
 	"io"
+
+	"github.com/tombell/saga/strutil"
 )
 
 // Vrsn represents a vrsn chunk from a Serato session file.
@@ -23,7 +25,7 @@ func (v *Vrsn) Type() string {
 
 // Version returns the version of the Serato session file format.
 func (v *Vrsn) Version() string {
-	return DecodeUTF16(v.data)
+	return strutil.DecodeUTF16(v.data)
 }
 
 // NewVrsnChunk returns a new vrsn chunk, using the header data to read the vrsn
