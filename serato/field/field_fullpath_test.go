@@ -61,6 +61,6 @@ func TestFullPathValue(t *testing.T) {
 	expected := "/Users/tombell/Music/__ New __/Classic House Summer '18/10947360_Do_You_Wanna_House_Original_Mix.mp3"
 
 	if actual != expected {
-		t.Errorf("expected value to be %v, got %v", len(expected), string(actual[100]))
+		t.Errorf("expected value to be %v, got %v", expected, actual)
 	}
 }
