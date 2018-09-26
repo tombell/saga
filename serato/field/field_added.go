@@ -14,8 +14,8 @@ type Added struct {
 }
 
 // Value ...
-func (p *Added) Value() byte {
-	return p.data[0]
+func (a *Added) Value() byte {
+	return a.data[0]
 }
 
 // NewAddedField ...
