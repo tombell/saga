@@ -5,7 +5,7 @@ import (
 	"io"
 )
 
-// TODO: BPM is field #6
+// TODO: BPM is field #15
 
 // BPM ...
 type BPM struct {
