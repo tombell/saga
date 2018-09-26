@@ -61,6 +61,6 @@ func TestTitleValue(t *testing.T) {
 	expected := "Do You Wanna House (Original Mix)"
 
 	if actual != expected {
-		t.Errorf("expected value to be %v, got %v", expected, actual)
+		t.Errorf("expected value to be %s, got %s", expected, actual)
 	}
 }

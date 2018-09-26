@@ -61,6 +61,6 @@ func TestYearValue(t *testing.T) {
 	expected := "2018"
 
 	if actual != expected {
-		t.Errorf("expected value to be %v, got %v", expected, actual)
+		t.Errorf("expected value to be %s, got %s", expected, actual)
 	}
 }
