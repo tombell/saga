@@ -14,8 +14,8 @@ type SessionID struct {
 }
 
 // Value ...
-func (r *SessionID) Value() int {
-	return int(binary.BigEndian.Uint32(r.data))
+func (s *SessionID) Value() int {
+	return int(binary.BigEndian.Uint32(s.data))
 }
 
 // NewSessionIDField ...
