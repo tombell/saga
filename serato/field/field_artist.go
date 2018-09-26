@@ -17,8 +17,8 @@ type Artist struct {
 }
 
 // Value ...
-func (u *Artist) Value() string {
-	s := strutil.DecodeUTF16(u.data)
+func (a *Artist) Value() string {
+	s := strutil.DecodeUTF16(a.data)
 	return strings.Trim(s, string(0))
 }
 

@@ -17,8 +17,8 @@ type Title struct {
 }
 
 // Value ...
-func (u *Title) Value() string {
-	s := strutil.DecodeUTF16(u.data)
+func (t *Title) Value() string {
+	s := strutil.DecodeUTF16(t.data)
 	return strings.Trim(s, string(0))
 }
 

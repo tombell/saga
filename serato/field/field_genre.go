@@ -17,8 +17,8 @@ type Genre struct {
 }
 
 // Value ...
-func (u *Genre) Value() string {
-	s := strutil.DecodeUTF16(u.data)
+func (g *Genre) Value() string {
+	s := strutil.DecodeUTF16(g.data)
 	return strings.Trim(s, string(0))
 }
 
