@@ -43,6 +43,21 @@ func TestNewYearFieldUnexpectedEOF(t *testing.T) {
 	}
 }
 
+func TestNewYearFieldUnexpectedIdentifier(t *testing.T) {
+	data, _ := hex.DecodeString("0000001E0000000A00320030003100380000")
+	buf := bytes.NewBuffer(data)
+
+	hdr, err := field.NewHeader(buf)
+	if err != nil {
+		t.Error("expected NewHeader err to be nil")
+	}
+
+	_, err = field.NewYearField(hdr, buf)
+	if err != field.ErrUnexpectedIdentifier {
+		t.Error("expected NewYearField err to be ErrUnexpectedIdentifier")
+	}
+}
+
 func TestYearValue(t *testing.T) {
 	data, _ := hex.DecodeString("000000170000000A00320030003100380000")
 	buf := bytes.NewBuffer(data)

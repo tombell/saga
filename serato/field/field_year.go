@@ -8,7 +8,7 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-// TODO: Year is field #23
+const yearID = 23
 
 // Year ...
 type Year struct {
@@ -24,6 +24,10 @@ func (y *Year) Value() string {
 
 // NewYearField ...
 func NewYearField(header *Header, r io.Reader) (*Year, error) {
+	if header.Identifier != yearID {
+		return nil, ErrUnexpectedIdentifier
+	}
+
 	data := make([]byte, header.Length)
 
 	if err := binary.Read(r, binary.BigEndian, &data); err != nil {
