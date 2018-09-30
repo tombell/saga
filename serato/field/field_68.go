@@ -5,7 +5,7 @@ import (
 	"io"
 )
 
-// TODO: Field68 is field #68
+const field68ID = 68
 
 // Field68 ...
 type Field68 struct {
@@ -20,6 +20,10 @@ func (f *Field68) Value() []byte {
 
 // NewField68Field ...
 func NewField68Field(header *Header, r io.Reader) (*Field68, error) {
+	if header.Identifier != field68ID {
+		return nil, ErrUnexpectedIdentifier
+	}
+
 	data := make([]byte, header.Length)
 
 	if err := binary.Read(r, binary.BigEndian, &data); err != nil {
