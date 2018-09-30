@@ -44,6 +44,21 @@ func TestNewField69FieldUnexpectedEOF(t *testing.T) {
 	}
 }
 
+func TestNewField69FieldUnexpectedIdentifier(t *testing.T) {
+	data, _ := hex.DecodeString("000000440000000400000000")
+	buf := bytes.NewBuffer(data)
+
+	hdr, err := field.NewHeader(buf)
+	if err != nil {
+		t.Error("expected NewHeader err to be nil")
+	}
+
+	_, err = field.NewField69Field(hdr, buf)
+	if err != field.ErrUnexpectedIdentifier {
+		t.Error("expected NewField69Field err to be ErrUnexpectedEOF")
+	}
+}
+
 func TestField69Value(t *testing.T) {
 	data, _ := hex.DecodeString("000000450000000400000000")
 	buf := bytes.NewBuffer(data)
