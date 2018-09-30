@@ -44,6 +44,21 @@ func TestNewEndTimeFieldUnexpectedEOF(t *testing.T) {
 	}
 }
 
+func TestNewEndTimeFieldUnexpectedIdentifier(t *testing.T) {
+	data, _ := hex.DecodeString("0000002D000000045B903DA3")
+	buf := bytes.NewBuffer(data)
+
+	hdr, err := field.NewHeader(buf)
+	if err != nil {
+		t.Error("expected NewHeader err to be nil")
+	}
+
+	_, err = field.NewEndTimeField(hdr, buf)
+	if err != field.ErrUnexpectedIdentifier {
+		t.Error("expected NewEndTimeField err to be ErrUnexpectedIdentifier")
+	}
+}
+
 func TestEndTimeValue(t *testing.T) {
 	data, _ := hex.DecodeString("0000001D000000045B903DA3")
 	buf := bytes.NewBuffer(data)
