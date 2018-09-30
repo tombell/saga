@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-// TODO: StartTime is field #28
+const starttimeID = 28
 
 // StartTime ...
 type StartTime struct {
@@ -22,6 +22,10 @@ func (s *StartTime) Value() time.Time {
 
 // NewStartTimeField ...
 func NewStartTimeField(header *Header, r io.Reader) (*StartTime, error) {
+	if header.Identifier != starttimeID {
+		return nil, ErrUnexpectedIdentifier
+	}
+
 	data := make([]byte, header.Length)
 
 	if err := binary.Read(r, binary.BigEndian, &data); err != nil {
