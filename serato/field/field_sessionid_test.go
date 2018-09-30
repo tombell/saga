@@ -43,6 +43,21 @@ func TestNewSessionIDFieldUnexpectedEOF(t *testing.T) {
 	}
 }
 
+func TestNewSessionIDFieldUnexpectedIdentifier(t *testing.T) {
+	data, _ := hex.DecodeString("0000004000000004000000D2")
+	buf := bytes.NewBuffer(data)
+
+	hdr, err := field.NewHeader(buf)
+	if err != nil {
+		t.Error("expected NewHeader err to be nil")
+	}
+
+	_, err = field.NewSessionIDField(hdr, buf)
+	if err != field.ErrUnexpectedIdentifier {
+		t.Error("expected NewSessionIDField err to be ErrUnexpectedIdentifier")
+	}
+}
+
 func TestSessionIDValue(t *testing.T) {
 	data, _ := hex.DecodeString("0000003000000004000000D2")
 	buf := bytes.NewBuffer(data)

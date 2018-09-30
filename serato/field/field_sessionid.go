@@ -5,7 +5,7 @@ import (
 	"io"
 )
 
-// TODO: SessionID is field #48
+const sessionID = 48
 
 // SessionID ...
 type SessionID struct {
@@ -20,6 +20,10 @@ func (s *SessionID) Value() int {
 
 // NewSessionIDField ...
 func NewSessionIDField(header *Header, r io.Reader) (*SessionID, error) {
+	if header.Identifier != sessionID {
+		return nil, ErrUnexpectedIdentifier
+	}
+
 	data := make([]byte, header.Length)
 
 	if err := binary.Read(r, binary.BigEndian, &data); err != nil {
