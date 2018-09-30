@@ -5,7 +5,7 @@ import (
 	"io"
 )
 
-// TODO: BPM is field #15
+const bpmID = 15
 
 // BPM ...
 type BPM struct {
@@ -20,6 +20,10 @@ func (b *BPM) Value() int {
 
 // NewBPMField ...
 func NewBPMField(header *Header, r io.Reader) (*BPM, error) {
+	if header.Identifier != bpmID {
+		return nil, ErrUnexpectedIdentifier
+	}
+
 	data := make([]byte, header.Length)
 
 	if err := binary.Read(r, binary.BigEndian, &data); err != nil {
