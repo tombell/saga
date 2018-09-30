@@ -43,6 +43,21 @@ func TestNewTitleFieldUnexpectedEOF(t *testing.T) {
 	}
 }
 
+func TestNewTitleFieldUnexpectedIdentifier(t *testing.T) {
+	data, _ := hex.DecodeString("00000007000000440044006F00200059006F0075002000570061006E006E006100200048006F00750073006500200028004F0072006900670069006E0061006C0020004D0069007800290000")
+	buf := bytes.NewBuffer(data)
+
+	hdr, err := field.NewHeader(buf)
+	if err != nil {
+		t.Error("expected NewHeader err to be nil")
+	}
+
+	_, err = field.NewTitleField(hdr, buf)
+	if err != field.ErrUnexpectedIdentifier {
+		t.Error("expected NewTitleField err to be ErrUnexpectedIdentifier")
+	}
+}
+
 func TestTitleValue(t *testing.T) {
 	data, _ := hex.DecodeString("00000006000000440044006F00200059006F0075002000570061006E006E006100200048006F00750073006500200028004F0072006900670069006E0061006C0020004D0069007800290000")
 	buf := bytes.NewBuffer(data)

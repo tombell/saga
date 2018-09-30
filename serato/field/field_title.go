@@ -8,7 +8,7 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-// TODO: Title is field #6
+const titleID = 6
 
 // Title ...
 type Title struct {
@@ -24,6 +24,10 @@ func (t *Title) Value() string {
 
 // NewTitleField ...
 func NewTitleField(header *Header, r io.Reader) (*Title, error) {
+	if header.Identifier != titleID {
+		return nil, ErrUnexpectedIdentifier
+	}
+
 	data := make([]byte, header.Length)
 
 	if err := binary.Read(r, binary.BigEndian, &data); err != nil {
