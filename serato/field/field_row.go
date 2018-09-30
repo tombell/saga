@@ -5,7 +5,7 @@ import (
 	"io"
 )
 
-// TODO: Row is field #1
+const rowID = 1
 
 // Row ...
 type Row struct {
@@ -20,6 +20,10 @@ func (r *Row) Value() int {
 
 // NewRowField ...
 func NewRowField(header *Header, r io.Reader) (*Row, error) {
+	if header.Identifier != rowID {
+		return nil, ErrUnexpectedIdentifier
+	}
+
 	data := make([]byte, header.Length)
 
 	if err := binary.Read(r, binary.BigEndian, &data); err != nil {

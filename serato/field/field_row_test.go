@@ -43,6 +43,21 @@ func TestNewRowFieldUnexpectedEOF(t *testing.T) {
 	}
 }
 
+func TestNewRowFieldUnexpectedIdentifier(t *testing.T) {
+	data, _ := hex.DecodeString("0000000200000004000000D4")
+	buf := bytes.NewBuffer(data)
+
+	hdr, err := field.NewHeader(buf)
+	if err != nil {
+		t.Error("expected NewHeader err to be nil")
+	}
+
+	_, err = field.NewRowField(hdr, buf)
+	if err != field.ErrUnexpectedIdentifier {
+		t.Error("expected NewRowField err to be ErrUnexpectedIdentifier")
+	}
+}
+
 func TestRowValue(t *testing.T) {
 	data, _ := hex.DecodeString("0000000100000004000000D4")
 	buf := bytes.NewBuffer(data)
