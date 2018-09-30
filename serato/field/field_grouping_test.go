@@ -43,6 +43,21 @@ func TestNewGroupingFieldUnexpectedEOF(t *testing.T) {
 	}
 }
 
+func TestNewGroupingFieldUnexpectedIdentifier(t *testing.T) {
+	data, _ := hex.DecodeString("000000140000002400410074006C0061006E00740069006300730020005200650063006F0072006400730000")
+	buf := bytes.NewBuffer(data)
+
+	hdr, err := field.NewHeader(buf)
+	if err != nil {
+		t.Error("expected NewHeader err to be nil")
+	}
+
+	_, err = field.NewGroupingField(hdr, buf)
+	if err != field.ErrUnexpectedIdentifier {
+		t.Error("expected NewGroupingField err to be ErrUnexpectedIdentifier")
+	}
+}
+
 func TestGroupingValue(t *testing.T) {
 	data, _ := hex.DecodeString("000000130000002400410074006C0061006E00740069006300730020005200650063006F0072006400730000")
 	buf := bytes.NewBuffer(data)

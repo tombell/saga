@@ -8,7 +8,7 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-// TODO: Grouping is field #19
+const groupingID = 19
 
 // Grouping ...
 type Grouping struct {
@@ -24,6 +24,10 @@ func (g *Grouping) Value() string {
 
 // NewGroupingField ...
 func NewGroupingField(header *Header, r io.Reader) (*Grouping, error) {
+	if header.Identifier != groupingID {
+		return nil, ErrUnexpectedIdentifier
+	}
+
 	data := make([]byte, header.Length)
 
 	if err := binary.Read(r, binary.BigEndian, &data); err != nil {
