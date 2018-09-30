@@ -8,7 +8,7 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-// TODO: Label is field #21
+const labelID = 21
 
 // Label ...
 type Label struct {
@@ -24,6 +24,10 @@ func (l *Label) Value() string {
 
 // NewLabelField ...
 func NewLabelField(header *Header, r io.Reader) (*Label, error) {
+	if header.Identifier != labelID {
+		return nil, ErrUnexpectedIdentifier
+	}
+
 	data := make([]byte, header.Length)
 
 	if err := binary.Read(r, binary.BigEndian, &data); err != nil {

@@ -43,6 +43,21 @@ func TestNewLabelFieldUnexpectedEOF(t *testing.T) {
 	}
 }
 
+func TestNewLabelFieldUnexpectedIdentifier(t *testing.T) {
+	data, _ := hex.DecodeString("000000140000002400410074006C0061006E00740069006300730020005200650063006F0000730000")
+	buf := bytes.NewBuffer(data)
+
+	hdr, err := field.NewHeader(buf)
+	if err != nil {
+		t.Error("expected NewHeader err to be nil")
+	}
+
+	_, err = field.NewLabelField(hdr, buf)
+	if err != field.ErrUnexpectedIdentifier {
+		t.Error("expected NewLabelField err to be ErrUnexpectedIdentifier")
+	}
+}
+
 func TestLabelValue(t *testing.T) {
 	data, _ := hex.DecodeString("000000150000002400410074006C0061006E00740069006300730020005200650063006F0072006400730000")
 	buf := bytes.NewBuffer(data)
