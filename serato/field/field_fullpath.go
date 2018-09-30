@@ -8,7 +8,7 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-// TODO: FullPath is field #2
+const fullpathID = 2
 
 // FullPath ...
 type FullPath struct {
@@ -24,6 +24,10 @@ func (f *FullPath) Value() string {
 
 // NewFullPathField ...
 func NewFullPathField(header *Header, r io.Reader) (*FullPath, error) {
+	if header.Identifier != fullpathID {
+		return nil, ErrUnexpectedIdentifier
+	}
+
 	data := make([]byte, header.Length)
 
 	if err := binary.Read(r, binary.BigEndian, &data); err != nil {
