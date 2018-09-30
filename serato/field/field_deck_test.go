@@ -43,6 +43,21 @@ func TestNewDeckFieldUnexpectedEOF(t *testing.T) {
 	}
 }
 
+func TestNewDeckFieldUnexpectedIdentifier(t *testing.T) {
+	data, _ := hex.DecodeString("0000001D0000000400000001")
+	buf := bytes.NewBuffer(data)
+
+	hdr, err := field.NewHeader(buf)
+	if err != nil {
+		t.Error("expected NewHeader err to be nil")
+	}
+
+	_, err = field.NewDeckField(hdr, buf)
+	if err != field.ErrUnexpectedIdentifier {
+		t.Error("expected NewDeckField err to be ErrUnexpectedIdentifier")
+	}
+}
+
 func TestDeckValue(t *testing.T) {
 	data, _ := hex.DecodeString("0000001F0000000400000001")
 	buf := bytes.NewBuffer(data)

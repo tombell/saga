@@ -5,7 +5,7 @@ import (
 	"io"
 )
 
-// TODO: Deck is field #31
+const deckID = 31
 
 // Deck ...
 type Deck struct {
@@ -20,6 +20,10 @@ func (d *Deck) Value() int {
 
 // NewDeckField ...
 func NewDeckField(header *Header, r io.Reader) (*Deck, error) {
+	if header.Identifier != deckID {
+		return nil, ErrUnexpectedIdentifier
+	}
+
 	data := make([]byte, header.Length)
 
 	if err := binary.Read(r, binary.BigEndian, &data); err != nil {
