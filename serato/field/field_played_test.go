@@ -43,6 +43,21 @@ func TestNewPlayedFieldEOF(t *testing.T) {
 	}
 }
 
+func TestNewPlayedFieldUnexpectedIdentifier(t *testing.T) {
+	data, _ := hex.DecodeString("000000330000000101")
+	buf := bytes.NewBuffer(data)
+
+	hdr, err := field.NewHeader(buf)
+	if err != nil {
+		t.Error("expected NewHeader err to be nil")
+	}
+
+	_, err = field.NewPlayedField(hdr, buf)
+	if err != field.ErrUnexpectedIdentifier {
+		t.Error("expected NewPlayedField err to be ErrUnexpectedIdentifier")
+	}
+}
+
 func TestPlayedValue(t *testing.T) {
 	data, _ := hex.DecodeString("000000320000000101")
 	buf := bytes.NewBuffer(data)
