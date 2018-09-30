@@ -55,7 +55,7 @@ func TestNewField69FieldUnexpectedIdentifier(t *testing.T) {
 
 	_, err = field.NewField69Field(hdr, buf)
 	if err != field.ErrUnexpectedIdentifier {
-		t.Error("expected NewField69Field err to be ErrUnexpectedEOF")
+		t.Error("expected NewField69Field err to be ErrUnexpectedIdentifier")
 	}
 }
 
