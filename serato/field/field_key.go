@@ -8,7 +8,7 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-// TODO: Key is field #51
+const keyID = 51
 
 // Key ...
 type Key struct {
@@ -24,6 +24,10 @@ func (k *Key) Value() string {
 
 // NewKeyField ...
 func NewKeyField(header *Header, r io.Reader) (*Key, error) {
+	if header.Identifier != keyID {
+		return nil, ErrUnexpectedIdentifier
+	}
+
 	data := make([]byte, header.Length)
 
 	if err := binary.Read(r, binary.BigEndian, &data); err != nil {

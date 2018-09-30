@@ -43,6 +43,21 @@ func TestNewKeyFieldUnexpectedEOF(t *testing.T) {
 	}
 }
 
+func TestNewKeyFieldUnexpectedIdentifier(t *testing.T) {
+	data, _ := hex.DecodeString("00000043000000060043006D0000")
+	buf := bytes.NewBuffer(data)
+
+	hdr, err := field.NewHeader(buf)
+	if err != nil {
+		t.Error("expected NewHeader err to be nil")
+	}
+
+	_, err = field.NewKeyField(hdr, buf)
+	if err != field.ErrUnexpectedIdentifier {
+		t.Error("expected NewKeyField err to be ErrUnexpectedIdentifier")
+	}
+}
+
 func TestKeyValue(t *testing.T) {
 	data, _ := hex.DecodeString("00000033000000060043006D0000")
 	buf := bytes.NewBuffer(data)
