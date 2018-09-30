@@ -3,7 +3,6 @@ package field
 import (
 	"encoding/binary"
 	"io"
-	"strings"
 
 	"github.com/tombell/saga/strutil"
 )
@@ -19,7 +18,7 @@ type Label struct {
 // Value ...
 func (l *Label) Value() string {
 	s := strutil.DecodeUTF16(l.data)
-	return strings.Trim(s, string(0))
+	return strutil.TrimNull(s)
 }
 
 // NewLabelField ...

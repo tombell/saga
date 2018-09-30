@@ -3,7 +3,6 @@ package field
 import (
 	"encoding/binary"
 	"io"
-	"strings"
 
 	"github.com/tombell/saga/strutil"
 )
@@ -19,7 +18,7 @@ type Artist struct {
 // Value ...
 func (a *Artist) Value() string {
 	s := strutil.DecodeUTF16(a.data)
-	return strings.Trim(s, string(0))
+	return strutil.TrimNull(s)
 }
 
 // NewArtistField ...

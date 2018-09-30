@@ -3,7 +3,6 @@ package field
 import (
 	"encoding/binary"
 	"io"
-	"strings"
 
 	"github.com/tombell/saga/strutil"
 )
@@ -19,7 +18,7 @@ type FullPath struct {
 // Value ...
 func (f *FullPath) Value() string {
 	s := strutil.DecodeUTF16(f.data)
-	return strings.Trim(s, string(0))
+	return strutil.TrimNull(s)
 }
 
 // NewFullPathField ...
