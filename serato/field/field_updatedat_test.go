@@ -44,6 +44,21 @@ func TestNewUpdatedAtFieldUnexpectedEOF(t *testing.T) {
 	}
 }
 
+func TestNewUpdatedAtFieldUnexpectedIdentifier(t *testing.T) {
+	data, _ := hex.DecodeString("00000045000000045B903DA3")
+	buf := bytes.NewBuffer(data)
+
+	hdr, err := field.NewHeader(buf)
+	if err != nil {
+		t.Error("expected NewHeader err to be nil")
+	}
+
+	_, err = field.NewUpdatedAtField(hdr, buf)
+	if err != field.ErrUnexpectedIdentifier {
+		t.Error("expected NewUpdatedAtField err to be ErrUnexpectedIdentifier")
+	}
+}
+
 func TestUpdatedAtValue(t *testing.T) {
 	data, _ := hex.DecodeString("00000035000000045B903DA3")
 	buf := bytes.NewBuffer(data)

@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-// TODO: UpdatedAt is field #53
+const updatedAtID = 53
 
 // UpdatedAt ...
 type UpdatedAt struct {
@@ -22,6 +22,10 @@ func (u *UpdatedAt) Value() time.Time {
 
 // NewUpdatedAtField ...
 func NewUpdatedAtField(header *Header, r io.Reader) (*UpdatedAt, error) {
+	if header.Identifier != updatedAtID {
+		return nil, ErrUnexpectedIdentifier
+	}
+
 	data := make([]byte, header.Length)
 
 	if err := binary.Read(r, binary.BigEndian, &data); err != nil {
