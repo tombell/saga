@@ -8,7 +8,7 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-// TODO: Artist is field #7
+const artistID = 7
 
 // Artist ...
 type Artist struct {
@@ -24,6 +24,10 @@ func (a *Artist) Value() string {
 
 // NewArtistField ...
 func NewArtistField(header *Header, r io.Reader) (*Artist, error) {
+	if header.Identifier != artistID {
+		return nil, ErrUnexpectedIdentifier
+	}
+
 	data := make([]byte, header.Length)
 
 	if err := binary.Read(r, binary.BigEndian, &data); err != nil {

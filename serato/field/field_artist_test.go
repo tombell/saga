@@ -29,7 +29,7 @@ func TestNewArtistField(t *testing.T) {
 }
 
 func TestNewArtistFieldUnexpectedEOF(t *testing.T) {
-	data, _ := hex.DecodeString("00000006000000440044006F00200059006F007")
+	data, _ := hex.DecodeString("00000007000000360044004A002000460061007600")
 	buf := bytes.NewBuffer(data)
 
 	hdr, err := field.NewHeader(buf)
@@ -40,6 +40,21 @@ func TestNewArtistFieldUnexpectedEOF(t *testing.T) {
 	_, err = field.NewArtistField(hdr, buf)
 	if err != io.ErrUnexpectedEOF {
 		t.Error("expected NewArtistField err to be ErrUnexpectedEOF")
+	}
+}
+
+func TestNewArtistFieldUnexpectedIdentifier(t *testing.T) {
+	data, _ := hex.DecodeString("00000005000000360044004A0020004600610076006F0072006900740065002C00200044004A0020004B00680061007200690074006F006E006F00760000")
+	buf := bytes.NewBuffer(data)
+
+	hdr, err := field.NewHeader(buf)
+	if err != nil {
+		t.Error("expected NewHeader err to be nil")
+	}
+
+	_, err = field.NewArtistField(hdr, buf)
+	if err != field.ErrUnexpectedIdentifier {
+		t.Error("expected NewArtistField err to be ErrUnexpectedIdentifier")
 	}
 }
 
