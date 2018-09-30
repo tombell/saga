@@ -43,6 +43,21 @@ func TestNewPlayTimeFieldUnexpectedEOF(t *testing.T) {
 	}
 }
 
+func TestNewPlayTimeFieldUnexpectedIdentifier(t *testing.T) {
+	data, _ := hex.DecodeString("0000002E000000040000009B")
+	buf := bytes.NewBuffer(data)
+
+	hdr, err := field.NewHeader(buf)
+	if err != nil {
+		t.Error("expected NewHeader err to be nil")
+	}
+
+	_, err = field.NewPlayTimeField(hdr, buf)
+	if err != field.ErrUnexpectedIdentifier {
+		t.Error("expected NewPlayTimeField err to be ErrUnexpectedIdentifier")
+	}
+}
+
 func TestPlayTimeValue(t *testing.T) {
 	data, _ := hex.DecodeString("0000002D000000040000009B")
 	buf := bytes.NewBuffer(data)

@@ -5,7 +5,7 @@ import (
 	"io"
 )
 
-// TODO: PlayTime is field #45
+const playtimeID = 45
 
 // PlayTime ...
 type PlayTime struct {
@@ -21,6 +21,10 @@ func (p *PlayTime) Value() int {
 
 // NewPlayTimeField ...
 func NewPlayTimeField(header *Header, r io.Reader) (*PlayTime, error) {
+	if header.Identifier != playtimeID {
+		return nil, ErrUnexpectedIdentifier
+	}
+
 	data := make([]byte, header.Length)
 
 	if err := binary.Read(r, binary.BigEndian, &data); err != nil {
