@@ -43,6 +43,21 @@ func TestNewGenreFieldUnexpectedEOF(t *testing.T) {
 	}
 }
 
+func TestNewGenreFieldUnexpectedIdentifier(t *testing.T) {
+	data, _ := hex.DecodeString("000000080000000C0048006F0075007300650000")
+	buf := bytes.NewBuffer(data)
+
+	hdr, err := field.NewHeader(buf)
+	if err != nil {
+		t.Error("expected NewHeader err to be nil")
+	}
+
+	_, err = field.NewGenreField(hdr, buf)
+	if err != field.ErrUnexpectedIdentifier {
+		t.Error("expected NewGenreField err to be ErrUnexpectedIdentifier")
+	}
+}
+
 func TestGenreValue(t *testing.T) {
 	data, _ := hex.DecodeString("000000090000000C0048006F0075007300650000")
 	buf := bytes.NewBuffer(data)
