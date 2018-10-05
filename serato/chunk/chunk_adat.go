@@ -3,6 +3,8 @@ package chunk
 import (
 	"encoding/binary"
 	"io"
+
+	"github.com/tombell/saga/serato/field"
 )
 
 // TODO: Data chunk, contains fields. Fields meaning file format dependent
@@ -33,5 +35,5 @@ func NewAdatChunk(header *Header, r io.Reader) (*Adat, error) {
 		return nil, err
 	}
 
-	return &Adat{header, data[:]}, nil
+	return &Adat{header, data[:], field.Fields{}}, nil
 }
