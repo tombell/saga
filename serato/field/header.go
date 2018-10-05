@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 )
 
@@ -12,10 +13,9 @@ type Header struct {
 	Length     uint32
 }
 
-// TODO: implement for debugging purposes.
-// func (h *Header) String() string {
-// 	return ""
-// }
+func (h *Header) String() string {
+	return fmt.Sprintf("Field: %d, Data length: %d", h.Identifier, h.Length)
+}
 
 // NewHeader returns an initialised Header by reading the next header.
 func NewHeader(r io.Reader) (*Header, error) {
