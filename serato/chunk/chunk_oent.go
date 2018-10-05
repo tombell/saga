@@ -5,13 +5,14 @@ import (
 	"io"
 )
 
-// TODO: Session files have these, each containing a single ADAT for a track
-
-// Oent represents a oent chunk from a Serato session file.
+// Oent is a chunk that contains a single ADAT chunk which contains track
+// information.
 type Oent struct {
 	header *Header
 	data   []byte
-	// TODO: Single ADAT chunk for a track
+
+	// Adat is a single ADAT chunk, containing the track information.
+	Adat *Adat
 }
 
 // Header returns the header of the chunk.
@@ -24,8 +25,7 @@ func (o *Oent) Type() string {
 	return o.header.Type()
 }
 
-// NewOentChunk returns a new oent chunk, using the header data to read the oent
-// chunk data.
+// NewOentChunk returns an OENT chunk, using the header to read chunk data.
 func NewOentChunk(header *Header, r io.Reader) (*Oent, error) {
 	data := make([]byte, header.Length)
 
