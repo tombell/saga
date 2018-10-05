@@ -2,6 +2,7 @@ package chunk
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 )
 
@@ -16,10 +17,9 @@ func (h *Header) Type() string {
 	return string(h.Identifier[:])
 }
 
-// TODO: implement for debugging purposes.
-// func (h *Header) String() string {
-// 	return ""
-// }
+func (h *Header) String() string {
+	return fmt.Sprintf("Chunk: %s, Data length: %d", h.Type(), h.Length)
+}
 
 // NewHeader returns an initialised Header by reading the next header.
 func NewHeader(r io.Reader) (*Header, error) {
