@@ -7,7 +7,8 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-// Vrsn represents a vrsn chunk from a Serato session file.
+// Vrsn is a chunk that contains the version of the file format, for the Serato
+// session file format.
 type Vrsn struct {
 	header *Header
 	data   []byte
@@ -28,8 +29,7 @@ func (v *Vrsn) Version() string {
 	return strutil.DecodeUTF16(v.data)
 }
 
-// NewVrsnChunk returns a new vrsn chunk, using the header data to read the vrsn
-// chunk data.
+// NewVrsnChunk returns a VRSN chunk, using the header to read the chunk data.
 func NewVrsnChunk(header *Header, r io.Reader) (*Vrsn, error) {
 	data := make([]byte, header.Length)
 
