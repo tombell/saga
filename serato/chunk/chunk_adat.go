@@ -7,12 +7,11 @@ import (
 	"github.com/tombell/saga/serato/field"
 )
 
-// TODO: Data chunk, contains fields. Fields meaning file format dependent
-
-// Adat represents an adat chunk from a Serato session file.
+// Adat is a chunk that contains different fields for track information.
 type Adat struct {
 	header *Header
 	data   []byte
+
 	field.Fields
 }
 
@@ -26,8 +25,7 @@ func (a *Adat) Type() string {
 	return a.header.Type()
 }
 
-// NewAdatChunk returns a new adat chunk, using the header data to read the adat
-// chunk data.
+// NewAdatChunk returns an ADAT chunk, using the header to read the chunk data.
 func NewAdatChunk(header *Header, r io.Reader) (*Adat, error) {
 	data := make([]byte, header.Length)
 
