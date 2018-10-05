@@ -6,8 +6,8 @@ import (
 	"io"
 )
 
-// Header represents the header for a field in an adat chunk in a Serato session
-// file format.
+// Header is a field header that contains information about the next field in
+// the ADAT chunk, as part of the Serato file format.
 type Header struct {
 	Identifier uint32
 	Length     uint32
@@ -17,7 +17,7 @@ func (h *Header) String() string {
 	return fmt.Sprintf("Field: %d, Data length: %d", h.Identifier, h.Length)
 }
 
-// NewHeader returns an initialised Header by reading the next header.
+// NewHeader returns a new Header that has been read from the given reader.
 func NewHeader(r io.Reader) (*Header, error) {
 	var hdr Header
 
