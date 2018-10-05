@@ -11,7 +11,7 @@ import (
 type Adat struct {
 	header *Header
 	data   []byte
-	// TODO: Fields for the ADAT data
+	field.Fields
 }
 
 // Header returns the header of the chunk.
