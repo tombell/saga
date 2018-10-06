@@ -1,7 +1,9 @@
 package chunk
 
 import (
+	"bytes"
 	"encoding/binary"
+	"fmt"
 	"io"
 )
 
@@ -32,5 +34,21 @@ func NewOentChunk(header *Header, r io.Reader) (*Oent, error) {
 		return nil, err
 	}
 
-	return &Oent{header, data[:], nil}, nil
+	buf := bytes.NewBuffer(data[:])
+
+	hdr, err := NewHeader(buf)
+	if err != nil {
+		return nil, err
+	}
+
+	if hdr.Type() != "adat" {
+		return nil, fmt.Errorf("unexpected header: %s", hdr.Type())
+	}
+
+	adat, err := NewAdatChunk(hdr, buf)
+	if err != nil {
+		return nil, err
+	}
+
+	return &Oent{header, data[:], adat}, nil
 }
