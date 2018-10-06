@@ -13,12 +13,9 @@ clean:
 	rm -fr dist/
 
 dev:
-	go build ${LDFLAGS} -o dist/${SAGA_BINARY} ${SAGA_PACKAGE}
-
-cibuild:
 	go build ${MODFLAGS} ${LDFLAGS} -o dist/${SAGA_BINARY} ${SAGA_PACKAGE}
 
 test:
 	go test ${MODFLAGS} ./...
 
-.PHONY: all clean dev cibuild test
+.PHONY: all clean dev test
