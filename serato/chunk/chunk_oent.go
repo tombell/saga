@@ -11,7 +11,6 @@ type Oent struct {
 	header *Header
 	data   []byte
 
-	// Adat is a single ADAT chunk, containing the track information.
 	Adat *Adat
 }
 
