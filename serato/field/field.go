@@ -12,13 +12,24 @@ type Field interface{}
 // Fields ...
 type Fields struct {
 	Row       *Row       // Field 1
-	FullPath  *FullPath  // Field 4
+	FullPath  *FullPath  // Field 2
+	Location  *Location  // Field 3
+	Filename  *Filename  // Field 4
 	Title     *Title     // Field 6
 	Artist    *Artist    // Field 7
+	Album     *Album     // Field 8
 	Genre     *Genre     // Field 9
+	Length    *Length    // Field 10
+	Size      *Size      // Field 11
+	Bitrate   *Bitrate   // Field 13
+	Frequency *Frequency // Field 14
 	BPM       *BPM       // Field 15
+	Comment   *Comment   // Field 17
+	Language  *Language  // Field 18
 	Grouping  *Grouping  // Field 19
+	Remixer   *Remixer   // Field 20
 	Label     *Label     // Field 21
+	Composer  *Composer  // Field 22
 	Year      *Year      // Field 23
 	StartTime *StartTime // Field 28
 	EndTime   *EndTime   // Field 29
@@ -33,17 +44,4 @@ type Fields struct {
 	Field69   *Field69   // Field 69
 	Field70   *Field70   // Field 70
 	Field72   *Field72   // Field 72
-
-	// TODO:
-	// Album     // Field 8
-	// Bitrate   // Field 13
-	// Comment   // Field 17
-	// Composer  // Field 22
-	// Filename  // Field 4
-	// Frequency // Field 14
-	// Language  // Field 18
-	// Length    // Field 10
-	// Location  // Field 3
-	// Remixer   // Field 20
-	// Size      // Field 11
 }
