@@ -22,7 +22,7 @@ func (a *Composer) Value() string {
 }
 
 // NewComposerField ...
-func NewComposerField(header *Header, r io.Reader) (*Artist, error) {
+func NewComposerField(header *Header, r io.Reader) (*Composer, error) {
 	if header.Identifier != composerID {
 		return nil, ErrUnexpectedIdentifier
 	}

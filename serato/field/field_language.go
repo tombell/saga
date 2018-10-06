@@ -22,7 +22,7 @@ func (a *Language) Value() string {
 }
 
 // NewLanguageField ...
-func NewLanguageField(header *Header, r io.Reader) (*Artist, error) {
+func NewLanguageField(header *Header, r io.Reader) (*Language, error) {
 	if header.Identifier != languageID {
 		return nil, ErrUnexpectedIdentifier
 	}

@@ -22,7 +22,7 @@ func (a *Filename) Value() string {
 }
 
 // NewFilenameField ...
-func NewFilenameField(header *Header, r io.Reader) (*Artist, error) {
+func NewFilenameField(header *Header, r io.Reader) (*Filename, error) {
 	if header.Identifier != filenameID {
 		return nil, ErrUnexpectedIdentifier
 	}

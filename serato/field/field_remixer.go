@@ -22,12 +22,12 @@ func (a *Remixer) Value() string {
 }
 
 // NewRemixerField ...
-func NewRemixerField(header *Header, r io.Reader) (*Artist, error) {
+func NewRemixerField(header *Header, r io.Reader) (*Remixer, error) {
 	if header.Identifier != remixerID {
 		return nil, ErrUnexpectedIdentifier
 	}
 
-	data := make([]byte, header.Remixer)
+	data := make([]byte, header.Length)
 
 	if err := binary.Read(r, binary.BigEndian, &data); err != nil {
 		return nil, err

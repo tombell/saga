@@ -22,7 +22,7 @@ func (a *Length) Value() string {
 }
 
 // NewLengthField ...
-func NewLengthField(header *Header, r io.Reader) (*Artist, error) {
+func NewLengthField(header *Header, r io.Reader) (*Length, error) {
 	if header.Identifier != lengthID {
 		return nil, ErrUnexpectedIdentifier
 	}

@@ -22,7 +22,7 @@ func (a *Bitrate) Value() string {
 }
 
 // NewBitrateField ...
-func NewBitrateField(header *Header, r io.Reader) (*Artist, error) {
+func NewBitrateField(header *Header, r io.Reader) (*Bitrate, error) {
 	if header.Identifier != bitrateID {
 		return nil, ErrUnexpectedIdentifier
 	}

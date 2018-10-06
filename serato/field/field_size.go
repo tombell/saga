@@ -22,12 +22,12 @@ func (a *Size) Value() string {
 }
 
 // NewSizeField ...
-func NewSizeField(header *Header, r io.Reader) (*Artist, error) {
+func NewSizeField(header *Header, r io.Reader) (*Size, error) {
 	if header.Identifier != sizeID {
 		return nil, ErrUnexpectedIdentifier
 	}
 
-	data := make([]byte, header.Size)
+	data := make([]byte, header.Length)
 
 	if err := binary.Read(r, binary.BigEndian, &data); err != nil {
 		return nil, err

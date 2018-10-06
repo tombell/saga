@@ -22,12 +22,12 @@ func (a *Location) Value() string {
 }
 
 // NewLocationField ...
-func NewLocationField(header *Header, r io.Reader) (*Artist, error) {
+func NewLocationField(header *Header, r io.Reader) (*Location, error) {
 	if header.Identifier != locationID {
 		return nil, ErrUnexpectedIdentifier
 	}
 
-	data := make([]byte, header.Location)
+	data := make([]byte, header.Length)
 
 	if err := binary.Read(r, binary.BigEndian, &data); err != nil {
 		return nil, err

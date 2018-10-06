@@ -22,7 +22,7 @@ func (a *Comment) Value() string {
 }
 
 // NewCommentField ...
-func NewCommentField(header *Header, r io.Reader) (*Artist, error) {
+func NewCommentField(header *Header, r io.Reader) (*Comment, error) {
 	if header.Identifier != commentID {
 		return nil, ErrUnexpectedIdentifier
 	}

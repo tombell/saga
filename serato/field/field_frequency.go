@@ -22,7 +22,7 @@ func (a *Frequency) Value() string {
 }
 
 // NewFrequencyField ...
-func NewFrequencyField(header *Header, r io.Reader) (*Artist, error) {
+func NewFrequencyField(header *Header, r io.Reader) (*Frequency, error) {
 	if header.Identifier != frequencyID {
 		return nil, ErrUnexpectedIdentifier
 	}
