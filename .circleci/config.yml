@@ -2,8 +2,8 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/golang:1.11.0
+      - image: circleci/golang:1.11.1
     steps:
       - checkout
       - run: make test
-      - run: make cibuild
+      - run: make
