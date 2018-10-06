@@ -35,15 +35,15 @@ type Fields struct {
 	Field72   *Field72   // Field 72
 
 	// TODO:
-	// Album
-	// Bitrate
-	// Comment
-	// Composer
-	// Filename
-	// Frequency
-	// Language
-	// Length
-	// Location
-	// Remixer
-	// Size
+	// Album     // Field 8
+	// Bitrate   // Field 13
+	// Comment   // Field 17
+	// Composer  // Field 22
+	// Filename  // Field 4
+	// Frequency // Field 14
+	// Language  // Field 18
+	// Length    // Field 10
+	// Location  // Field 3
+	// Remixer   // Field 20
+	// Size      // Field 11
 }
