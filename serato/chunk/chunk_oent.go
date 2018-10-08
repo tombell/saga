@@ -28,6 +28,10 @@ func (o *Oent) Type() string {
 
 // NewOentChunk returns an OENT chunk, using the header to read the chunk data.
 func NewOentChunk(header *Header, r io.Reader) (*Oent, error) {
+	if header.Type() != oentID {
+		return nil, ErrUnexpectedIdentifier
+	}
+
 	data := make([]byte, header.Length)
 
 	if err := binary.Read(r, binary.BigEndian, &data); err != nil {
