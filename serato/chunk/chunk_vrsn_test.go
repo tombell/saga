@@ -43,6 +43,21 @@ func TestNewVrsnChunkUnexpectedEOF(t *testing.T) {
 	}
 }
 
+func TestNewVrsnChunkUnexpectedIdentifier(t *testing.T) {
+	data, _ := hex.DecodeString("7572736E000000376004500200052006500760067")
+	buf := bytes.NewBuffer(data)
+
+	hdr, err := chunk.NewHeader(buf)
+	if err != nil {
+		t.Error("expected NewHeader err to be nil")
+	}
+
+	_, err = chunk.NewVrsnChunk(hdr, buf)
+	if err != chunk.ErrUnexpectedIdentifier {
+		t.Error("expected NewVrsnChunk err to be ErrUnexpectedIdentifier")
+	}
+}
+
 func TestVrsnHeader(t *testing.T) {
 	data, _ := hex.DecodeString("7672736E0000003C0031002E0030002F00530065007200610074006F002000530063007200610074006300680020004C0049005600450020005200650076006900650077")
 	buf := bytes.NewBuffer(data)

@@ -31,6 +31,10 @@ func (v *Vrsn) Version() string {
 
 // NewVrsnChunk returns a VRSN chunk, using the header to read the chunk data.
 func NewVrsnChunk(header *Header, r io.Reader) (*Vrsn, error) {
+	if header.Type() != vrsnID {
+		return nil, ErrUnexpectedIdentifier
+	}
+
 	data := make([]byte, header.Length)
 
 	if err := binary.Read(r, binary.BigEndian, &data); err != nil {
