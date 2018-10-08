@@ -1,8 +1,14 @@
 package chunk
 
-import "io"
+import (
+	"bytes"
+	"encoding/binary"
+	"fmt"
+	"io"
+)
 
-// Oren ...
+// Oren is a chunk that contains a single UENT chunk which contains a reference
+// to an OENT chunk to be deleted.
 type Oren struct {
 	header *Header
 	data   []byte
@@ -20,7 +26,33 @@ func (o *Oren) Type() string {
 	return o.header.Type()
 }
 
-// NewOrenChunk ...
+// NewOrenChunk returns an OREN chunk, using the header to read the chunk data.
 func NewOrenChunk(header *Header, r io.Reader) (*Oren, error) {
-	return nil, nil
+	if header.Type() != orenID {
+		return nil, ErrUnexpectedIdentifier
+	}
+
+	data := make([]byte, header.Length)
+
+	if err := binary.Read(r, binary.BigEndian, &data); err != nil {
+		return nil, err
+	}
+
+	buf := bytes.NewBuffer(data[:])
+
+	hdr, err := NewHeader(buf)
+	if err != nil {
+		return nil, err
+	}
+
+	if hdr.Type() != "uent" {
+		return nil, fmt.Errorf("unexpected header: %s", hdr.Type())
+	}
+
+	uent, err := NewUentChunk(hdr, buf)
+	if err != nil {
+		return nil, err
+	}
+
+	return &Oren{header, data[:], uent}, nil
 }
