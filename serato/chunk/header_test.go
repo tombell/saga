@@ -69,3 +69,31 @@ func TestHeaderType(t *testing.T) {
 		})
 	}
 }
+
+func TestHeaderString(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    []byte
+		expected string
+	}{
+		{"vrsn", generateBytes("7672736E0000003C"), "Chunk: vrsn, Data length: 60"},
+		{"oent", generateBytes("6F656E740000028F"), "Chunk: oent, Data length: 655"},
+		{"adat", generateBytes("6164617400000287"), "Chunk: adat, Data length: 647"},
+	}
+
+	for _, tc := range tests {
+		t.Run(tc.name, func(t *testing.T) {
+			buf := bytes.NewBuffer(tc.input)
+
+			hdr, err := chunk.NewHeader(buf)
+			if err != nil {
+				t.Fatal("expected err to be nil")
+			}
+
+			actual := hdr.String()
+			if actual != tc.expected {
+				t.Fatalf("expected string to be %s, got %s", tc.expected, actual)
+			}
+		})
+	}
+}
