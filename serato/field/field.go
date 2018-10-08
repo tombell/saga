@@ -3,7 +3,7 @@ package field
 import "errors"
 
 // ErrUnexpectedIdentifier is an error representing that a constructor received
-// the wrong field identifier for the field type being instantiated.
+// the wrong field identifier for the field type being created.
 var ErrUnexpectedIdentifier = errors.New("unexpected field identifier")
 
 // Field ...
