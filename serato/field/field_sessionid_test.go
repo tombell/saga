@@ -15,16 +15,16 @@ func TestNewSessionIDField(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	sessionid, err := field.NewSessionIDField(hdr, buf)
 	if err != nil {
-		t.Error("expected NewSessionIDField err to be nil")
+		t.Fatal("expected NewSessionIDField err to be nil")
 	}
 
 	if sessionid == nil {
-		t.Error("expected sessionid to not be nil")
+		t.Fatal("expected sessionid to not be nil")
 	}
 }
 
@@ -34,12 +34,12 @@ func TestNewSessionIDFieldUnexpectedEOF(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = field.NewSessionIDField(hdr, buf)
 	if err != io.ErrUnexpectedEOF {
-		t.Error("expected NewSessionIDField err to be ErrUnexpectedEOF")
+		t.Fatal("expected NewSessionIDField err to be ErrUnexpectedEOF")
 	}
 }
 
@@ -49,12 +49,12 @@ func TestNewSessionIDFieldUnexpectedIdentifier(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = field.NewSessionIDField(hdr, buf)
 	if err != field.ErrUnexpectedIdentifier {
-		t.Error("expected NewSessionIDField err to be ErrUnexpectedIdentifier")
+		t.Fatal("expected NewSessionIDField err to be ErrUnexpectedIdentifier")
 	}
 }
 
@@ -64,18 +64,18 @@ func TestSessionIDValue(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	sessionid, err := field.NewSessionIDField(hdr, buf)
 	if err != nil {
-		t.Error("expected NewSessionIDField err to be nil")
+		t.Fatal("expected NewSessionIDField err to be nil")
 	}
 
 	actual := sessionid.Value()
 	expected := 210
 
 	if actual != expected {
-		t.Errorf("expected value to be %d, got %d", expected, actual)
+		t.Fatalf("expected value to be %d, got %d", expected, actual)
 	}
 }

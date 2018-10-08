@@ -15,16 +15,16 @@ func TestNewYearField(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	year, err := field.NewYearField(hdr, buf)
 	if err != nil {
-		t.Error("expected NewYearField err to be nil")
+		t.Fatal("expected NewYearField err to be nil")
 	}
 
 	if year == nil {
-		t.Error("expected year to not be nil")
+		t.Fatal("expected year to not be nil")
 	}
 }
 
@@ -34,12 +34,12 @@ func TestNewYearFieldUnexpectedEOF(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = field.NewYearField(hdr, buf)
 	if err != io.ErrUnexpectedEOF {
-		t.Error("expected NewYearField err to be ErrUnexpectedEOF")
+		t.Fatal("expected NewYearField err to be ErrUnexpectedEOF")
 	}
 }
 
@@ -49,12 +49,12 @@ func TestNewYearFieldUnexpectedIdentifier(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = field.NewYearField(hdr, buf)
 	if err != field.ErrUnexpectedIdentifier {
-		t.Error("expected NewYearField err to be ErrUnexpectedIdentifier")
+		t.Fatal("expected NewYearField err to be ErrUnexpectedIdentifier")
 	}
 }
 
@@ -64,18 +64,18 @@ func TestYearValue(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	year, err := field.NewYearField(hdr, buf)
 	if err != nil {
-		t.Error("expected NewYearField err to be nil")
+		t.Fatal("expected NewYearField err to be nil")
 	}
 
 	actual := year.Value()
 	expected := "2018"
 
 	if actual != expected {
-		t.Errorf("expected value to be %s, got %s", expected, actual)
+		t.Fatalf("expected value to be %s, got %s", expected, actual)
 	}
 }

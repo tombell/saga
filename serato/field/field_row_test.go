@@ -15,16 +15,16 @@ func TestNewRowField(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	row, err := field.NewRowField(hdr, buf)
 	if err != nil {
-		t.Error("expected NewRowField err to be nil")
+		t.Fatal("expected NewRowField err to be nil")
 	}
 
 	if row == nil {
-		t.Error("expected row to not be nil")
+		t.Fatal("expected row to not be nil")
 	}
 }
 
@@ -34,12 +34,12 @@ func TestNewRowFieldUnexpectedEOF(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = field.NewRowField(hdr, buf)
 	if err != io.ErrUnexpectedEOF {
-		t.Error("expected NewRowField err to be ErrUnexpectedEOF")
+		t.Fatal("expected NewRowField err to be ErrUnexpectedEOF")
 	}
 }
 
@@ -49,12 +49,12 @@ func TestNewRowFieldUnexpectedIdentifier(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = field.NewRowField(hdr, buf)
 	if err != field.ErrUnexpectedIdentifier {
-		t.Error("expected NewRowField err to be ErrUnexpectedIdentifier")
+		t.Fatal("expected NewRowField err to be ErrUnexpectedIdentifier")
 	}
 }
 
@@ -64,18 +64,18 @@ func TestRowValue(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	row, err := field.NewRowField(hdr, buf)
 	if err != nil {
-		t.Error("expected NewRowField err to be nil")
+		t.Fatal("expected NewRowField err to be nil")
 	}
 
 	actual := row.Value()
 	expected := 212
 
 	if actual != expected {
-		t.Errorf("expected value to be %d, got %d", expected, actual)
+		t.Fatalf("expected value to be %d, got %d", expected, actual)
 	}
 }

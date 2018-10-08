@@ -15,16 +15,16 @@ func TestNewDeckField(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	deck, err := field.NewDeckField(hdr, buf)
 	if err != nil {
-		t.Error("expected NewDeckField err to be nil")
+		t.Fatal("expected NewDeckField err to be nil")
 	}
 
 	if deck == nil {
-		t.Error("expected deck to not be nil")
+		t.Fatal("expected deck to not be nil")
 	}
 }
 
@@ -34,12 +34,12 @@ func TestNewDeckFieldUnexpectedEOF(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = field.NewDeckField(hdr, buf)
 	if err != io.ErrUnexpectedEOF {
-		t.Error("expected NewDeckField err to be ErrUnexpectedEOF")
+		t.Fatal("expected NewDeckField err to be ErrUnexpectedEOF")
 	}
 }
 
@@ -49,12 +49,12 @@ func TestNewDeckFieldUnexpectedIdentifier(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = field.NewDeckField(hdr, buf)
 	if err != field.ErrUnexpectedIdentifier {
-		t.Error("expected NewDeckField err to be ErrUnexpectedIdentifier")
+		t.Fatal("expected NewDeckField err to be ErrUnexpectedIdentifier")
 	}
 }
 
@@ -64,18 +64,18 @@ func TestDeckValue(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	deck, err := field.NewDeckField(hdr, buf)
 	if err != nil {
-		t.Error("expected NewDeckField err to be nil")
+		t.Fatal("expected NewDeckField err to be nil")
 	}
 
 	actual := deck.Value()
 	expected := 1
 
 	if actual != expected {
-		t.Errorf("expected value to be %d, got %d", expected, actual)
+		t.Fatalf("expected value to be %d, got %d", expected, actual)
 	}
 }

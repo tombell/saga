@@ -15,16 +15,16 @@ func TestNewGenreField(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	genre, err := field.NewGenreField(hdr, buf)
 	if err != nil {
-		t.Error("expected NewGenreField err to be nil")
+		t.Fatal("expected NewGenreField err to be nil")
 	}
 
 	if genre == nil {
-		t.Error("expected genre to not be nil")
+		t.Fatal("expected genre to not be nil")
 	}
 }
 
@@ -34,12 +34,12 @@ func TestNewGenreFieldUnexpectedEOF(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = field.NewGenreField(hdr, buf)
 	if err != io.ErrUnexpectedEOF {
-		t.Error("expected NewGenreField err to be ErrUnexpectedEOF")
+		t.Fatal("expected NewGenreField err to be ErrUnexpectedEOF")
 	}
 }
 
@@ -49,12 +49,12 @@ func TestNewGenreFieldUnexpectedIdentifier(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = field.NewGenreField(hdr, buf)
 	if err != field.ErrUnexpectedIdentifier {
-		t.Error("expected NewGenreField err to be ErrUnexpectedIdentifier")
+		t.Fatal("expected NewGenreField err to be ErrUnexpectedIdentifier")
 	}
 }
 
@@ -64,18 +64,18 @@ func TestGenreValue(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	genre, err := field.NewGenreField(hdr, buf)
 	if err != nil {
-		t.Error("expected NewGenreField err to be nil")
+		t.Fatal("expected NewGenreField err to be nil")
 	}
 
 	actual := genre.Value()
 	expected := "House"
 
 	if actual != expected {
-		t.Errorf("expected value to be %s, got %s", expected, actual)
+		t.Fatalf("expected value to be %s, got %s", expected, actual)
 	}
 }

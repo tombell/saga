@@ -15,16 +15,16 @@ func TestNewAdatChunk(t *testing.T) {
 
 	hdr, err := chunk.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	adat, err := chunk.NewAdatChunk(hdr, buf)
 	if err != nil {
-		t.Error("expected NewAdatChunk err to be nil")
+		t.Fatal("expected NewAdatChunk err to be nil")
 	}
 
 	if adat == nil {
-		t.Error("expected adat to not be nil")
+		t.Fatal("expected adat to not be nil")
 	}
 }
 
@@ -34,12 +34,12 @@ func TestNewAdatChunkUnexpectedEOF(t *testing.T) {
 
 	hdr, err := chunk.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = chunk.NewAdatChunk(hdr, buf)
 	if err != io.ErrUnexpectedEOF {
-		t.Error("expected NewAdatChunk err to be ErrUnexpectedEOF")
+		t.Fatal("expected NewAdatChunk err to be ErrUnexpectedEOF")
 	}
 }
 
@@ -49,12 +49,12 @@ func TestNewAdatChunkUnexpectedIdentifier(t *testing.T) {
 
 	hdr, err := chunk.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = chunk.NewAdatChunk(hdr, buf)
 	if err != chunk.ErrUnexpectedIdentifier {
-		t.Error("expected NewAdatChunk err to be ErrUnexpectedIdentifier")
+		t.Fatal("expected NewAdatChunk err to be ErrUnexpectedIdentifier")
 	}
 }
 
@@ -64,16 +64,16 @@ func TestAdatHeader(t *testing.T) {
 
 	hdr, err := chunk.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	adat, err := chunk.NewAdatChunk(hdr, buf)
 	if err != nil {
-		t.Error("expected NewAdatChunk err to be nil")
+		t.Fatal("expected NewAdatChunk err to be nil")
 	}
 
 	if adat.Header() != hdr {
-		t.Error("expected header to be the same")
+		t.Fatal("expected header to be the same")
 	}
 }
 
@@ -83,18 +83,18 @@ func TestAdatType(t *testing.T) {
 
 	hdr, err := chunk.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	adat, err := chunk.NewAdatChunk(hdr, buf)
 	if err != nil {
-		t.Error("expected NewAdatChunk err to be nil")
+		t.Fatal("expected NewAdatChunk err to be nil")
 	}
 
 	actual := adat.Type()
 	expected := "adat"
 
 	if actual != expected {
-		t.Errorf("expected type to be %s, got %s", expected, actual)
+		t.Fatalf("expected type to be %s, got %s", expected, actual)
 	}
 }

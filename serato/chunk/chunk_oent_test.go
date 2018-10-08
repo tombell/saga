@@ -15,16 +15,16 @@ func TestNewOentChunk(t *testing.T) {
 
 	hdr, err := chunk.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	oent, err := chunk.NewOentChunk(hdr, buf)
 	if err != nil {
-		t.Error("expected NewOentChunk err to be nil")
+		t.Fatal("expected NewOentChunk err to be nil")
 	}
 
 	if oent == nil {
-		t.Error("expected oent to not be nil")
+		t.Fatal("expected oent to not be nil")
 	}
 }
 
@@ -34,12 +34,12 @@ func TestNewOentChunkUnexpectedEOF(t *testing.T) {
 
 	hdr, err := chunk.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = chunk.NewOentChunk(hdr, buf)
 	if err != io.ErrUnexpectedEOF {
-		t.Error("expected NewOentChunk err to be ErrUnexpectedEOF")
+		t.Fatal("expected NewOentChunk err to be ErrUnexpectedEOF")
 	}
 }
 
@@ -49,12 +49,12 @@ func TestNewOentChunkUnexpectedIdentifier(t *testing.T) {
 
 	hdr, err := chunk.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = chunk.NewOentChunk(hdr, buf)
 	if err != chunk.ErrUnexpectedIdentifier {
-		t.Error("expected NewOentChunk err to be ErrUnexpectedIdentifier")
+		t.Fatal("expected NewOentChunk err to be ErrUnexpectedIdentifier")
 	}
 }
 
@@ -64,16 +64,16 @@ func TestOentHeader(t *testing.T) {
 
 	hdr, err := chunk.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	oent, err := chunk.NewOentChunk(hdr, buf)
 	if err != nil {
-		t.Error("expected NewOentChunk err to be nil")
+		t.Fatal("expected NewOentChunk err to be nil")
 	}
 
 	if oent.Header() != hdr {
-		t.Error("expected header to be the same")
+		t.Fatal("expected header to be the same")
 	}
 }
 
@@ -83,18 +83,18 @@ func TestOentType(t *testing.T) {
 
 	hdr, err := chunk.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	oent, err := chunk.NewOentChunk(hdr, buf)
 	if err != nil {
-		t.Error("expected NewOentChunk err to be nil")
+		t.Fatal("expected NewOentChunk err to be nil")
 	}
 
 	actual := oent.Type()
 	expected := "oent"
 
 	if actual != expected {
-		t.Errorf("expected type to be %s, got %s", expected, actual)
+		t.Fatalf("expected type to be %s, got %s", expected, actual)
 	}
 }

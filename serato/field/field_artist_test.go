@@ -15,16 +15,16 @@ func TestNewArtistField(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	artist, err := field.NewArtistField(hdr, buf)
 	if err != nil {
-		t.Error("expected NewArtistField err to be nil")
+		t.Fatal("expected NewArtistField err to be nil")
 	}
 
 	if artist == nil {
-		t.Error("expected artist to not be nil")
+		t.Fatal("expected artist to not be nil")
 	}
 }
 
@@ -34,12 +34,12 @@ func TestNewArtistFieldUnexpectedEOF(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = field.NewArtistField(hdr, buf)
 	if err != io.ErrUnexpectedEOF {
-		t.Error("expected NewArtistField err to be ErrUnexpectedEOF")
+		t.Fatal("expected NewArtistField err to be ErrUnexpectedEOF")
 	}
 }
 
@@ -49,12 +49,12 @@ func TestNewArtistFieldUnexpectedIdentifier(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = field.NewArtistField(hdr, buf)
 	if err != field.ErrUnexpectedIdentifier {
-		t.Error("expected NewArtistField err to be ErrUnexpectedIdentifier")
+		t.Fatal("expected NewArtistField err to be ErrUnexpectedIdentifier")
 	}
 }
 
@@ -64,18 +64,18 @@ func TestArtistValue(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	artist, err := field.NewArtistField(hdr, buf)
 	if err != nil {
-		t.Error("expected NewArtistField err to be nil")
+		t.Fatal("expected NewArtistField err to be nil")
 	}
 
 	actual := artist.Value()
 	expected := "DJ Favorite, DJ Kharitonov"
 
 	if actual != expected {
-		t.Errorf("expected value to be %s, got %s", expected, actual)
+		t.Fatalf("expected value to be %s, got %s", expected, actual)
 	}
 }

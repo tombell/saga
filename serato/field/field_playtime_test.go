@@ -15,16 +15,16 @@ func TestNewPlayTimeField(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	playtime, err := field.NewPlayTimeField(hdr, buf)
 	if err != nil {
-		t.Error("expected NewPlayTimeField err to be nil")
+		t.Fatal("expected NewPlayTimeField err to be nil")
 	}
 
 	if playtime == nil {
-		t.Error("expected playtime to not be nil")
+		t.Fatal("expected playtime to not be nil")
 	}
 }
 
@@ -34,12 +34,12 @@ func TestNewPlayTimeFieldUnexpectedEOF(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = field.NewPlayTimeField(hdr, buf)
 	if err != io.ErrUnexpectedEOF {
-		t.Error("expected NewPlayTimeField err to be ErrUnexpectedEOF")
+		t.Fatal("expected NewPlayTimeField err to be ErrUnexpectedEOF")
 	}
 }
 
@@ -49,12 +49,12 @@ func TestNewPlayTimeFieldUnexpectedIdentifier(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = field.NewPlayTimeField(hdr, buf)
 	if err != field.ErrUnexpectedIdentifier {
-		t.Error("expected NewPlayTimeField err to be ErrUnexpectedIdentifier")
+		t.Fatal("expected NewPlayTimeField err to be ErrUnexpectedIdentifier")
 	}
 }
 
@@ -64,18 +64,18 @@ func TestPlayTimeValue(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	playtime, err := field.NewPlayTimeField(hdr, buf)
 	if err != nil {
-		t.Error("expected NewPlayTimeField err to be nil")
+		t.Fatal("expected NewPlayTimeField err to be nil")
 	}
 
 	actual := playtime.Value()
 	expected := 155
 
 	if actual != expected {
-		t.Errorf("expected value to be %d, got %d", expected, actual)
+		t.Fatalf("expected value to be %d, got %d", expected, actual)
 	}
 }

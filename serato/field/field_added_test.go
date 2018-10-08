@@ -15,16 +15,16 @@ func TestNewAddedField(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	added, err := field.NewAddedField(hdr, buf)
 	if err != nil {
-		t.Error("expected NewAddedField err to be nil")
+		t.Fatal("expected NewAddedField err to be nil")
 	}
 
 	if added == nil {
-		t.Error("expected added to not be nil")
+		t.Fatal("expected added to not be nil")
 	}
 }
 
@@ -34,12 +34,12 @@ func TestNewAddedFieldEOF(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = field.NewAddedField(hdr, buf)
 	if err != io.EOF {
-		t.Error("expected NewAddedField err to be EOF")
+		t.Fatal("expected NewAddedField err to be EOF")
 	}
 }
 
@@ -49,12 +49,12 @@ func TestNewAddedFieldUnexpectedIdentifier(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = field.NewAddedField(hdr, buf)
 	if err != field.ErrUnexpectedIdentifier {
-		t.Error("expected NewAddedField err to be ErrUnexpectedIdentifier")
+		t.Fatal("expected NewAddedField err to be ErrUnexpectedIdentifier")
 	}
 }
 
@@ -64,18 +64,18 @@ func TestAddedValue(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	added, err := field.NewAddedField(hdr, buf)
 	if err != nil {
-		t.Error("expected NewAddedField err to be nil")
+		t.Fatal("expected NewAddedField err to be nil")
 	}
 
 	actual := added.Value()
 	expected := byte(0)
 
 	if actual != expected {
-		t.Errorf("expected value to be %v, got %v", expected, actual)
+		t.Fatalf("expected value to be %v, got %v", expected, actual)
 	}
 }

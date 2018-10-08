@@ -15,16 +15,16 @@ func TestNewKeyField(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	key, err := field.NewKeyField(hdr, buf)
 	if err != nil {
-		t.Error("expected NewKeyField err to be nil")
+		t.Fatal("expected NewKeyField err to be nil")
 	}
 
 	if key == nil {
-		t.Error("expected key to not be nil")
+		t.Fatal("expected key to not be nil")
 	}
 }
 
@@ -34,12 +34,12 @@ func TestNewKeyFieldUnexpectedEOF(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = field.NewKeyField(hdr, buf)
 	if err != io.ErrUnexpectedEOF {
-		t.Error("expected NewKeyField err to be ErrUnexpectedEOF")
+		t.Fatal("expected NewKeyField err to be ErrUnexpectedEOF")
 	}
 }
 
@@ -49,12 +49,12 @@ func TestNewKeyFieldUnexpectedIdentifier(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = field.NewKeyField(hdr, buf)
 	if err != field.ErrUnexpectedIdentifier {
-		t.Error("expected NewKeyField err to be ErrUnexpectedIdentifier")
+		t.Fatal("expected NewKeyField err to be ErrUnexpectedIdentifier")
 	}
 }
 
@@ -64,18 +64,18 @@ func TestKeyValue(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	key, err := field.NewKeyField(hdr, buf)
 	if err != nil {
-		t.Error("expected NewKeyField err to be nil")
+		t.Fatal("expected NewKeyField err to be nil")
 	}
 
 	actual := key.Value()
 	expected := "Cm"
 
 	if actual != expected {
-		t.Errorf("expected value to be %s, got %s", expected, actual)
+		t.Fatalf("expected value to be %s, got %s", expected, actual)
 	}
 }

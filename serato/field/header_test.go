@@ -15,15 +15,15 @@ func TestNewHeader(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader to return nil error")
+		t.Fatal("expected NewHeader to return nil error")
 	}
 
 	if hdr.Identifier != 1 {
-		t.Error("expected identifier to be 1")
+		t.Fatal("expected identifier to be 1")
 	}
 
 	if hdr.Length != 4 {
-		t.Error("expected length to be 4")
+		t.Fatal("expected length to be 4")
 	}
 }
 
@@ -33,6 +33,6 @@ func TestNewHeaderUnexpectedEOF(t *testing.T) {
 
 	_, err := field.NewHeader(buf)
 	if err != io.ErrUnexpectedEOF {
-		t.Error("expected err to be unexpected eof error")
+		t.Fatal("expected err to be unexpected eof error")
 	}
 }

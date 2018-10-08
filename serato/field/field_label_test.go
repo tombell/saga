@@ -15,16 +15,16 @@ func TestNewLabelField(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	label, err := field.NewLabelField(hdr, buf)
 	if err != nil {
-		t.Error("expected NewLabelField err to be nil")
+		t.Fatal("expected NewLabelField err to be nil")
 	}
 
 	if label == nil {
-		t.Error("expected label to not be nil")
+		t.Fatal("expected label to not be nil")
 	}
 }
 
@@ -34,12 +34,12 @@ func TestNewLabelFieldUnexpectedEOF(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = field.NewLabelField(hdr, buf)
 	if err != io.ErrUnexpectedEOF {
-		t.Error("expected NewLabelField err to be ErrUnexpectedEOF")
+		t.Fatal("expected NewLabelField err to be ErrUnexpectedEOF")
 	}
 }
 
@@ -49,12 +49,12 @@ func TestNewLabelFieldUnexpectedIdentifier(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = field.NewLabelField(hdr, buf)
 	if err != field.ErrUnexpectedIdentifier {
-		t.Error("expected NewLabelField err to be ErrUnexpectedIdentifier")
+		t.Fatal("expected NewLabelField err to be ErrUnexpectedIdentifier")
 	}
 }
 
@@ -64,18 +64,18 @@ func TestLabelValue(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	label, err := field.NewLabelField(hdr, buf)
 	if err != nil {
-		t.Error("expected NewLabelField err to be nil")
+		t.Fatal("expected NewLabelField err to be nil")
 	}
 
 	actual := label.Value()
 	expected := "Atlantics Records"
 
 	if actual != expected {
-		t.Errorf("expected value to be %s, got %s", expected, actual)
+		t.Fatalf("expected value to be %s, got %s", expected, actual)
 	}
 }

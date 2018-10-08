@@ -15,16 +15,16 @@ func TestNewFullPathField(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	fullpath, err := field.NewFullPathField(hdr, buf)
 	if err != nil {
-		t.Error("expected NewFullPathField err to be nil")
+		t.Fatal("expected NewFullPathField err to be nil")
 	}
 
 	if fullpath == nil {
-		t.Error("expected fullpath to not be nil")
+		t.Fatal("expected fullpath to not be nil")
 	}
 }
 
@@ -34,12 +34,12 @@ func TestNewFullPathFieldUnexpectedEOF(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = field.NewFullPathField(hdr, buf)
 	if err != io.ErrUnexpectedEOF {
-		t.Error("expected NewFullPathField err to be ErrUnexpectedEOF")
+		t.Fatal("expected NewFullPathField err to be ErrUnexpectedEOF")
 	}
 }
 
@@ -49,12 +49,12 @@ func TestNewFullPathFieldUnexpectedIdentifier(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = field.NewFullPathField(hdr, buf)
 	if err != field.ErrUnexpectedIdentifier {
-		t.Error("expected NewFullPathField err to be ErrUnexpectedIdentifier")
+		t.Fatal("expected NewFullPathField err to be ErrUnexpectedIdentifier")
 	}
 }
 
@@ -64,18 +64,18 @@ func TestFullPathValue(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	fullpath, err := field.NewFullPathField(hdr, buf)
 	if err != nil {
-		t.Error("expected NewFullPathField err to be nil")
+		t.Fatal("expected NewFullPathField err to be nil")
 	}
 
 	actual := fullpath.Value()
 	expected := "/Users/tombell/Music/__ New __/Classic House Summer '18/10947360_Do_You_Wanna_House_Original_Mix.mp3"
 
 	if actual != expected {
-		t.Errorf("expected value to be %s, got %s", expected, actual)
+		t.Fatalf("expected value to be %s, got %s", expected, actual)
 	}
 }

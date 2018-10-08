@@ -15,16 +15,16 @@ func TestNewVrsnChunk(t *testing.T) {
 
 	hdr, err := chunk.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	vrsn, err := chunk.NewVrsnChunk(hdr, buf)
 	if err != nil {
-		t.Error("expected NewVrsnChunk err to be nil")
+		t.Fatal("expected NewVrsnChunk err to be nil")
 	}
 
 	if vrsn == nil {
-		t.Error("expected vrsn to not be nil")
+		t.Fatal("expected vrsn to not be nil")
 	}
 }
 
@@ -34,12 +34,12 @@ func TestNewVrsnChunkUnexpectedEOF(t *testing.T) {
 
 	hdr, err := chunk.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = chunk.NewVrsnChunk(hdr, buf)
 	if err != io.ErrUnexpectedEOF {
-		t.Error("expected NewVrsnChunk err to be ErrUnexpectedEOF")
+		t.Fatal("expected NewVrsnChunk err to be ErrUnexpectedEOF")
 	}
 }
 
@@ -49,12 +49,12 @@ func TestNewVrsnChunkUnexpectedIdentifier(t *testing.T) {
 
 	hdr, err := chunk.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = chunk.NewVrsnChunk(hdr, buf)
 	if err != chunk.ErrUnexpectedIdentifier {
-		t.Error("expected NewVrsnChunk err to be ErrUnexpectedIdentifier")
+		t.Fatal("expected NewVrsnChunk err to be ErrUnexpectedIdentifier")
 	}
 }
 
@@ -64,16 +64,16 @@ func TestVrsnHeader(t *testing.T) {
 
 	hdr, err := chunk.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	vrsn, err := chunk.NewVrsnChunk(hdr, buf)
 	if err != nil {
-		t.Error("expected NewVrsnChunk err to be nil")
+		t.Fatal("expected NewVrsnChunk err to be nil")
 	}
 
 	if vrsn.Header() != hdr {
-		t.Error("expected header to be the same")
+		t.Fatal("expected header to be the same")
 	}
 }
 
@@ -83,19 +83,19 @@ func TestVrsnType(t *testing.T) {
 
 	hdr, err := chunk.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	vrsn, err := chunk.NewVrsnChunk(hdr, buf)
 	if err != nil {
-		t.Error("expected NewVrsnChunk err to be nil")
+		t.Fatal("expected NewVrsnChunk err to be nil")
 	}
 
 	actual := vrsn.Type()
 	expected := "vrsn"
 
 	if actual != expected {
-		t.Errorf("expected type to be %s, got %s", expected, actual)
+		t.Fatalf("expected type to be %s, got %s", expected, actual)
 	}
 }
 
@@ -105,18 +105,18 @@ func TestVrsnVersion(t *testing.T) {
 
 	hdr, err := chunk.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	vrsn, err := chunk.NewVrsnChunk(hdr, buf)
 	if err != nil {
-		t.Error("expected NewVrsnChunk err to be nil")
+		t.Fatal("expected NewVrsnChunk err to be nil")
 	}
 
 	actual := vrsn.Version()
 	expected := "1.0/Serato Scratch LIVE Review"
 
 	if actual != expected {
-		t.Errorf("expected version to be %s, got %s", expected, actual)
+		t.Fatalf("expected version to be %s, got %s", expected, actual)
 	}
 }

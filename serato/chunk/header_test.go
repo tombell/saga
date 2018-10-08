@@ -24,11 +24,11 @@ func TestNewHeader(t *testing.T) {
 	}
 
 	if hdr.Identifier != [4]byte{0x76, 0x72, 0x73, 0x6E} {
-		t.Error("expected identifier to be 0x7672736E")
+		t.Fatal("expected identifier to be 0x7672736E")
 	}
 
 	if hdr.Length != 60 {
-		t.Error("expected length to be 60")
+		t.Fatal("expected length to be 60")
 	}
 }
 
@@ -38,7 +38,7 @@ func TestNewHeaderUnexpectedEOF(t *testing.T) {
 
 	_, err := chunk.NewHeader(buf)
 	if err != io.ErrUnexpectedEOF {
-		t.Error("expected err to be unexpected eof error")
+		t.Fatal("expected err to be unexpected eof error")
 	}
 }
 
@@ -59,12 +59,12 @@ func TestHeaderType(t *testing.T) {
 
 			hdr, err := chunk.NewHeader(buf)
 			if err != nil {
-				t.Error("expected err to be nil")
+				t.Fatal("expected err to be nil")
 			}
 
 			actual := hdr.Type()
 			if actual != tc.expectedType {
-				t.Errorf("expected type to be %s, got %s", tc.expectedType, actual)
+				t.Fatalf("expected type to be %s, got %s", tc.expectedType, actual)
 			}
 		})
 	}

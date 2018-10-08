@@ -15,16 +15,16 @@ func TestNewTitleField(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	title, err := field.NewTitleField(hdr, buf)
 	if err != nil {
-		t.Error("expected NewTitleField err to be nil")
+		t.Fatal("expected NewTitleField err to be nil")
 	}
 
 	if title == nil {
-		t.Error("expected title to not be nil")
+		t.Fatal("expected title to not be nil")
 	}
 }
 
@@ -34,12 +34,12 @@ func TestNewTitleFieldUnexpectedEOF(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = field.NewTitleField(hdr, buf)
 	if err != io.ErrUnexpectedEOF {
-		t.Error("expected NewTitleField err to be ErrUnexpectedEOF")
+		t.Fatal("expected NewTitleField err to be ErrUnexpectedEOF")
 	}
 }
 
@@ -49,12 +49,12 @@ func TestNewTitleFieldUnexpectedIdentifier(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	_, err = field.NewTitleField(hdr, buf)
 	if err != field.ErrUnexpectedIdentifier {
-		t.Error("expected NewTitleField err to be ErrUnexpectedIdentifier")
+		t.Fatal("expected NewTitleField err to be ErrUnexpectedIdentifier")
 	}
 }
 
@@ -64,18 +64,18 @@ func TestTitleValue(t *testing.T) {
 
 	hdr, err := field.NewHeader(buf)
 	if err != nil {
-		t.Error("expected NewHeader err to be nil")
+		t.Fatal("expected NewHeader err to be nil")
 	}
 
 	title, err := field.NewTitleField(hdr, buf)
 	if err != nil {
-		t.Error("expected NewTitleField err to be nil")
+		t.Fatal("expected NewTitleField err to be nil")
 	}
 
 	actual := title.Value()
 	expected := "Do You Wanna House (Original Mix)"
 
 	if actual != expected {
-		t.Errorf("expected value to be %s, got %s", expected, actual)
+		t.Fatalf("expected value to be %s, got %s", expected, actual)
 	}
 }
