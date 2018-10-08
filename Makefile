@@ -20,6 +20,6 @@ test:
 
 coverage:
 	go test ${MODFLAGS} -coverprofile=cover.out ./...
-	go tool cover -html=cover.out -o dist/coverage.html
+	go tool cover -func=cover.out
 
 .PHONY: all clean dev test coverage
