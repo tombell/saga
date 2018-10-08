@@ -18,4 +18,8 @@ dev:
 test:
 	go test ${MODFLAGS} ./...
 
-.PHONY: all clean dev test
+coverage:
+	go test ${MODFLAGS} -coverprofile=cover.out ./...
+	go tool cover -html=cover.out -o dist/coverage.html
+
+.PHONY: all clean dev test coverage
