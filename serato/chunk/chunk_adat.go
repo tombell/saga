@@ -27,6 +27,10 @@ func (a *Adat) Type() string {
 
 // NewAdatChunk returns an ADAT chunk, using the header to read the chunk data.
 func NewAdatChunk(header *Header, r io.Reader) (*Adat, error) {
+	if header.Type() != adatID {
+		return nil, ErrUnexpectedIdentifier
+	}
+
 	data := make([]byte, header.Length)
 
 	if err := binary.Read(r, binary.BigEndian, &data); err != nil {
