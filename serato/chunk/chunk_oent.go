@@ -38,15 +38,7 @@ func NewOentChunk(header *Header, r io.Reader) (*Oent, error) {
 	}
 
 	buf := bytes.NewBuffer(data[:])
-
-	hdr, err := NewHeader(buf)
-	if err != nil {
-		return nil, err
-	}
-
-	if hdr.Type() != "adat" {
-		return nil, ErrUnexpectedIdentifier
-	}
+	hdr, _ := NewHeader(buf)
 
 	adat, err := NewAdatChunk(hdr, buf)
 	if err != nil {
