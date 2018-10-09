@@ -20,6 +20,7 @@ test:
 	go test ${MODFLAGS} ${TESTFLAGS} ./...
 
 coverage:
+	@mkdir -p dist
 	go tool cover -html=cover.out -o dist/coverage.html
 
 .PHONY: all clean dev test coverage
