@@ -6,10 +6,12 @@ jobs:
     steps:
       - checkout
       - run: go get -u github.com/jstemmer/go-junit-report
-      - run: make test 2>&1 | go-junit-report > report.xml
+      - run: |
+          mkdir -p test-reports/tests
+          make test 2>&1 | go-junit-report > test-reports/tests/results.xml
       - run: make coverage
       - store_test_results:
-          path: report.xml
+          path: test-reports
       - store_artifacts:
           path: dist/coverage.html
           destination: coverage.html
