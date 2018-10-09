@@ -1,6 +1,9 @@
 package chunk
 
-import "io"
+import (
+	"encoding/binary"
+	"io"
+)
 
 // Uent ...
 type Uent struct {
@@ -20,5 +23,15 @@ func (u *Uent) Type() string {
 
 // NewUentChunk ...
 func NewUentChunk(header *Header, r io.Reader) (*Uent, error) {
-	return nil, nil
+	if header.Type() != uentID {
+		return nil, ErrUnexpectedIdentifier
+	}
+
+	data := make([]byte, header.Length)
+
+	if err := binary.Read(r, binary.BigEndian, &data); err != nil {
+		return nil, err
+	}
+
+	return &Uent{header, data[:]}, nil
 }
