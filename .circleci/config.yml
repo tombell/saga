@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run: go get -u github.com/jstemmer/go-junit-report
       - run: |
-          mkdir -p test-reports/tests
+          mkdir -p test-reports/unit-tests
           make test 2>&1 | go-junit-report > test-reports/unit-tests/results.xml
       - run: make coverage
       - store_test_results:
