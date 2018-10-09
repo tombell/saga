@@ -5,8 +5,11 @@ jobs:
       - image: circleci/golang:1.11.1
     steps:
       - checkout
-      - run: make test
+      - run: go get -u github.com/jstemmer/go-junit-report
+      - run: make test 2>&1 | go-junit-report > report.xml
       - run: make coverage
+      - store_test_results:
+          path: report.xml
       - store_artifacts:
           path: dist/coverage.html
           destination: coverage.html
