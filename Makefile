@@ -3,6 +3,7 @@ COMMIT=$(shell git rev-parse HEAD | cut -c -8)
 
 LDFLAGS=-ldflags "-X main.Version=${VERSION} -X main.Commit=${COMMIT}"
 MODFLAGS=-mod=vendor
+TESTFLAGS=-coverprofile=cover.out
 
 SAGA_PACKAGE=./cmd/saga
 SAGA_BINARY=saga
@@ -16,14 +17,9 @@ dev:
 	go build ${MODFLAGS} ${LDFLAGS} -o dist/${SAGA_BINARY} ${SAGA_PACKAGE}
 
 test:
-	go test ${MODFLAGS} ./...
+	go test ${MODFLAGS} ${TESTFLAGS} ./...
 
 coverage:
-	@go test ${MODFLAGS} -coverprofile=cover.out ./...
-	go tool cover -func=cover.out
-
-coverage-html:
-	@go test ${MODFLAGS} -coverprofile=cover.out ./...
 	go tool cover -html=cover.out -o dist/coverage.html
 
-.PHONY: all clean dev test coverage coverage-html
+.PHONY: all clean dev test coverage
