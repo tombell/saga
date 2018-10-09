@@ -6,8 +6,6 @@ import (
 	"time"
 )
 
-const endtimeID = 29
-
 // EndTime ...
 type EndTime struct {
 	header *Header

@@ -7,8 +7,6 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-const fullpathID = 2
-
 // FullPath ...
 type FullPath struct {
 	header *Header

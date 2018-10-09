@@ -7,8 +7,6 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-const composerID = 22
-
 // Composer ...
 type Composer struct {
 	header *Header

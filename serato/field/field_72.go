@@ -5,8 +5,6 @@ import (
 	"io"
 )
 
-const field72ID = 72
-
 // Field72 ...
 type Field72 struct {
 	header *Header

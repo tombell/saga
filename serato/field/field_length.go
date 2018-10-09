@@ -7,8 +7,6 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-const lengthID = 10
-
 // Length ...
 type Length struct {
 	header *Header

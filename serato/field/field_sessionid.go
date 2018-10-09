@@ -5,8 +5,6 @@ import (
 	"io"
 )
 
-const sessionID = 48
-
 // SessionID ...
 type SessionID struct {
 	header *Header

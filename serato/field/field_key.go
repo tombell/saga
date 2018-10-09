@@ -7,8 +7,6 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-const keyID = 51
-
 // Key ...
 type Key struct {
 	header *Header

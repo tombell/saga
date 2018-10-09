@@ -7,8 +7,6 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-const yearID = 23
-
 // Year ...
 type Year struct {
 	header *Header

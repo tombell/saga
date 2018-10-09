@@ -7,8 +7,6 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-const sizeID = 11
-
 // Size ...
 type Size struct {
 	header *Header

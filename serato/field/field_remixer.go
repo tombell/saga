@@ -7,8 +7,6 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-const remixerID = 20
-
 // Remixer ...
 type Remixer struct {
 	header *Header

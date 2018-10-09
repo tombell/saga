@@ -7,8 +7,6 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-const albumID = 8
-
 // Album ...
 type Album struct {
 	header *Header

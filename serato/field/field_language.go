@@ -7,8 +7,6 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-const languageID = 18
-
 // Language ...
 type Language struct {
 	header *Header

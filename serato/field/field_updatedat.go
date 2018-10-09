@@ -6,8 +6,6 @@ import (
 	"time"
 )
 
-const updatedAtID = 53
-
 // UpdatedAt ...
 type UpdatedAt struct {
 	header *Header

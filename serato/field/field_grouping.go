@@ -7,8 +7,6 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-const groupingID = 19
-
 // Grouping ...
 type Grouping struct {
 	header *Header

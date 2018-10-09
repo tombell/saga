@@ -5,8 +5,6 @@ import (
 	"io"
 )
 
-const rowID = 1
-
 // Row ...
 type Row struct {
 	header *Header

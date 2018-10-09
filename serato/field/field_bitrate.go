@@ -7,8 +7,6 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-const bitrateID = 13
-
 // Bitrate ...
 type Bitrate struct {
 	header *Header

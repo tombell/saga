@@ -5,8 +5,6 @@ import (
 	"io"
 )
 
-const playedID = 50
-
 // Played ...
 type Played struct {
 	header *Header

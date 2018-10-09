@@ -7,8 +7,6 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-const frequencyID = 14
-
 // Frequency ...
 type Frequency struct {
 	header *Header

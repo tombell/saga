@@ -7,8 +7,6 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-const commentID = 17
-
 // Comment ...
 type Comment struct {
 	header *Header

@@ -5,8 +5,6 @@ import (
 	"io"
 )
 
-const addedID = 52
-
 // Added ...
 type Added struct {
 	header *Header

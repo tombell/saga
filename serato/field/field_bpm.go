@@ -5,8 +5,6 @@ import (
 	"io"
 )
 
-const bpmID = 15
-
 // BPM ...
 type BPM struct {
 	header *Header

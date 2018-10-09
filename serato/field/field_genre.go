@@ -7,8 +7,6 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-const genreID = 9
-
 // Genre ...
 type Genre struct {
 	header *Header

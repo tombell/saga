@@ -7,8 +7,6 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-const titleID = 6
-
 // Title ...
 type Title struct {
 	header *Header

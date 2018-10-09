@@ -5,8 +5,6 @@ import (
 	"io"
 )
 
-const deckID = 31
-
 // Deck ...
 type Deck struct {
 	header *Header

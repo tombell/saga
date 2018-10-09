@@ -7,8 +7,6 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-const filenameID = 4
-
 // Filename ...
 type Filename struct {
 	header *Header

@@ -7,8 +7,6 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-const labelID = 21
-
 // Label ...
 type Label struct {
 	header *Header
