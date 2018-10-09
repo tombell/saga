@@ -3,7 +3,7 @@ COMMIT=$(shell git rev-parse HEAD | cut -c -8)
 
 LDFLAGS=-ldflags "-X main.Version=${VERSION} -X main.Commit=${COMMIT}"
 MODFLAGS=-mod=vendor
-TESTFLAGS=-coverprofile=cover.out
+TESTFLAGS=-v -coverprofile=cover.out
 
 SAGA_PACKAGE=./cmd/saga
 SAGA_BINARY=saga
