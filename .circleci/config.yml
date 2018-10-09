@@ -8,5 +8,5 @@ jobs:
       - run: make test
       - run: make coverage
       - storage_artifacts:
-        path: dist/coverage.html
-        destination: coverage.html
+          path: dist/coverage.html
+          destination: coverage.html
