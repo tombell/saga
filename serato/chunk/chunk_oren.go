@@ -3,7 +3,6 @@ package chunk
 import (
 	"bytes"
 	"encoding/binary"
-	"fmt"
 	"io"
 )
 
@@ -46,7 +45,7 @@ func NewOrenChunk(header *Header, r io.Reader) (*Oren, error) {
 	}
 
 	if hdr.Type() != "uent" {
-		return nil, fmt.Errorf("unexpected header: %s", hdr.Type())
+		return nil, ErrUnexpectedIdentifier
 	}
 
 	uent, err := NewUentChunk(hdr, buf)

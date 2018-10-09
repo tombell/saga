@@ -3,7 +3,6 @@ package chunk
 import (
 	"bytes"
 	"encoding/binary"
-	"fmt"
 	"io"
 )
 
@@ -46,7 +45,7 @@ func NewOentChunk(header *Header, r io.Reader) (*Oent, error) {
 	}
 
 	if hdr.Type() != "adat" {
-		return nil, fmt.Errorf("unexpected header: %s", hdr.Type())
+		return nil, ErrUnexpectedIdentifier
 	}
 
 	adat, err := NewAdatChunk(hdr, buf)
