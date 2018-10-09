@@ -58,6 +58,21 @@ func TestNewOrenChunkUnexpectedIdentifier(t *testing.T) {
 	}
 }
 
+func TestNewOrenChunkUentUnexpectedIdentifier(t *testing.T) {
+	data, _ := hex.DecodeString("6F72656E0000000C74656E73000000040000000F")
+	buf := bytes.NewBuffer(data)
+
+	hdr, err := chunk.NewHeader(buf)
+	if err != nil {
+		t.Fatal("expected NewHeader err to be nil")
+	}
+
+	_, err = chunk.NewOrenChunk(hdr, buf)
+	if err != chunk.ErrUnexpectedIdentifier {
+		t.Fatal("expected NewOrenChunk err to be ErrUnexpectedIdentifier")
+	}
+}
+
 func TestOrenHeader(t *testing.T) {
 	data, _ := hex.DecodeString("6F72656E0000000C75656E74000000040000000F")
 	buf := bytes.NewBuffer(data)

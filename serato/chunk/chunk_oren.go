@@ -38,15 +38,7 @@ func NewOrenChunk(header *Header, r io.Reader) (*Oren, error) {
 	}
 
 	buf := bytes.NewBuffer(data[:])
-
-	hdr, err := NewHeader(buf)
-	if err != nil {
-		return nil, err
-	}
-
-	if hdr.Type() != "uent" {
-		return nil, ErrUnexpectedIdentifier
-	}
+	hdr, _ := NewHeader(buf)
 
 	uent, err := NewUentChunk(hdr, buf)
 	if err != nil {
