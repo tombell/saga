@@ -7,6 +7,6 @@ jobs:
       - checkout
       - run: make test
       - run: make coverage
-      - storage_artifacts:
+      - store_artifacts:
           path: dist/coverage.html
           destination: coverage.html
