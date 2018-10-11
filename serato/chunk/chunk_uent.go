@@ -5,7 +5,8 @@ import (
 	"io"
 )
 
-// Uent ...
+// Uent is a chunk that contains an identifier for a previous OENT chunk to be
+// deleted.
 type Uent struct {
 	header *Header
 	data   []byte
@@ -21,7 +22,7 @@ func (u *Uent) Type() string {
 	return u.header.Type()
 }
 
-// NewUentChunk ...
+// NewUentChunk returns an UENT chunk, using the header to read the chunk data.
 func NewUentChunk(header *Header, r io.Reader) (*Uent, error) {
 	if header.Type() != uentID {
 		return nil, ErrUnexpectedIdentifier
