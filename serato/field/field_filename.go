@@ -7,19 +7,19 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-// Filename ...
+// Filename is the file name of the track.
 type Filename struct {
 	header *Header
 	data   []byte
 }
 
-// Value ...
+// Value returns the file name.
 func (a *Filename) Value() string {
 	s := strutil.DecodeUTF16(a.data)
 	return strutil.TrimNull(s)
 }
 
-// NewFilenameField ...
+// NewFilenameField returns a Filename, using the header to read the field data.
 func NewFilenameField(header *Header, r io.Reader) (*Filename, error) {
 	if header.Identifier != filenameID {
 		return nil, ErrUnexpectedIdentifier

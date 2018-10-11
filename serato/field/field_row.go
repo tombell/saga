@@ -5,18 +5,18 @@ import (
 	"io"
 )
 
-// Row ...
+// Row is the row of the track.
 type Row struct {
 	header *Header
 	data   []byte
 }
 
-// Value ...
+// Value returns the row.
 func (r *Row) Value() int {
 	return int(binary.BigEndian.Uint32(r.data))
 }
 
-// NewRowField ...
+// NewRowField returns a Row, using the header to read the field data.
 func NewRowField(header *Header, r io.Reader) (*Row, error) {
 	if header.Identifier != rowID {
 		return nil, ErrUnexpectedIdentifier

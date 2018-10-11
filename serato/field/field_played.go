@@ -5,18 +5,18 @@ import (
 	"io"
 )
 
-// Played ...
+// Played is the played status of the track in Serato.
 type Played struct {
 	header *Header
 	data   []byte
 }
 
-// Value ...
+// Value returns the played status.
 func (p *Played) Value() byte {
 	return p.data[0]
 }
 
-// NewPlayedField ...
+// NewPlayedField returns a Played, using the header to read the field data.
 func NewPlayedField(header *Header, r io.Reader) (*Played, error) {
 	if header.Identifier != playedID {
 		return nil, ErrUnexpectedIdentifier

@@ -7,19 +7,20 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-// Frequency ...
+// Frequency is the frequency of the track.
 type Frequency struct {
 	header *Header
 	data   []byte
 }
 
-// Value ...
+// Value returns the frequency.
 func (a *Frequency) Value() string {
 	s := strutil.DecodeUTF16(a.data)
 	return strutil.TrimNull(s)
 }
 
-// NewFrequencyField ...
+// NewFrequencyField returns a Frequency, using the header to read the field
+// data.
 func NewFrequencyField(header *Header, r io.Reader) (*Frequency, error) {
 	if header.Identifier != frequencyID {
 		return nil, ErrUnexpectedIdentifier

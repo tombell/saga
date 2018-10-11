@@ -7,19 +7,19 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-// Remixer ...
+// Remixer is the remixer of the track.
 type Remixer struct {
 	header *Header
 	data   []byte
 }
 
-// Value ...
+// Value returns the remixer.
 func (a *Remixer) Value() string {
 	s := strutil.DecodeUTF16(a.data)
 	return strutil.TrimNull(s)
 }
 
-// NewRemixerField ...
+// NewRemixerField returns a Remixer, using the header to read the field data.
 func NewRemixerField(header *Header, r io.Reader) (*Remixer, error) {
 	if header.Identifier != remixerID {
 		return nil, ErrUnexpectedIdentifier

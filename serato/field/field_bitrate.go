@@ -7,19 +7,19 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-// Bitrate ...
+// Bitrate is the bitrate of the track.
 type Bitrate struct {
 	header *Header
 	data   []byte
 }
 
-// Value ...
+// Value returns the bitrate.
 func (a *Bitrate) Value() string {
 	s := strutil.DecodeUTF16(a.data)
 	return strutil.TrimNull(s)
 }
 
-// NewBitrateField ...
+// NewBitrateField returns a Bitrate, using the header to read the field data.
 func NewBitrateField(header *Header, r io.Reader) (*Bitrate, error) {
 	if header.Identifier != bitrateID {
 		return nil, ErrUnexpectedIdentifier

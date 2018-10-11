@@ -7,19 +7,19 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-// Title ...
+// Title is the title of the track.
 type Title struct {
 	header *Header
 	data   []byte
 }
 
-// Value ...
+// Value returns the title.
 func (t *Title) Value() string {
 	s := strutil.DecodeUTF16(t.data)
 	return strutil.TrimNull(s)
 }
 
-// NewTitleField ...
+// NewTitleField returns a Title, using the header to read the field data.
 func NewTitleField(header *Header, r io.Reader) (*Title, error) {
 	if header.Identifier != titleID {
 		return nil, ErrUnexpectedIdentifier

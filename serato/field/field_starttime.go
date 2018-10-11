@@ -6,19 +6,20 @@ import (
 	"time"
 )
 
-// StartTime ...
+// StartTime is the date/time the track started playing in Serato.
 type StartTime struct {
 	header *Header
 	data   []byte
 }
 
-// Value ...
+// Value returns the start time.
 func (s *StartTime) Value() time.Time {
 	ts := binary.BigEndian.Uint32(s.data)
 	return time.Unix(int64(ts), 0).UTC()
 }
 
-// NewStartTimeField ...
+// NewStartTimeField returns a StartTime, using the header to read the field
+// data.
 func NewStartTimeField(header *Header, r io.Reader) (*StartTime, error) {
 	if header.Identifier != starttimeID {
 		return nil, ErrUnexpectedIdentifier

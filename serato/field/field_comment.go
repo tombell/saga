@@ -7,19 +7,19 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-// Comment ...
+// Comment is the comment on the track.
 type Comment struct {
 	header *Header
 	data   []byte
 }
 
-// Value ...
+// Value returns the comment.
 func (a *Comment) Value() string {
 	s := strutil.DecodeUTF16(a.data)
 	return strutil.TrimNull(s)
 }
 
-// NewCommentField ...
+// NewCommentField returns a Comment, using the header to read the field data.
 func NewCommentField(header *Header, r io.Reader) (*Comment, error) {
 	if header.Identifier != commentID {
 		return nil, ErrUnexpectedIdentifier

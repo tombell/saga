@@ -7,19 +7,19 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-// Album ...
+// Album is the album of the track.
 type Album struct {
 	header *Header
 	data   []byte
 }
 
-// Value ...
+// Value returns te album.
 func (a *Album) Value() string {
 	s := strutil.DecodeUTF16(a.data)
 	return strutil.TrimNull(s)
 }
 
-// NewAlbumField ...
+// NewAlbumField returns an Album, using the header to read the field data.
 func NewAlbumField(header *Header, r io.Reader) (*Artist, error) {
 	if header.Identifier != albumID {
 		return nil, ErrUnexpectedIdentifier

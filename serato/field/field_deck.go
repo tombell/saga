@@ -5,18 +5,18 @@ import (
 	"io"
 )
 
-// Deck ...
+// Deck is the deck that the track is playing on in Serato.
 type Deck struct {
 	header *Header
 	data   []byte
 }
 
-// Value ...
+// Value returns the deck.
 func (d *Deck) Value() int {
 	return int(binary.BigEndian.Uint32(d.data))
 }
 
-// NewDeckField ...
+// NewDeckField returns a Deck, using the header to read the field data.
 func NewDeckField(header *Header, r io.Reader) (*Deck, error) {
 	if header.Identifier != deckID {
 		return nil, ErrUnexpectedIdentifier

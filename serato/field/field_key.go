@@ -7,19 +7,19 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-// Key ...
+// Key is the key of the track.
 type Key struct {
 	header *Header
 	data   []byte
 }
 
-// Value ...
+// Value returns the key.
 func (k *Key) Value() string {
 	s := strutil.DecodeUTF16(k.data)
 	return strutil.TrimNull(s)
 }
 
-// NewKeyField ...
+// NewKeyField returns a Key, using the header to read the field data.
 func NewKeyField(header *Header, r io.Reader) (*Key, error) {
 	if header.Identifier != keyID {
 		return nil, ErrUnexpectedIdentifier

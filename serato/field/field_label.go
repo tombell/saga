@@ -7,19 +7,19 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-// Label ...
+// Label is the label of the track.
 type Label struct {
 	header *Header
 	data   []byte
 }
 
-// Value ...
+// Value returns the label.
 func (l *Label) Value() string {
 	s := strutil.DecodeUTF16(l.data)
 	return strutil.TrimNull(s)
 }
 
-// NewLabelField ...
+// NewLabelField returns a Label, using the header to read the field data.
 func NewLabelField(header *Header, r io.Reader) (*Label, error) {
 	if header.Identifier != labelID {
 		return nil, ErrUnexpectedIdentifier

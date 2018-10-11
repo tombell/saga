@@ -5,18 +5,18 @@ import (
 	"io"
 )
 
-// Added ...
+// Added is the added status of the track in Serato.
 type Added struct {
 	header *Header
 	data   []byte
 }
 
-// Value ...
+// Value returns the added status.
 func (a *Added) Value() byte {
 	return a.data[0]
 }
 
-// NewAddedField ...
+// NewAddedField returns an Added, using the header to read the field data.
 func NewAddedField(header *Header, r io.Reader) (*Added, error) {
 	if header.Identifier != addedID {
 		return nil, ErrUnexpectedIdentifier

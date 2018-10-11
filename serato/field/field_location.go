@@ -7,19 +7,19 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-// Location ...
+// Location is the base directory of the track.
 type Location struct {
 	header *Header
 	data   []byte
 }
 
-// Value ...
+// Value returns the location.
 func (a *Location) Value() string {
 	s := strutil.DecodeUTF16(a.data)
 	return strutil.TrimNull(s)
 }
 
-// NewLocationField ...
+// NewLocationField returns a Location, using the header to read the field data.
 func NewLocationField(header *Header, r io.Reader) (*Location, error) {
 	if header.Identifier != locationID {
 		return nil, ErrUnexpectedIdentifier

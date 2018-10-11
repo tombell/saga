@@ -7,19 +7,19 @@ import (
 	"github.com/tombell/saga/strutil"
 )
 
-// Grouping ...
+// Grouping is the grouping of the track.
 type Grouping struct {
 	header *Header
 	data   []byte
 }
 
-// Value ...
+// Value returns the grouping.
 func (g *Grouping) Value() string {
 	s := strutil.DecodeUTF16(g.data)
 	return strutil.TrimNull(s)
 }
 
-// NewGroupingField ...
+// NewGroupingField returns a Grouping, using the header to read the field data.
 func NewGroupingField(header *Header, r io.Reader) (*Grouping, error) {
 	if header.Identifier != groupingID {
 		return nil, ErrUnexpectedIdentifier

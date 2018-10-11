@@ -42,10 +42,7 @@ const (
 // the wrong field identifier for the field type being created.
 var ErrUnexpectedIdentifier = errors.New("unexpected field identifier")
 
-// Field ...
-type Field interface{}
-
-// Fields ...
+// Fields is a struct containing all possible fields for a single ADAT chunk.
 type Fields struct {
 	Row       *Row
 	FullPath  *FullPath

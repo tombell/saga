@@ -5,18 +5,19 @@ import (
 	"io"
 )
 
-// SessionID ...
+// SessionID is the session ID of the track.
 type SessionID struct {
 	header *Header
 	data   []byte
 }
 
-// Value ...
+// Value returns the session ID.
 func (s *SessionID) Value() int {
 	return int(binary.BigEndian.Uint32(s.data))
 }
 
-// NewSessionIDField ...
+// NewSessionIDField returns a SessionID, using the header to read the field
+// data.
 func NewSessionIDField(header *Header, r io.Reader) (*SessionID, error) {
 	if header.Identifier != sessionID {
 		return nil, ErrUnexpectedIdentifier

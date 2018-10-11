@@ -5,18 +5,18 @@ import (
 	"io"
 )
 
-// BPM ...
+// BPM is the BPM of the track.
 type BPM struct {
 	header *Header
 	data   []byte
 }
 
-// Value ...
+// Value returns the BPM.
 func (b *BPM) Value() int {
 	return int(binary.BigEndian.Uint32(b.data))
 }
 
-// NewBPMField ...
+// NewBPMField returns a BPM, using the header to read the field data.
 func NewBPMField(header *Header, r io.Reader) (*BPM, error) {
 	if header.Identifier != bpmID {
 		return nil, ErrUnexpectedIdentifier

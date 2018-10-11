@@ -5,18 +5,18 @@ import (
 	"io"
 )
 
-// Field69 ...
+// Field69 is the unknown field with ID 69.
 type Field69 struct {
 	header *Header
 	data   []byte
 }
 
-// Value ...
+// Value returns the raw byts for the field.
 func (f *Field69) Value() []byte {
 	return f.data
 }
 
-// NewField69Field ...
+// NewField69Field returns a Field69, using the header to read the field data.
 func NewField69Field(header *Header, r io.Reader) (*Field69, error) {
 	if header.Identifier != field69ID {
 		return nil, ErrUnexpectedIdentifier
