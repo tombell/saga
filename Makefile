@@ -18,4 +18,4 @@ dev:
 test:
 	go test ${MODFLAGS} ./...
 
-.PHONY: all clean dev test coverage
+.PHONY: all clean dev test
