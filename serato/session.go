@@ -2,7 +2,6 @@ package serato
 
 import (
 	"bytes"
-	"fmt"
 	"io/ioutil"
 
 	"github.com/tombell/saga/serato/chunk"
@@ -41,21 +40,18 @@ func ReadSession(filepath string) (*Session, error) {
 			if err != nil {
 				return nil, err
 			}
-			fmt.Println(vrsn)
 			session.Vrsn = vrsn
 		case "oent":
 			oent, err := chunk.NewOentChunk(h, buf)
 			if err != nil {
 				return nil, err
 			}
-			fmt.Println(oent)
 			session.Oent = append(session.Oent, oent)
 		case "oren":
 			oren, err := chunk.NewOrenChunk(h, buf)
 			if err != nil {
 				return nil, err
 			}
-			fmt.Println(oren)
 			session.Oren = append(session.Oren, oren)
 		}
 	}
