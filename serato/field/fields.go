@@ -2,8 +2,6 @@ package field
 
 import (
 	"bytes"
-	"fmt"
-	"os"
 	"strings"
 )
 
@@ -404,7 +402,7 @@ func NewFields(data []byte) (*Fields, error) {
 			}
 			fields.Field72 = field
 		default:
-			fmt.Fprintf(os.Stderr, "Unknown field read: %d\n", h.Identifier)
+			// fmt.Fprintf(os.Stderr, "Unknown field read: %d\n", h.Identifier)
 			buf.Next(int(h.Length))
 		}
 	}
