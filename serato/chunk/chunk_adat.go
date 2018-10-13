@@ -12,7 +12,7 @@ type Adat struct {
 	header *Header
 	data   []byte
 
-	field.Fields
+	*field.Fields
 }
 
 // Header returns the header of the chunk.
@@ -37,5 +37,10 @@ func NewAdatChunk(header *Header, r io.Reader) (*Adat, error) {
 		return nil, err
 	}
 
-	return &Adat{header, data[:], field.Fields{}}, nil
+	fields, err := field.NewFields(data)
+	if err != nil {
+		return nil, err
+	}
+
+	return &Adat{header, data[:], fields}, nil
 }
