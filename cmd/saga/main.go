@@ -21,6 +21,7 @@ var (
 
 func usage() {
 	fmt.Fprintf(os.Stderr, helpText)
+	os.Exit(2)
 }
 
 func main() {
@@ -32,7 +33,12 @@ func main() {
 		os.Exit(0)
 	}
 
-	if err := saga.Run(&saga.Config{}); err != nil {
+	args := flag.Args()
+	if len(args) == 0 {
+		flag.Usage()
+	}
+
+	if err := saga.Run(args[0]); err != nil {
 		panic(err)
 	}
 }
