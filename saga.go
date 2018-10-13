@@ -15,7 +15,10 @@ func Run(filepath string) error {
 		return err
 	}
 
-	fmt.Printf("%+v\n", session)
+	fmt.Println("Session:")
+	fmt.Printf("VRSN: %s\n", session.Vrsn.Version())
+	fmt.Printf("OENT chunks: %d\n", len(session.Oent))
+	fmt.Printf("OREN chunks: %d\n", len(session.Oren))
 
 	return nil
 }
