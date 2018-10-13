@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -17,6 +18,10 @@ type Key struct {
 func (k *Key) Value() string {
 	s := strutil.DecodeUTF16(k.data)
 	return strutil.TrimNull(s)
+}
+
+func (k *Key) String() string {
+	return fmt.Sprintf("Key: %s", k.Value())
 }
 
 // NewKeyField returns a Key, using the header to read the field data.

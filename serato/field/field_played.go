@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 )
 
@@ -14,6 +15,10 @@ type Played struct {
 // Value returns the played status.
 func (p *Played) Value() byte {
 	return p.data[0]
+}
+
+func (p *Played) String() string {
+	return fmt.Sprintf("Played: %v", p.Value())
 }
 
 // NewPlayedField returns a Played, using the header to read the field data.

@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -14,9 +15,13 @@ type Remixer struct {
 }
 
 // Value returns the remixer.
-func (a *Remixer) Value() string {
-	s := strutil.DecodeUTF16(a.data)
+func (r *Remixer) Value() string {
+	s := strutil.DecodeUTF16(r.data)
 	return strutil.TrimNull(s)
+}
+
+func (r *Remixer) String() string {
+	return fmt.Sprintf("Remixer: %s", r.Value())
 }
 
 // NewRemixerField returns a Remixer, using the header to read the field data.

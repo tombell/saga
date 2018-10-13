@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -14,9 +15,13 @@ type Bitrate struct {
 }
 
 // Value returns the bitrate.
-func (a *Bitrate) Value() string {
-	s := strutil.DecodeUTF16(a.data)
+func (b *Bitrate) Value() string {
+	s := strutil.DecodeUTF16(b.data)
 	return strutil.TrimNull(s)
+}
+
+func (b *Bitrate) String() string {
+	return fmt.Sprintf("Bitrate: %s", b.Value())
 }
 
 // NewBitrateField returns a Bitrate, using the header to read the field data.

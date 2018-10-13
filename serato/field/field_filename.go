@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -14,9 +15,13 @@ type Filename struct {
 }
 
 // Value returns the file name.
-func (a *Filename) Value() string {
-	s := strutil.DecodeUTF16(a.data)
+func (f *Filename) Value() string {
+	s := strutil.DecodeUTF16(f.data)
 	return strutil.TrimNull(s)
+}
+
+func (f *Filename) String() string {
+	return fmt.Sprintf("Filename: %s", f.Value())
 }
 
 // NewFilenameField returns a Filename, using the header to read the field data.

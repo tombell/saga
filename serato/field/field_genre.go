@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -17,6 +18,10 @@ type Genre struct {
 func (g *Genre) Value() string {
 	s := strutil.DecodeUTF16(g.data)
 	return strutil.TrimNull(s)
+}
+
+func (g *Genre) String() string {
+	return fmt.Sprintf("Genre: %s", g.Value())
 }
 
 // NewGenreField returns a Genre, using the header to read the field data.

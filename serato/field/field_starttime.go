@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 	"time"
 )
@@ -16,6 +17,10 @@ type StartTime struct {
 func (s *StartTime) Value() time.Time {
 	ts := binary.BigEndian.Uint32(s.data)
 	return time.Unix(int64(ts), 0).UTC()
+}
+
+func (s *StartTime) String() string {
+	return fmt.Sprintf("Start time: %v", s.Value())
 }
 
 // NewStartTimeField returns a StartTime, using the header to read the field

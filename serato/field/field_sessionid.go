@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 )
 
@@ -14,6 +15,10 @@ type SessionID struct {
 // Value returns the session ID.
 func (s *SessionID) Value() int {
 	return int(binary.BigEndian.Uint32(s.data))
+}
+
+func (s *SessionID) String() string {
+	return fmt.Sprintf("Session ID: %d", s.Value())
 }
 
 // NewSessionIDField returns a SessionID, using the header to read the field

@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -17,6 +18,10 @@ type Album struct {
 func (a *Album) Value() string {
 	s := strutil.DecodeUTF16(a.data)
 	return strutil.TrimNull(s)
+}
+
+func (a *Album) String() string {
+	return fmt.Sprintf("Album: %s", a.Value())
 }
 
 // NewAlbumField returns an Album, using the header to read the field data.

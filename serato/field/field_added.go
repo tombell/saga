@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 )
 
@@ -14,6 +15,10 @@ type Added struct {
 // Value returns the added status.
 func (a *Added) Value() byte {
 	return a.data[0]
+}
+
+func (a *Added) String() string {
+	return fmt.Sprintf("Added: %v", a.Value())
 }
 
 // NewAddedField returns an Added, using the header to read the field data.

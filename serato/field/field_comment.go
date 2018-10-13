@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -14,9 +15,13 @@ type Comment struct {
 }
 
 // Value returns the comment.
-func (a *Comment) Value() string {
-	s := strutil.DecodeUTF16(a.data)
+func (c *Comment) Value() string {
+	s := strutil.DecodeUTF16(c.data)
 	return strutil.TrimNull(s)
+}
+
+func (c *Comment) String() string {
+	return fmt.Sprintf("Comment: %s", c.Value())
 }
 
 // NewCommentField returns a Comment, using the header to read the field data.

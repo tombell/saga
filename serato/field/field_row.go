@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 )
 
@@ -14,6 +15,10 @@ type Row struct {
 // Value returns the row.
 func (r *Row) Value() int {
 	return int(binary.BigEndian.Uint32(r.data))
+}
+
+func (r *Row) String() string {
+	return fmt.Sprintf("Row: %d", r.Value())
 }
 
 // NewRowField returns a Row, using the header to read the field data.

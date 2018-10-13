@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -17,6 +18,10 @@ type Artist struct {
 func (a *Artist) Value() string {
 	s := strutil.DecodeUTF16(a.data)
 	return strutil.TrimNull(s)
+}
+
+func (a *Artist) String() string {
+	return fmt.Sprintf("Artist: %s", a.Value())
 }
 
 // NewArtistField returns a Title, using the header to read the field data.

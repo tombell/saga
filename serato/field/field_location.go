@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -14,9 +15,13 @@ type Location struct {
 }
 
 // Value returns the location.
-func (a *Location) Value() string {
-	s := strutil.DecodeUTF16(a.data)
+func (l *Location) Value() string {
+	s := strutil.DecodeUTF16(l.data)
 	return strutil.TrimNull(s)
+}
+
+func (l *Location) String() string {
+	return fmt.Sprintf("Location: %s", l.Value())
 }
 
 // NewLocationField returns a Location, using the header to read the field data.

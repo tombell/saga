@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -17,6 +18,10 @@ type Title struct {
 func (t *Title) Value() string {
 	s := strutil.DecodeUTF16(t.data)
 	return strutil.TrimNull(s)
+}
+
+func (t *Title) String() string {
+	return fmt.Sprintf("Title: %s", t.Value())
 }
 
 // NewTitleField returns a Title, using the header to read the field data.

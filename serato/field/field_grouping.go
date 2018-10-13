@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -17,6 +18,10 @@ type Grouping struct {
 func (g *Grouping) Value() string {
 	s := strutil.DecodeUTF16(g.data)
 	return strutil.TrimNull(s)
+}
+
+func (g *Grouping) String() string {
+	return fmt.Sprintf("Grouping: %s", g.Value())
 }
 
 // NewGroupingField returns a Grouping, using the header to read the field data.

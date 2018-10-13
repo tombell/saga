@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -14,9 +15,13 @@ type Language struct {
 }
 
 // Value returns the language.
-func (a *Language) Value() string {
-	s := strutil.DecodeUTF16(a.data)
+func (l *Language) Value() string {
+	s := strutil.DecodeUTF16(l.data)
 	return strutil.TrimNull(s)
+}
+
+func (l *Language) String() string {
+	return fmt.Sprintf("Language: %s", l.Value())
 }
 
 // NewLanguageField returns a Language, using the header to read the field data.

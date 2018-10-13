@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 	"time"
 )
@@ -16,6 +17,10 @@ type UpdatedAt struct {
 func (u *UpdatedAt) Value() time.Time {
 	ts := binary.BigEndian.Uint32(u.data)
 	return time.Unix(int64(ts), 0).UTC()
+}
+
+func (u *UpdatedAt) String() string {
+	return fmt.Sprintf("Updated at: %v", u.Value())
 }
 
 // NewUpdatedAtField returns an UpdatedAt, using the header to read the field

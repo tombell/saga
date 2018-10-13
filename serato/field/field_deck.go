@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 )
 
@@ -14,6 +15,10 @@ type Deck struct {
 // Value returns the deck.
 func (d *Deck) Value() int {
 	return int(binary.BigEndian.Uint32(d.data))
+}
+
+func (d *Deck) String() string {
+	return fmt.Sprintf("Deck: %d", d.Value())
 }
 
 // NewDeckField returns a Deck, using the header to read the field data.

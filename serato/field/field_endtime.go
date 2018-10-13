@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 	"time"
 )
@@ -16,6 +17,10 @@ type EndTime struct {
 func (e *EndTime) Value() time.Time {
 	ts := binary.BigEndian.Uint32(e.data)
 	return time.Unix(int64(ts), 0).UTC()
+}
+
+func (e *EndTime) String() string {
+	return fmt.Sprintf("End time: %v", e.Value())
 }
 
 // NewEndTimeField returns an EndTime, using the header to read the field data.

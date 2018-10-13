@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -17,6 +18,10 @@ type Year struct {
 func (y *Year) Value() string {
 	s := strutil.DecodeUTF16(y.data)
 	return strutil.TrimNull(s)
+}
+
+func (y *Year) String() string {
+	return fmt.Sprintf("Year: %s", y.Value())
 }
 
 // NewYearField returns a Year, using the header to read the field data.

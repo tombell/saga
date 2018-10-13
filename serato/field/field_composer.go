@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -14,9 +15,13 @@ type Composer struct {
 }
 
 // Value returns the composer.
-func (a *Composer) Value() string {
-	s := strutil.DecodeUTF16(a.data)
+func (c *Composer) Value() string {
+	s := strutil.DecodeUTF16(c.data)
 	return strutil.TrimNull(s)
+}
+
+func (c *Composer) String() string {
+	return fmt.Sprintf("Composer: %s", c.Value())
 }
 
 // NewComposerField returns a Composer, using the header to read the field data.

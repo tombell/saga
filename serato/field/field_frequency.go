@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -14,9 +15,13 @@ type Frequency struct {
 }
 
 // Value returns the frequency.
-func (a *Frequency) Value() string {
-	s := strutil.DecodeUTF16(a.data)
+func (f *Frequency) Value() string {
+	s := strutil.DecodeUTF16(f.data)
 	return strutil.TrimNull(s)
+}
+
+func (f *Frequency) String() string {
+	return fmt.Sprintf("Frequency: %s", f.Value())
 }
 
 // NewFrequencyField returns a Frequency, using the header to read the field

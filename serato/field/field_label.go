@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -17,6 +18,10 @@ type Label struct {
 func (l *Label) Value() string {
 	s := strutil.DecodeUTF16(l.data)
 	return strutil.TrimNull(s)
+}
+
+func (l *Label) String() string {
+	return fmt.Sprintf("Label: %s", l.Value())
 }
 
 // NewLabelField returns a Label, using the header to read the field data.

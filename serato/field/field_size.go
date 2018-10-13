@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -14,9 +15,13 @@ type Size struct {
 }
 
 // Value returns the size.
-func (a *Size) Value() string {
-	s := strutil.DecodeUTF16(a.data)
-	return strutil.TrimNull(s)
+func (s *Size) Value() string {
+	str := strutil.DecodeUTF16(s.data)
+	return strutil.TrimNull(str)
+}
+
+func (s *Size) String() string {
+	return fmt.Sprintf("Size: %s", s.Value())
 }
 
 // NewSizeField returns a Size, using the header to read the field data.

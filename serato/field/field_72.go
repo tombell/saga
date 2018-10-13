@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 )
 
@@ -14,6 +15,10 @@ type Field72 struct {
 // Value returns the raw bytes for the field.
 func (f *Field72) Value() []byte {
 	return f.data
+}
+
+func (f *Field72) String() string {
+	return fmt.Sprintf("Field 72: %v", f.Value())
 }
 
 // NewField72Field returns a Field72, using the header to read the field data.

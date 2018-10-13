@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -14,9 +15,13 @@ type Length struct {
 }
 
 // Value returns the length.
-func (a *Length) Value() string {
-	s := strutil.DecodeUTF16(a.data)
+func (l *Length) Value() string {
+	s := strutil.DecodeUTF16(l.data)
 	return strutil.TrimNull(s)
+}
+
+func (l *Length) String() string {
+	return fmt.Sprintf("Length: %s", l.Value())
 }
 
 // NewLengthField returns a Length, using the header to read the field data.
