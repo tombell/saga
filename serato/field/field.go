@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
+	"os"
 	"strings"
 )
 
@@ -445,7 +446,8 @@ func NewFields(data []byte) (*Fields, error) {
 			}
 			fields.Field72 = field
 		default:
-			fmt.Printf("Unknown field read: %d", h.Identifier)
+			fmt.Fprintf(os.Stderr, "Unknown field read: %d\n", h.Identifier)
+			buf.Next(int(h.Length))
 		}
 	}
 
