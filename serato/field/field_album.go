@@ -20,7 +20,7 @@ func (a *Album) Value() string {
 }
 
 // NewAlbumField returns an Album, using the header to read the field data.
-func NewAlbumField(header *Header, r io.Reader) (*Artist, error) {
+func NewAlbumField(header *Header, r io.Reader) (*Album, error) {
 	if header.Identifier != albumID {
 		return nil, ErrUnexpectedIdentifier
 	}
@@ -31,5 +31,5 @@ func NewAlbumField(header *Header, r io.Reader) (*Artist, error) {
 		return nil, err
 	}
 
-	return &Artist{header, data[:]}, nil
+	return &Album{header, data[:]}, nil
 }
