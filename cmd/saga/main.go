@@ -8,7 +8,7 @@ import (
 	"github.com/tombell/saga"
 )
 
-const helpText = `usage: saga [options]
+const helpText = `usage: saga [options] session file...
 
 Special options:
   --help     show this message, then exit
