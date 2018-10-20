@@ -16,9 +16,17 @@ const (
 type Deck struct {
 	ID     int
 	Status Status
+
+	Current  *Track
+	Previous *Track
 }
 
 // NewDeck returns a new Deck.
 func NewDeck(id int) *Deck {
-	return &Deck{id, Empty}
+	return &Deck{
+		ID:       id,
+		Status:   Empty,
+		Current:  nil,
+		Previous: nil,
+	}
 }
