@@ -14,12 +14,12 @@ type PlayTime struct {
 
 // Value returns the play time.
 // TODO: change to format MM:SS instead of int of seconds.
-func (p *PlayTime) Value() int {
-	return int(binary.BigEndian.Uint32(p.data))
+func (f *PlayTime) Value() int {
+	return int(binary.BigEndian.Uint32(f.data))
 }
 
-func (p *PlayTime) String() string {
-	return fmt.Sprintf("%d", p.Value())
+func (f *PlayTime) String() string {
+	return fmt.Sprintf("%d", f.Value())
 }
 
 // NewPlayTimeField returns a PlayTime, using the header to read the field data.

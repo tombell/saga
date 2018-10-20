@@ -14,13 +14,13 @@ type Label struct {
 }
 
 // Value returns the label.
-func (l *Label) Value() string {
-	s := strutil.DecodeUTF16(l.data)
+func (f *Label) Value() string {
+	s := strutil.DecodeUTF16(f.data)
 	return strutil.TrimNull(s)
 }
 
-func (l *Label) String() string {
-	return l.Value()
+func (f *Label) String() string {
+	return f.Value()
 }
 
 // NewLabelField returns a Label, using the header to read the field data.

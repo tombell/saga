@@ -13,12 +13,12 @@ type Row struct {
 }
 
 // Value returns the row.
-func (r *Row) Value() int {
-	return int(binary.BigEndian.Uint32(r.data))
+func (f *Row) Value() int {
+	return int(binary.BigEndian.Uint32(f.data))
 }
 
-func (r *Row) String() string {
-	return fmt.Sprintf("%d", r.Value())
+func (f *Row) String() string {
+	return fmt.Sprintf("%d", f.Value())
 }
 
 // NewRowField returns a Row, using the header to read the field data.

@@ -13,12 +13,12 @@ type SessionID struct {
 }
 
 // Value returns the session ID.
-func (s *SessionID) Value() int {
-	return int(binary.BigEndian.Uint32(s.data))
+func (f *SessionID) Value() int {
+	return int(binary.BigEndian.Uint32(f.data))
 }
 
-func (s *SessionID) String() string {
-	return fmt.Sprintf("%d", s.Value())
+func (f *SessionID) String() string {
+	return fmt.Sprintf("%d", f.Value())
 }
 
 // NewSessionIDField returns a SessionID, using the header to read the field

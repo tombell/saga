@@ -14,13 +14,13 @@ type Year struct {
 }
 
 // Value returns the year.
-func (y *Year) Value() string {
-	s := strutil.DecodeUTF16(y.data)
+func (f *Year) Value() string {
+	s := strutil.DecodeUTF16(f.data)
 	return strutil.TrimNull(s)
 }
 
-func (y *Year) String() string {
-	return y.Value()
+func (f *Year) String() string {
+	return f.Value()
 }
 
 // NewYearField returns a Year, using the header to read the field data.

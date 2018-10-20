@@ -14,13 +14,13 @@ type Language struct {
 }
 
 // Value returns the language.
-func (l *Language) Value() string {
-	s := strutil.DecodeUTF16(l.data)
+func (f *Language) Value() string {
+	s := strutil.DecodeUTF16(f.data)
 	return strutil.TrimNull(s)
 }
 
-func (l *Language) String() string {
-	return l.Value()
+func (f *Language) String() string {
+	return f.Value()
 }
 
 // NewLanguageField returns a Language, using the header to read the field data.

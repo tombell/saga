@@ -14,13 +14,13 @@ type UpdatedAt struct {
 }
 
 // Value returns the updated at time.
-func (u *UpdatedAt) Value() time.Time {
-	ts := binary.BigEndian.Uint32(u.data)
+func (f *UpdatedAt) Value() time.Time {
+	ts := binary.BigEndian.Uint32(f.data)
 	return time.Unix(int64(ts), 0).UTC()
 }
 
-func (u *UpdatedAt) String() string {
-	return fmt.Sprintf("%v", u.Value())
+func (f *UpdatedAt) String() string {
+	return fmt.Sprintf("%v", f.Value())
 }
 
 // NewUpdatedAtField returns an UpdatedAt, using the header to read the field

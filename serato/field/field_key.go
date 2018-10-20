@@ -14,13 +14,13 @@ type Key struct {
 }
 
 // Value returns the key.
-func (k *Key) Value() string {
-	s := strutil.DecodeUTF16(k.data)
+func (f *Key) Value() string {
+	s := strutil.DecodeUTF16(f.data)
 	return strutil.TrimNull(s)
 }
 
-func (k *Key) String() string {
-	return k.Value()
+func (f *Key) String() string {
+	return f.Value()
 }
 
 // NewKeyField returns a Key, using the header to read the field data.

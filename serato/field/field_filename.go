@@ -20,7 +20,7 @@ func (f *Filename) Value() string {
 }
 
 func (f *Filename) String() string {
-	f.Value()
+	return f.Value()
 }
 
 // NewFilenameField returns a Filename, using the header to read the field data.

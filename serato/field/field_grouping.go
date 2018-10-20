@@ -14,13 +14,13 @@ type Grouping struct {
 }
 
 // Value returns the grouping.
-func (g *Grouping) Value() string {
-	s := strutil.DecodeUTF16(g.data)
+func (f *Grouping) Value() string {
+	s := strutil.DecodeUTF16(f.data)
 	return strutil.TrimNull(s)
 }
 
-func (g *Grouping) String() string {
-	return g.Value()
+func (f *Grouping) String() string {
+	return f.Value()
 }
 
 // NewGroupingField returns a Grouping, using the header to read the field data.

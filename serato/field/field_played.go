@@ -13,12 +13,12 @@ type Played struct {
 }
 
 // Value returns the played status.
-func (p *Played) Value() byte {
-	return p.data[0]
+func (f *Played) Value() byte {
+	return f.data[0]
 }
 
-func (p *Played) String() string {
-	return fmt.Sprintf("%v", p.Value())
+func (f *Played) String() string {
+	return fmt.Sprintf("%v", f.Value())
 }
 
 // NewPlayedField returns a Played, using the header to read the field data.

@@ -2,6 +2,7 @@ package field
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 )
 
@@ -12,12 +13,12 @@ type BPM struct {
 }
 
 // Value returns the BPM.
-func (b *BPM) Value() int {
-	return int(binary.BigEndian.Uint32(b.data))
+func (f *BPM) Value() int {
+	return int(binary.BigEndian.Uint32(f.data))
 }
 
-func (b *BPM) String() string {
-	return b.Value()
+func (f *BPM) String() string {
+	return fmt.Sprintf("%d", f.Value())
 }
 
 // NewBPMField returns a BPM, using the header to read the field data.

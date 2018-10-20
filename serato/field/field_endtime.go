@@ -14,13 +14,13 @@ type EndTime struct {
 }
 
 // Value returns the end time.
-func (e *EndTime) Value() time.Time {
-	ts := binary.BigEndian.Uint32(e.data)
+func (f *EndTime) Value() time.Time {
+	ts := binary.BigEndian.Uint32(f.data)
 	return time.Unix(int64(ts), 0).UTC()
 }
 
-func (e *EndTime) String() string {
-	return fmt.Sprintf("%v", e.Value())
+func (f *EndTime) String() string {
+	return fmt.Sprintf("%v", f.Value())
 }
 
 // NewEndTimeField returns an EndTime, using the header to read the field data.

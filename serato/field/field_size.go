@@ -14,13 +14,13 @@ type Size struct {
 }
 
 // Value returns the size.
-func (s *Size) Value() string {
-	str := strutil.DecodeUTF16(s.data)
+func (f *Size) Value() string {
+	str := strutil.DecodeUTF16(f.data)
 	return strutil.TrimNull(str)
 }
 
-func (s *Size) String() string {
-	return s.Value()
+func (f *Size) String() string {
+	return f.Value()
 }
 
 // NewSizeField returns a Size, using the header to read the field data.

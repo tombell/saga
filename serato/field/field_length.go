@@ -14,13 +14,13 @@ type Length struct {
 }
 
 // Value returns the length.
-func (l *Length) Value() string {
-	s := strutil.DecodeUTF16(l.data)
+func (f *Length) Value() string {
+	s := strutil.DecodeUTF16(f.data)
 	return strutil.TrimNull(s)
 }
 
-func (l *Length) String() string {
-	return l.Value()
+func (f *Length) String() string {
+	return f.Value()
 }
 
 // NewLengthField returns a Length, using the header to read the field data.

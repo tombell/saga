@@ -14,13 +14,13 @@ type Location struct {
 }
 
 // Value returns the location.
-func (l *Location) Value() string {
-	s := strutil.DecodeUTF16(l.data)
+func (f *Location) Value() string {
+	s := strutil.DecodeUTF16(f.data)
 	return strutil.TrimNull(s)
 }
 
-func (l *Location) String() string {
-	return l.Value()
+func (f *Location) String() string {
+	return f.Value()
 }
 
 // NewLocationField returns a Location, using the header to read the field data.

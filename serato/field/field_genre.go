@@ -14,13 +14,13 @@ type Genre struct {
 }
 
 // Value returns the genre.
-func (g *Genre) Value() string {
-	s := strutil.DecodeUTF16(g.data)
+func (f *Genre) Value() string {
+	s := strutil.DecodeUTF16(f.data)
 	return strutil.TrimNull(s)
 }
 
-func (g *Genre) String() string {
-	return g.Value()
+func (f *Genre) String() string {
+	return f.Value()
 }
 
 // NewGenreField returns a Genre, using the header to read the field data.

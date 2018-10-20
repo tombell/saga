@@ -14,13 +14,13 @@ type Bitrate struct {
 }
 
 // Value returns the bitrate.
-func (b *Bitrate) Value() string {
-	s := strutil.DecodeUTF16(b.data)
+func (f *Bitrate) Value() string {
+	s := strutil.DecodeUTF16(f.data)
 	return strutil.TrimNull(s)
 }
 
-func (b *Bitrate) String() string {
-	return b.Value()
+func (f *Bitrate) String() string {
+	return f.Value()
 }
 
 // NewBitrateField returns a Bitrate, using the header to read the field data.

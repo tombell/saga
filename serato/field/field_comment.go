@@ -14,13 +14,13 @@ type Comment struct {
 }
 
 // Value returns the comment.
-func (c *Comment) Value() string {
-	s := strutil.DecodeUTF16(c.data)
+func (f *Comment) Value() string {
+	s := strutil.DecodeUTF16(f.data)
 	return strutil.TrimNull(s)
 }
 
-func (c *Comment) String() string {
-	return c.Value()
+func (f *Comment) String() string {
+	return f.Value()
 }
 
 // NewCommentField returns a Comment, using the header to read the field data.

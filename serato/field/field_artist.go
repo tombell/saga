@@ -14,13 +14,13 @@ type Artist struct {
 }
 
 // Value returns the artist.
-func (a *Artist) Value() string {
-	s := strutil.DecodeUTF16(a.data)
+func (f *Artist) Value() string {
+	s := strutil.DecodeUTF16(f.data)
 	return strutil.TrimNull(s)
 }
 
-func (a *Artist) String() string {
-	return a.Value()
+func (f *Artist) String() string {
+	return f.Value()
 }
 
 // NewArtistField returns a Title, using the header to read the field data.

@@ -13,12 +13,12 @@ type Deck struct {
 }
 
 // Value returns the deck.
-func (d *Deck) Value() int {
-	return int(binary.BigEndian.Uint32(d.data))
+func (f *Deck) Value() int {
+	return int(binary.BigEndian.Uint32(f.data))
 }
 
-func (d *Deck) String() string {
-	return fmt.Sprintf("%d", d.Value())
+func (f *Deck) String() string {
+	return fmt.Sprintf("%d", f.Value())
 }
 
 // NewDeckField returns a Deck, using the header to read the field data.

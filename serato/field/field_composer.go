@@ -14,13 +14,13 @@ type Composer struct {
 }
 
 // Value returns the composer.
-func (c *Composer) Value() string {
-	s := strutil.DecodeUTF16(c.data)
+func (f *Composer) Value() string {
+	s := strutil.DecodeUTF16(f.data)
 	return strutil.TrimNull(s)
 }
 
-func (c *Composer) String() string {
-	return c.Value()
+func (f *Composer) String() string {
+	return f.Value()
 }
 
 // NewComposerField returns a Composer, using the header to read the field data.

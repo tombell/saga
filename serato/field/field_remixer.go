@@ -14,13 +14,13 @@ type Remixer struct {
 }
 
 // Value returns the remixer.
-func (r *Remixer) Value() string {
-	s := strutil.DecodeUTF16(r.data)
+func (f *Remixer) Value() string {
+	s := strutil.DecodeUTF16(f.data)
 	return strutil.TrimNull(s)
 }
 
-func (r *Remixer) String() string {
-	return r.Value()
+func (f *Remixer) String() string {
+	return f.Value()
 }
 
 // NewRemixerField returns a Remixer, using the header to read the field data.

@@ -13,12 +13,12 @@ type Added struct {
 }
 
 // Value returns the added status.
-func (a *Added) Value() byte {
-	return a.data[0]
+func (f *Added) Value() byte {
+	return f.data[0]
 }
 
-func (a *Added) String() string {
-	return fmt.Sprintf("%v", a.Value())
+func (f *Added) String() string {
+	return fmt.Sprintf("%v", f.Value())
 }
 
 // NewAddedField returns an Added, using the header to read the field data.

@@ -14,13 +14,13 @@ type Album struct {
 }
 
 // Value returns te album.
-func (a *Album) Value() string {
-	s := strutil.DecodeUTF16(a.data)
+func (f *Album) Value() string {
+	s := strutil.DecodeUTF16(f.data)
 	return strutil.TrimNull(s)
 }
 
-func (a *Album) String() string {
-	return a.Value()
+func (f *Album) String() string {
+	return f.Value()
 }
 
 // NewAlbumField returns an Album, using the header to read the field data.

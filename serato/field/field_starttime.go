@@ -14,13 +14,13 @@ type StartTime struct {
 }
 
 // Value returns the start time.
-func (s *StartTime) Value() time.Time {
-	ts := binary.BigEndian.Uint32(s.data)
+func (f *StartTime) Value() time.Time {
+	ts := binary.BigEndian.Uint32(f.data)
 	return time.Unix(int64(ts), 0).UTC()
 }
 
-func (s *StartTime) String() string {
-	return fmt.Sprintf("%v", s.Value())
+func (f *StartTime) String() string {
+	return fmt.Sprintf("%v", f.Value())
 }
 
 // NewStartTimeField returns a StartTime, using the header to read the field

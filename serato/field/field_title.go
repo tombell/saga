@@ -14,13 +14,13 @@ type Title struct {
 }
 
 // Value returns the title.
-func (t *Title) Value() string {
-	s := strutil.DecodeUTF16(t.data)
+func (f *Title) Value() string {
+	s := strutil.DecodeUTF16(f.data)
 	return strutil.TrimNull(s)
 }
 
-func (t *Title) String() string {
-	return t.Value()
+func (f *Title) String() string {
+	return f.Value()
 }
 
 // NewTitleField returns a Title, using the header to read the field data.
