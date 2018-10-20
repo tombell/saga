@@ -2,7 +2,6 @@ package field
 
 import (
 	"encoding/binary"
-	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -21,7 +20,7 @@ func (r *Remixer) Value() string {
 }
 
 func (r *Remixer) String() string {
-	return fmt.Sprintf("Remixer: %s", r.Value())
+	return r.Value()
 }
 
 // NewRemixerField returns a Remixer, using the header to read the field data.

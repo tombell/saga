@@ -2,7 +2,6 @@ package field
 
 import (
 	"encoding/binary"
-	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -21,7 +20,7 @@ func (y *Year) Value() string {
 }
 
 func (y *Year) String() string {
-	return fmt.Sprintf("Year: %s", y.Value())
+	return y.Value()
 }
 
 // NewYearField returns a Year, using the header to read the field data.

@@ -2,7 +2,6 @@ package field
 
 import (
 	"encoding/binary"
-	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -21,7 +20,7 @@ func (a *Album) Value() string {
 }
 
 func (a *Album) String() string {
-	return fmt.Sprintf("Album: %s", a.Value())
+	return a.Value()
 }
 
 // NewAlbumField returns an Album, using the header to read the field data.

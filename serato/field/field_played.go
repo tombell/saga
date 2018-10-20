@@ -18,7 +18,7 @@ func (p *Played) Value() byte {
 }
 
 func (p *Played) String() string {
-	return fmt.Sprintf("Played: %v", p.Value())
+	return fmt.Sprintf("%v", p.Value())
 }
 
 // NewPlayedField returns a Played, using the header to read the field data.

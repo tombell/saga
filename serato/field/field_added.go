@@ -18,7 +18,7 @@ func (a *Added) Value() byte {
 }
 
 func (a *Added) String() string {
-	return fmt.Sprintf("Added: %v", a.Value())
+	return fmt.Sprintf("%v", a.Value())
 }
 
 // NewAddedField returns an Added, using the header to read the field data.

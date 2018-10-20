@@ -2,7 +2,6 @@ package field
 
 import (
 	"encoding/binary"
-	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -21,7 +20,7 @@ func (s *Size) Value() string {
 }
 
 func (s *Size) String() string {
-	return fmt.Sprintf("Size: %s", s.Value())
+	return s.Value()
 }
 
 // NewSizeField returns a Size, using the header to read the field data.

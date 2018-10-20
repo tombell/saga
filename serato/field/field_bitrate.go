@@ -2,7 +2,6 @@ package field
 
 import (
 	"encoding/binary"
-	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -21,7 +20,7 @@ func (b *Bitrate) Value() string {
 }
 
 func (b *Bitrate) String() string {
-	return fmt.Sprintf("Bitrate: %s", b.Value())
+	return b.Value()
 }
 
 // NewBitrateField returns a Bitrate, using the header to read the field data.

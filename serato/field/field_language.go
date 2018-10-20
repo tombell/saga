@@ -2,7 +2,6 @@ package field
 
 import (
 	"encoding/binary"
-	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -21,7 +20,7 @@ func (l *Language) Value() string {
 }
 
 func (l *Language) String() string {
-	return fmt.Sprintf("Language: %s", l.Value())
+	return l.Value()
 }
 
 // NewLanguageField returns a Language, using the header to read the field data.

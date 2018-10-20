@@ -20,7 +20,7 @@ func (e *EndTime) Value() time.Time {
 }
 
 func (e *EndTime) String() string {
-	return fmt.Sprintf("End time: %v", e.Value())
+	return fmt.Sprintf("%v", e.Value())
 }
 
 // NewEndTimeField returns an EndTime, using the header to read the field data.

@@ -2,7 +2,6 @@ package field
 
 import (
 	"encoding/binary"
-	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -21,7 +20,7 @@ func (c *Composer) Value() string {
 }
 
 func (c *Composer) String() string {
-	return fmt.Sprintf("Composer: %s", c.Value())
+	return c.Value()
 }
 
 // NewComposerField returns a Composer, using the header to read the field data.

@@ -18,7 +18,7 @@ func (d *Deck) Value() int {
 }
 
 func (d *Deck) String() string {
-	return fmt.Sprintf("Deck: %d", d.Value())
+	return fmt.Sprintf("%d", d.Value())
 }
 
 // NewDeckField returns a Deck, using the header to read the field data.

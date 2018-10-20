@@ -2,7 +2,6 @@ package field
 
 import (
 	"encoding/binary"
-	"fmt"
 	"io"
 )
 
@@ -18,7 +17,7 @@ func (b *BPM) Value() int {
 }
 
 func (b *BPM) String() string {
-	return fmt.Sprintf("BPM: %d", b.Value())
+	return b.Value()
 }
 
 // NewBPMField returns a BPM, using the header to read the field data.

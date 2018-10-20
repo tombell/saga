@@ -2,7 +2,6 @@ package field
 
 import (
 	"encoding/binary"
-	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -21,7 +20,7 @@ func (g *Grouping) Value() string {
 }
 
 func (g *Grouping) String() string {
-	return fmt.Sprintf("Grouping: %s", g.Value())
+	return g.Value()
 }
 
 // NewGroupingField returns a Grouping, using the header to read the field data.

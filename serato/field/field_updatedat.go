@@ -20,7 +20,7 @@ func (u *UpdatedAt) Value() time.Time {
 }
 
 func (u *UpdatedAt) String() string {
-	return fmt.Sprintf("Updated at: %v", u.Value())
+	return fmt.Sprintf("%v", u.Value())
 }
 
 // NewUpdatedAtField returns an UpdatedAt, using the header to read the field

@@ -18,7 +18,7 @@ func (r *Row) Value() int {
 }
 
 func (r *Row) String() string {
-	return fmt.Sprintf("Row: %d", r.Value())
+	return fmt.Sprintf("%d", r.Value())
 }
 
 // NewRowField returns a Row, using the header to read the field data.

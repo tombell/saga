@@ -2,7 +2,6 @@ package field
 
 import (
 	"encoding/binary"
-	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -21,7 +20,7 @@ func (g *Genre) Value() string {
 }
 
 func (g *Genre) String() string {
-	return fmt.Sprintf("Genre: %s", g.Value())
+	return g.Value()
 }
 
 // NewGenreField returns a Genre, using the header to read the field data.

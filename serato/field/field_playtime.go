@@ -19,7 +19,7 @@ func (p *PlayTime) Value() int {
 }
 
 func (p *PlayTime) String() string {
-	return fmt.Sprintf("Play time: %d", p.Value())
+	return fmt.Sprintf("%d", p.Value())
 }
 
 // NewPlayTimeField returns a PlayTime, using the header to read the field data.

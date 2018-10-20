@@ -2,7 +2,6 @@ package field
 
 import (
 	"encoding/binary"
-	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -21,7 +20,7 @@ func (l *Location) Value() string {
 }
 
 func (l *Location) String() string {
-	return fmt.Sprintf("Location: %s", l.Value())
+	return l.Value()
 }
 
 // NewLocationField returns a Location, using the header to read the field data.

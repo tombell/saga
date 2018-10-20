@@ -18,7 +18,7 @@ func (s *SessionID) Value() int {
 }
 
 func (s *SessionID) String() string {
-	return fmt.Sprintf("Session ID: %d", s.Value())
+	return fmt.Sprintf("%d", s.Value())
 }
 
 // NewSessionIDField returns a SessionID, using the header to read the field

@@ -2,7 +2,6 @@ package field
 
 import (
 	"encoding/binary"
-	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -21,7 +20,7 @@ func (f *FullPath) Value() string {
 }
 
 func (f *FullPath) String() string {
-	return fmt.Sprintf("Full path: %s", f.Value())
+	return f.Value()
 }
 
 // NewFullPathField returns a FullPath, using the header to read the field data.

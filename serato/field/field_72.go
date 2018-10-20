@@ -18,7 +18,7 @@ func (f *Field72) Value() []byte {
 }
 
 func (f *Field72) String() string {
-	return fmt.Sprintf("Field 72: %v", f.Value())
+	return fmt.Sprintf("%v", f.Value())
 }
 
 // NewField72Field returns a Field72, using the header to read the field data.

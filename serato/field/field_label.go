@@ -2,7 +2,6 @@ package field
 
 import (
 	"encoding/binary"
-	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -21,7 +20,7 @@ func (l *Label) Value() string {
 }
 
 func (l *Label) String() string {
-	return fmt.Sprintf("Label: %s", l.Value())
+	return l.Value()
 }
 
 // NewLabelField returns a Label, using the header to read the field data.

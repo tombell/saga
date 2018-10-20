@@ -2,7 +2,6 @@ package field
 
 import (
 	"encoding/binary"
-	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -21,7 +20,7 @@ func (k *Key) Value() string {
 }
 
 func (k *Key) String() string {
-	return fmt.Sprintf("Key: %s", k.Value())
+	return k.Value()
 }
 
 // NewKeyField returns a Key, using the header to read the field data.

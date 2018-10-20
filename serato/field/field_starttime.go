@@ -20,7 +20,7 @@ func (s *StartTime) Value() time.Time {
 }
 
 func (s *StartTime) String() string {
-	return fmt.Sprintf("Start time: %v", s.Value())
+	return fmt.Sprintf("%v", s.Value())
 }
 
 // NewStartTimeField returns a StartTime, using the header to read the field

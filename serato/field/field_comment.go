@@ -2,7 +2,6 @@ package field
 
 import (
 	"encoding/binary"
-	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -21,7 +20,7 @@ func (c *Comment) Value() string {
 }
 
 func (c *Comment) String() string {
-	return fmt.Sprintf("Comment: %s", c.Value())
+	return c.Value()
 }
 
 // NewCommentField returns a Comment, using the header to read the field data.

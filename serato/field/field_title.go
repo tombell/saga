@@ -2,7 +2,6 @@ package field
 
 import (
 	"encoding/binary"
-	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -21,7 +20,7 @@ func (t *Title) Value() string {
 }
 
 func (t *Title) String() string {
-	return fmt.Sprintf("Title: %s", t.Value())
+	return t.Value()
 }
 
 // NewTitleField returns a Title, using the header to read the field data.

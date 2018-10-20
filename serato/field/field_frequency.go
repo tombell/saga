@@ -2,7 +2,6 @@ package field
 
 import (
 	"encoding/binary"
-	"fmt"
 	"io"
 
 	"github.com/tombell/saga/strutil"
@@ -21,7 +20,7 @@ func (f *Frequency) Value() string {
 }
 
 func (f *Frequency) String() string {
-	return fmt.Sprintf("Frequency: %s", f.Value())
+	return f.Value()
 }
 
 // NewFrequencyField returns a Frequency, using the header to read the field
