@@ -13,7 +13,6 @@ type PlayTime struct {
 }
 
 // Value returns the play time.
-// TODO: change to format MM:SS instead of int of seconds.
 func (f *PlayTime) Value() int {
 	return int(binary.BigEndian.Uint32(f.data))
 }
