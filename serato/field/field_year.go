@@ -4,7 +4,8 @@ import (
 	"encoding/binary"
 	"io"
 
-	"github.com/tombell/saga/strutil"
+	"github.com/tombell/saga/internal/decode"
+	"github.com/tombell/saga/internal/trim"
 )
 
 // Year is the year of the track.
@@ -15,8 +16,8 @@ type Year struct {
 
 // Value returns the year.
 func (f *Year) Value() string {
-	s := strutil.DecodeUTF16(f.data)
-	return strutil.TrimNull(s)
+	s := decode.UTF16(f.data)
+	return trim.Null(s)
 }
 
 func (f *Year) String() string {

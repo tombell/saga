@@ -4,7 +4,8 @@ import (
 	"encoding/binary"
 	"io"
 
-	"github.com/tombell/saga/strutil"
+	"github.com/tombell/saga/internal/decode"
+	"github.com/tombell/saga/internal/trim"
 )
 
 // Key is the key of the track.
@@ -15,8 +16,8 @@ type Key struct {
 
 // Value returns the key.
 func (f *Key) Value() string {
-	s := strutil.DecodeUTF16(f.data)
-	return strutil.TrimNull(s)
+	s := decode.UTF16(f.data)
+	return trim.Null(s)
 }
 
 func (f *Key) String() string {

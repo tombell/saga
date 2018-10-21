@@ -4,7 +4,8 @@ import (
 	"encoding/binary"
 	"io"
 
-	"github.com/tombell/saga/strutil"
+	"github.com/tombell/saga/internal/decode"
+	"github.com/tombell/saga/internal/trim"
 )
 
 // Genre is the genre of the track.
@@ -15,8 +16,8 @@ type Genre struct {
 
 // Value returns the genre.
 func (f *Genre) Value() string {
-	s := strutil.DecodeUTF16(f.data)
-	return strutil.TrimNull(s)
+	s := decode.UTF16(f.data)
+	return trim.Null(s)
 }
 
 func (f *Genre) String() string {

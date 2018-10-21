@@ -4,7 +4,7 @@ import (
 	"encoding/binary"
 	"io"
 
-	"github.com/tombell/saga/strutil"
+	"github.com/tombell/saga/internal/decode"
 )
 
 // Vrsn is a chunk that contains the version of the file format, for the Serato
@@ -26,7 +26,7 @@ func (v *Vrsn) Type() string {
 
 // Version returns the version of the Serato session file format.
 func (v *Vrsn) Version() string {
-	return strutil.DecodeUTF16(v.data)
+	return decode.UTF16(v.data)
 }
 
 // NewVrsnChunk returns a VRSN chunk, using the header to read the chunk data.

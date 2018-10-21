@@ -4,7 +4,8 @@ import (
 	"encoding/binary"
 	"io"
 
-	"github.com/tombell/saga/strutil"
+	"github.com/tombell/saga/internal/decode"
+	"github.com/tombell/saga/internal/trim"
 )
 
 // Size returns the size of the track file.
@@ -15,8 +16,8 @@ type Size struct {
 
 // Value returns the size.
 func (f *Size) Value() string {
-	str := strutil.DecodeUTF16(f.data)
-	return strutil.TrimNull(str)
+	str := decode.UTF16(f.data)
+	return trim.Null(str)
 }
 
 func (f *Size) String() string {
