@@ -185,7 +185,8 @@ func (f *Fields) String() string {
 	return b.String()
 }
 
-// NewFields ...
+// NewFields returns a new Fields struct after reading the field data from the
+// given buffer.
 func NewFields(data []byte) (*Fields, error) {
 	fields := &Fields{}
 
