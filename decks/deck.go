@@ -21,7 +21,7 @@ type Deck struct {
 	Previous *Track
 }
 
-// NewDeck returns a new Deck.
+// NewDeck returns a new Deck, that has a current and previous track.
 func NewDeck(id int) *Deck {
 	return &Deck{
 		ID:       id,
