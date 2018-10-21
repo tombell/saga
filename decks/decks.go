@@ -6,7 +6,7 @@ type Decks struct {
 	decks map[int]*Deck
 }
 
-// New returns a new set of Decks that model the currently playing tracks.
-func New() *Decks {
+// NewDecks returns a new set of Decks that model the currently playing tracks.
+func NewDecks() *Decks {
 	return &Decks{make([]*Deck, 0)}
 }
