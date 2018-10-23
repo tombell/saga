@@ -1,17 +1,7 @@
 package decks
 
-import "fmt"
-
-// Status is the status that a deck could be in.
-type Status int
-
-// All valid deck statuses.
-const (
-	Empty Status = iota
-	New
-	Playing
-	Played
-	Skipped
+import (
+	"fmt"
 )
 
 // Deck is a single deck in Serato that can play a track.
