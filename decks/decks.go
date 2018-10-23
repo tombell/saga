@@ -8,5 +8,7 @@ type Decks struct {
 
 // NewDecks returns a new set of Decks that model the currently playing tracks.
 func NewDecks() *Decks {
-	return &Decks{make(map[int]*Deck)}
+	return &Decks{
+		decks: make(map[int]*Deck),
+	}
 }

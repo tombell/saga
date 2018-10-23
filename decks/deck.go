@@ -29,5 +29,8 @@ func (d *Deck) String() string {
 
 // NewDeck returns a new Deck, that has a current and previous track.
 func NewDeck(id int) *Deck {
-	return &Deck{id, Empty, nil, nil}
+	return &Deck{
+		ID:     id,
+		Status: Empty,
+	}
 }
