@@ -45,5 +45,9 @@ func NewOrenChunk(header *Header, r io.Reader) (*Oren, error) {
 		return nil, err
 	}
 
-	return &Oren{header, data[:], uent}, nil
+	return &Oren{
+		header: header,
+		data:   data[:],
+		Uent:   uent,
+	}, nil
 }

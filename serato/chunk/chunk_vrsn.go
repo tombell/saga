@@ -41,5 +41,8 @@ func NewVrsnChunk(header *Header, r io.Reader) (*Vrsn, error) {
 		return nil, err
 	}
 
-	return &Vrsn{header, data[:]}, nil
+	return &Vrsn{
+		header: header,
+		data:   data[:],
+	}, nil
 }

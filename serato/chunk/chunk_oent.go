@@ -45,5 +45,9 @@ func NewOentChunk(header *Header, r io.Reader) (*Oent, error) {
 		return nil, err
 	}
 
-	return &Oent{header, data[:], adat}, nil
+	return &Oent{
+		header: header,
+		data:   data[:],
+		Adat:   adat,
+	}, nil
 }

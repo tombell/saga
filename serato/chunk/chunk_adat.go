@@ -60,5 +60,9 @@ func NewAdatChunk(header *Header, r io.Reader) (*Adat, error) {
 		return nil, err
 	}
 
-	return &Adat{header, data[:], fields}, nil
+	return &Adat{
+		header: header,
+		data:   data[:],
+		Fields: fields,
+	}, nil
 }
