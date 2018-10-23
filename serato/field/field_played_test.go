@@ -73,7 +73,7 @@ func TestPlayedValue(t *testing.T) {
 	}
 
 	actual := played.Value()
-	expected := byte(1)
+	expected := true
 
 	if actual != expected {
 		t.Fatalf("expected value to be %v, got %v", expected, actual)

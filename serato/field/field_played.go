@@ -13,8 +13,8 @@ type Played struct {
 }
 
 // Value returns the played status.
-func (f *Played) Value() byte {
-	return f.data[0]
+func (f *Played) Value() bool {
+	return f.data[0] == byte(1)
 }
 
 func (f *Played) String() string {
