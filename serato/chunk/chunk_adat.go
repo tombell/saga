@@ -25,6 +25,24 @@ func (a *Adat) Type() string {
 	return a.header.Type()
 }
 
+// Status returns the textual status of the track.
+// TODO: move into decks package into Track. This is a higher level concept.
+func (a *Adat) Status() string {
+	if a.Fields.Played.Value() {
+		if a.Fields.PlayTime != nil {
+			return "PLAYED"
+		}
+
+		return "PLAYING"
+	}
+
+	if a.Fields.PlayTime != nil {
+		return "SKIPPED"
+	}
+
+	return "NEW"
+}
+
 // NewAdatChunk returns an ADAT chunk, using the header to read the chunk data.
 func NewAdatChunk(header *Header, r io.Reader) (*Adat, error) {
 	if header.Type() != adatID {
