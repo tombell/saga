@@ -13,8 +13,8 @@ type Added struct {
 }
 
 // Value returns the added status.
-func (f *Added) Value() byte {
-	return f.data[0]
+func (f *Added) Value() bool {
+	return f.data[0] == byte(1)
 }
 
 func (f *Added) String() string {
