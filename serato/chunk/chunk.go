@@ -1,6 +1,8 @@
 package chunk
 
-import "errors"
+import (
+	"errors"
+)
 
 const (
 	vrsnID = "vrsn"

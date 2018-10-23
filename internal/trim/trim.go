@@ -1,6 +1,8 @@
 package trim
 
-import "strings"
+import (
+	"strings"
+)
 
 // Null trims any null bytes from the start and end of the given string.
 func Null(str string) string {
