@@ -13,6 +13,11 @@ type Deck struct {
 	Previous *Track
 }
 
+// Update ...
+func (d *Deck) Update( /* TODO args */ ) error {
+	return nil
+}
+
 func (d *Deck) String() string {
 	return fmt.Sprintf("Deck %d\n", d.ID)
 }

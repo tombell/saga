@@ -6,6 +6,11 @@ type Decks struct {
 	decks map[int]*Deck
 }
 
+// Update ...
+func (d *Decks) Update( /* TODO args*/ ) error {
+	return nil
+}
+
 // NewDecks returns a new set of Decks that model the currently playing tracks.
 func NewDecks() *Decks {
 	return &Decks{
