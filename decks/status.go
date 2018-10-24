@@ -3,7 +3,7 @@ package decks
 // Status is the status that a deck could be in.
 type Status int
 
-func (s *Status) String() string {
+func (s Status) String() string {
 	switch s {
 	case Empty:
 		return "EMPTY"
@@ -15,6 +15,8 @@ func (s *Status) String() string {
 		return "PLAYED"
 	case Skipped:
 		return "SKIPPED"
+	default:
+		return "INVALID"
 	}
 }
 
