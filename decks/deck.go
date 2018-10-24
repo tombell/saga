@@ -14,7 +14,7 @@ type Deck struct {
 }
 
 // Update ...
-func (d *Deck) Update( /* TODO args */ ) error {
+func (d *Deck) Update(newer *SessionSnapshot) error {
 	return nil
 }
 
