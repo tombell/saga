@@ -10,7 +10,7 @@ type SessionSnapshot struct {
 }
 
 // Tracks returns a map of tracks where the map key is the row for the track.
-func (s *SessionSnapshot) Tracks() []Track {
+func (s *SessionSnapshot) Tracks() map[int]Track {
 	tracks := make(map[int]Track, 0)
 
 	for _, oent := range s.Oent {
@@ -22,11 +22,5 @@ func (s *SessionSnapshot) Tracks() []Track {
 		delete(tracks, oren.Uent.Value())
 	}
 
-	filtered := make([]Track, len(tracks))
-
-	for _, track := range tracks {
-		filtered = append(filtered, track)
-	}
-
-	return filtered
+	return tracks
 }
