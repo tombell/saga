@@ -1,12 +1,13 @@
 package decks
 
-// Deck is a single deck in Serato that can play a track.
+// Deck is a single deck in Serato. The Deck has a currently playing track, and
+// history of played tracks.
 type Deck struct {
 	ID     int
 	Status Status
 
-	Current  *Track
-	Previous *Track
+	Current *Track
+	History []*Track
 }
 
 // Notify will notify the deck with a list of the tracks from the session. The
@@ -14,10 +15,12 @@ type Deck struct {
 func (d *Deck) Notify(tracks Tracks) {
 }
 
-// NewDeck returns a new Deck, that has a current and previous track.
+// NewDeck returns a new Deck with an initial empty state.
 func NewDeck(id int) *Deck {
 	return &Deck{
-		ID:     id,
-		Status: Empty,
+		ID:      id,
+		Status:  Empty,
+		Current: nil,
+		History: make([]*Track, 0),
 	}
 }
