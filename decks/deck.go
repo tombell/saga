@@ -1,9 +1,5 @@
 package decks
 
-import (
-	"fmt"
-)
-
 // Deck is a single deck in Serato that can play a track.
 type Deck struct {
 	ID     int
@@ -14,12 +10,8 @@ type Deck struct {
 }
 
 // Update ...
-func (d *Deck) Update(newer *SessionSnapshot) error {
+func (d *Deck) Update(tracks map[int]Track) error {
 	return nil
-}
-
-func (d *Deck) String() string {
-	return fmt.Sprintf("Deck %d\n", d.ID)
 }
 
 // NewDeck returns a new Deck, that has a current and previous track.

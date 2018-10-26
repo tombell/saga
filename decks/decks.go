@@ -8,7 +8,7 @@ type Decks struct {
 }
 
 // Update ...
-func (d *Decks) Update(newer *SessionSnapshot) error {
+func (d *Decks) Update(tracks map[int]Track) error {
 	return nil
 }
 
