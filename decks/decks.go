@@ -12,8 +12,9 @@ type Decks struct {
 func (d *Decks) Notify(tracks Tracks) {
 }
 
-// NewDecks returns a new set of Decks that model the currently playing tracks.
-func NewDecks() *Decks {
+// NewDecks returns a new Decks model, will initialise any decks using the
+// initial list of tracks from the session.
+func NewDecks(tracks Tracks) *Decks {
 	return &Decks{
 		decks:    make(map[int]*Deck),
 		snapshot: nil,

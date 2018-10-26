@@ -4,6 +4,9 @@ import (
 	"github.com/tombell/saga/serato/chunk"
 )
 
+// Tracks is an alias for a map of Tracks keyed by the row.
+type Tracks = map[int]Track
+
 // Track represents a new, playing, played, or skipped track on a deck in
 // Serato.
 type Track struct {

@@ -10,8 +10,8 @@ type SessionSnapshot struct {
 }
 
 // Tracks returns a map of tracks where the map key is the row for the track.
-func (s *SessionSnapshot) Tracks() map[int]Track {
-	tracks := make(map[int]Track, 0)
+func (s *SessionSnapshot) Tracks() Tracks {
+	tracks := make(Tracks, 0)
 
 	for _, oent := range s.Oent {
 		track := NewTrack(*oent.Adat)
@@ -27,7 +27,7 @@ func (s *SessionSnapshot) Tracks() map[int]Track {
 
 // NewOrUpdatedTracks returns the tracks that are new or have been updated in
 // the newer session snapshot when compared to the previous snapshot.
-func (s *SessionSnapshot) NewOrUpdatedTracks(older *SessionSnapshot) map[int]Track {
+func (s *SessionSnapshot) NewOrUpdatedTracks(older *SessionSnapshot) Tracks {
 	newerTracks := s.Tracks()
 	olderTracks := older.Tracks()
 
@@ -42,7 +42,7 @@ func (s *SessionSnapshot) NewOrUpdatedTracks(older *SessionSnapshot) map[int]Tra
 		olderRows = append(olderRows, row)
 	}
 
-	tracks := make(map[int]Track, 0)
+	tracks := make(Tracks, 0)
 	added := diff(newerRows, olderRows)
 
 	for _, row := range added {
