@@ -28,7 +28,25 @@ func (t *Track) Status() Status {
 	return New
 }
 
-// NewTrack ...
+// Artist returns the artist of the track.
+func (t *Track) Artist() string {
+	if t.Adat.Artist == nil {
+		return ""
+	}
+
+	return t.Adat.Artist.Value()
+}
+
+// Title returns the title of the track.
+func (t *Track) Title() string {
+	if t.Adat.Title == nil {
+		return ""
+	}
+
+	return t.Adat.Title.Value()
+}
+
+// NewTrack returns an initialised Track using the given ADAT chunk.
 func NewTrack(adat chunk.Adat) *Track {
 	return &Track{
 		Adat: adat,
