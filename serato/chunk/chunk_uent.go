@@ -22,6 +22,11 @@ func (u *Uent) Type() string {
 	return u.header.Type()
 }
 
+// Value returns the row of the OENT to be deleted.
+func (u *Uent) Value() int {
+	return int(binary.BigEndian.Uint32(u.data))
+}
+
 // NewUentChunk returns an UENT chunk, using the header to read the chunk data.
 func NewUentChunk(header *Header, r io.Reader) (*Uent, error) {
 	if header.Type() != uentID {

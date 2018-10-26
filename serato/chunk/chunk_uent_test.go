@@ -98,3 +98,25 @@ func TestUentType(t *testing.T) {
 		t.Fatalf("expected type to be %s, got %s", expected, actual)
 	}
 }
+
+func TestUentValue(t *testing.T) {
+	data, _ := hex.DecodeString("75656E74000000040000000F")
+	buf := bytes.NewBuffer(data)
+
+	hdr, err := chunk.NewHeader(buf)
+	if err != nil {
+		t.Fatal("expected NewHeader err to be nil")
+	}
+
+	uent, err := chunk.NewUentChunk(hdr, buf)
+	if err != nil {
+		t.Fatal("expected NewUentChunk err to be nil")
+	}
+
+	actual := uent.Value()
+	expected := 15
+
+	if actual != expected {
+		t.Fatalf("expected value to be %d, got %d", expected, actual)
+	}
+}
