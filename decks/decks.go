@@ -7,9 +7,9 @@ type Decks struct {
 	snapshot *SessionSnapshot
 }
 
-// Update ...
-func (d *Decks) Update(tracks map[int]Track) error {
-	return nil
+// Notify will notify each deck with a list of the tracks from the session, so
+// the deck can update its own status.
+func (d *Decks) Notify(tracks Tracks) {
 }
 
 // NewDecks returns a new set of Decks that model the currently playing tracks.

@@ -9,9 +9,9 @@ type Deck struct {
 	Previous *Track
 }
 
-// Update ...
-func (d *Deck) Update(tracks map[int]Track) error {
-	return nil
+// Notify will notify the deck with a list of the tracks from the session. The
+// deck will transition the track if the track status has changed.
+func (d *Deck) Notify(tracks Tracks) {
 }
 
 // NewDeck returns a new Deck, that has a current and previous track.
