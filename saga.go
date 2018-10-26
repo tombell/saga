@@ -74,10 +74,9 @@ func read(filepath string) error {
 	fmt.Println()
 
 	for _, oent := range session.Oent {
-		fmt.Printf("%-3v: Deck %v [%-7v] %s - %s\n",
+		fmt.Printf("%-3v: (Deck %v) %s - %s\n",
 			oent.Adat.Row,
 			oent.Adat.Deck,
-			oent.Adat.Status(),
 			oent.Adat.Artist,
 			oent.Adat.Title,
 		)
