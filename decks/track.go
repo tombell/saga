@@ -6,7 +6,7 @@ import (
 
 // Track represents a playing or played track on a deck in Serato.
 type Track struct {
-	*chunk.Adat
+	chunk.Adat
 }
 
 // Status returns the tracks current status, whether it's playing, played,
@@ -28,7 +28,7 @@ func (t *Track) Status() Status {
 }
 
 // NewTrack ...
-func NewTrack(adat *chunk.Adat) *Track {
+func NewTrack(adat chunk.Adat) *Track {
 	return &Track{
 		Adat: adat,
 	}
