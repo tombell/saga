@@ -10,6 +10,17 @@ type Decks struct {
 // Notify will notify each deck with a list of the tracks from the session, so
 // the deck can update its own status.
 func (d *Decks) Notify(tracks Tracks) {
+	for _, track := range tracks {
+		deckID := track.Adat.Deck.Value()
+
+		if _, ok := d.decks[deckID]; !ok {
+			d.decks[deckID] = NewDeck(deckID)
+		}
+	}
+
+	for _, deck := range d.decks {
+		deck.Notify(tracks)
+	}
 }
 
 // NewDecks returns a new Decks model, will initialise any decks using the
