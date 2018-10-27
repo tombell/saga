@@ -68,9 +68,8 @@ func (d *Decks) String() string {
 	return b.String()
 }
 
-// NewDecks returns a new Decks model, will initialise any decks using the
-// initial list of tracks from the session.
-func NewDecks(tracks Tracks) *Decks {
+// NewDecks returns a new Decks model, with no existing decks.
+func NewDecks() *Decks {
 	return &Decks{
 		decks: make(map[int]*Deck, 0),
 	}
