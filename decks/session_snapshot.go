@@ -59,6 +59,13 @@ func (s *SessionSnapshot) NewOrUpdatedTracks(older *SessionSnapshot) Tracks {
 	return tracks
 }
 
+// NewSessionSnapshot returns a new SessionSnapshot for the Serato session.
+func NewSessionSnapshot(session *serato.Session) *SessionSnapshot {
+	return &SessionSnapshot{
+		Session: session,
+	}
+}
+
 func diff(a, b []int) []int {
 	var diff []int
 	m := make(map[int]bool)
