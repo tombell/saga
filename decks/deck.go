@@ -8,6 +8,8 @@ type Deck struct {
 
 	Current *Track
 	History []*Track
+
+	maxRow int
 }
 
 // Notify will notify the deck with a list of the tracks from the session. The
@@ -22,5 +24,6 @@ func NewDeck(id int) *Deck {
 		Status:  Empty,
 		Current: nil,
 		History: make([]*Track, 0),
+		maxRow:  0,
 	}
 }
