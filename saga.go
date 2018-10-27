@@ -2,8 +2,13 @@ package saga
 
 import (
 	"fmt"
+	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/fsnotify/fsnotify"
+
+	"github.com/tombell/saga/decks"
 	"github.com/tombell/saga/serato"
 )
 
@@ -15,25 +20,34 @@ func Run(filepath string) error {
 	}
 	defer watcher.Close()
 
-	done := make(chan bool)
-	go worker(watcher)
+	snapshot, err := read(filepath)
+	if err != nil {
+		return err
+	}
+
+	decks := decks.NewDecks()
+	decks.Notify(snapshot.Tracks())
+	decks.Snapshot = snapshot
+
+	fmt.Println(decks)
+
+	c := make(chan os.Signal)
+	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
+
+	go worker(watcher, decks)
 
 	if err := watcher.Add(filepath); err != nil {
 		return err
 	}
 
-	if err := read(filepath); err != nil {
-		return err
-	}
-
-	<-done
+	<-c
 
 	fmt.Println("Shutting down...")
 
 	return nil
 }
 
-func worker(watcher *fsnotify.Watcher) {
+func worker(watcher *fsnotify.Watcher, decks *decks.Decks) {
 	for {
 		select {
 		case event, ok := <-watcher.Events:
@@ -45,10 +59,22 @@ func worker(watcher *fsnotify.Watcher) {
 				return
 			}
 
-			if err := read(event.Name); err != nil {
+			snapshot, err := read(event.Name)
+			if err != nil {
 				fmt.Printf("Error: %v\n", err)
 				return
 			}
+
+			tracks := snapshot.NewOrUpdatedTracks(decks.Snapshot)
+
+			if err := decks.Notify(tracks); err != nil {
+				fmt.Printf("Error: %v\n", err)
+				return
+			}
+
+			decks.Snapshot = snapshot
+
+			fmt.Println(decks)
 		case err, ok := <-watcher.Errors:
 			if !ok {
 				return
@@ -59,30 +85,13 @@ func worker(watcher *fsnotify.Watcher) {
 	}
 }
 
-func read(filepath string) error {
+func read(filepath string) (*decks.SessionSnapshot, error) {
 	fmt.Printf("Reading %s...\n", filepath)
 
 	session, err := serato.ReadSession(filepath)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	fmt.Println()
-	fmt.Printf("VRSN: %s\n", session.Vrsn.Version())
-	fmt.Printf("OENT: %d\n", len(session.Oent))
-	fmt.Printf("OREN: %d\n", len(session.Oren))
-	fmt.Println()
-
-	for _, oent := range session.Oent {
-		fmt.Printf("%-3v: (Deck %v) %s - %s\n",
-			oent.Adat.Row,
-			oent.Adat.Deck,
-			oent.Adat.Artist,
-			oent.Adat.Title,
-		)
-	}
-
-	fmt.Println()
-
-	return nil
+	return decks.NewSessionSnapshot(session), nil
 }
