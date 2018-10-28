@@ -1,7 +1,7 @@
 package saga
 
 import (
-	"fmt"
+	"log"
 	"os"
 	"os/signal"
 	"syscall"
@@ -13,34 +13,39 @@ import (
 )
 
 // Config ...
-type Config struct{}
+type Config struct {
+	Filepath string
+	Logger   *log.Logger
+}
 
-// Run ...
-func Run(filepath string) error {
+// Run begins the process of listening for changes to the given Serato session
+// file. It keeps a realtime model of the decks, and the tracks they're
+// playing, and have played.
+func Run(cfg Config) error {
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
 		return err
 	}
 	defer watcher.Close()
 
-	fmt.Printf("Reading %s...\n", filepath)
+	cfg.Logger.Printf("Reading %s...\n", cfg.Filepath)
 
-	snapshot, err := decks.NewSessionSnapshot(filepath)
+	snapshot, err := decks.NewSessionSnapshot(cfg.Filepath)
 	if err != nil {
 		return err
 	}
 
-	d := decks.NewDecks()
+	d := decks.NewDecks(cfg.Logger)
 
 	if err := d.Notify(snapshot); err != nil {
 		return err
 	}
 
-	fmt.Println(d)
+	cfg.Logger.Println(d)
 
 	go worker(watcher, d)
 
-	if err := watcher.Add(filepath); err != nil {
+	if err := watcher.Add(cfg.Filepath); err != nil {
 		return err
 	}
 
@@ -54,10 +59,10 @@ func Run(filepath string) error {
 
 	select {
 	case err := <-serverErrCh:
-		fmt.Printf("Error: (server) %v\n", err)
+		cfg.Logger.Printf("Error: (server) %v\n", err)
 		return err
 	case <-c:
-		fmt.Println("Shutting down...")
+		cfg.Logger.Println("Shutting down...")
 	}
 
 	return nil

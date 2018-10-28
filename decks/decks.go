@@ -2,6 +2,7 @@ package decks
 
 import (
 	"fmt"
+	"log"
 	"sort"
 	"strings"
 	"sync"
@@ -10,6 +11,8 @@ import (
 // Decks is a set of Serato decks that are playing or have played tracks.
 // Typically there will be 2 or more decks.
 type Decks struct {
+	logger *log.Logger
+
 	sync.Mutex
 	Decks    map[int]*Deck
 	snapshot *SessionSnapshot
@@ -80,8 +83,9 @@ func (d *Decks) String() string {
 }
 
 // NewDecks returns a new Decks model, with no existing decks.
-func NewDecks() *Decks {
+func NewDecks(logger *log.Logger) *Decks {
 	return &Decks{
-		Decks: make(map[int]*Deck, 0),
+		Decks:  make(map[int]*Deck, 0),
+		logger: logger,
 	}
 }
