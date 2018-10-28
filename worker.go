@@ -28,14 +28,10 @@ func worker(watcher *fsnotify.Watcher, d *decks.Decks) {
 				return
 			}
 
-			tracks := snapshot.NewOrUpdatedTracks(d.Snapshot)
-
-			if err := d.Notify(tracks); err != nil {
+			if err := d.Notify(snapshot); err != nil {
 				fmt.Printf("Error: %v\n", err)
 				return
 			}
-
-			d.Snapshot = snapshot
 
 			fmt.Println(d)
 		case err, ok := <-watcher.Errors:

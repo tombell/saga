@@ -30,11 +30,11 @@ func Run(filepath string) error {
 		return err
 	}
 
-	// TODO: Update Notify to take a snapshot, and update the internal snapshot
-	// itself.
 	d := decks.NewDecks()
-	d.Notify(snapshot.Tracks())
-	d.Snapshot = snapshot
+
+	if err := d.Notify(snapshot); err != nil {
+		return err
+	}
 
 	fmt.Println(d)
 

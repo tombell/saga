@@ -11,16 +11,22 @@ import (
 // Typically there will be 2 or more decks.
 type Decks struct {
 	sync.Mutex
-	Snapshot *SessionSnapshot
 	Decks    map[int]*Deck
+	snapshot *SessionSnapshot
 }
 
 // Notify will notify each deck with a list of the tracks from the session, so
 // the deck can update its own status. Will create any new decks that don't
 // exist.
-func (d *Decks) Notify(tracks Tracks) error {
+func (d *Decks) Notify(snapshot *SessionSnapshot) error {
 	d.Lock()
 	defer d.Unlock()
+
+	tracks := snapshot.Tracks()
+
+	if d.snapshot != nil {
+		tracks = snapshot.NewOrUpdatedTracks(d.snapshot)
+	}
 
 	for _, track := range tracks {
 		deckID := track.Adat.Deck.Value()
@@ -35,6 +41,8 @@ func (d *Decks) Notify(tracks Tracks) error {
 			return err
 		}
 	}
+
+	d.snapshot = snapshot
 
 	return nil
 }
