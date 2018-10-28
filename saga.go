@@ -10,6 +10,7 @@ import (
 
 	"github.com/tombell/saga/decks"
 	"github.com/tombell/saga/serato"
+	"github.com/tombell/saga/web"
 )
 
 // Config ...
@@ -28,6 +29,8 @@ func Run(filepath string) error {
 		return err
 	}
 
+	// TODO: Update Notify to take a snapshot, and update the internal snapshot
+	// itself.
 	decks := decks.NewDecks()
 	decks.Notify(snapshot.Tracks())
 	decks.Snapshot = snapshot
@@ -40,57 +43,29 @@ func Run(filepath string) error {
 		return err
 	}
 
+	serverErrCh := make(chan error, 1)
+	server := web.NewServer(decks)
+
+	go server.Run(":8080", serverErrCh)
+
 	c := make(chan os.Signal)
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
 
-	<-c
-
-	fmt.Println("Shutting down...")
+	select {
+	case err := <-serverErrCh:
+		fmt.Printf("Error: (server) %v\n", err)
+		return err
+	case <-c:
+		fmt.Println("Shutting down...")
+	}
 
 	return nil
-}
-
-func worker(watcher *fsnotify.Watcher, decks *decks.Decks) {
-	for {
-		select {
-		case event, ok := <-watcher.Events:
-			if !ok {
-				return
-			}
-
-			if event.Op&fsnotify.Write != fsnotify.Write {
-				return
-			}
-
-			snapshot, err := read(event.Name)
-			if err != nil {
-				fmt.Printf("Error: %v\n", err)
-				return
-			}
-
-			tracks := snapshot.NewOrUpdatedTracks(decks.Snapshot)
-
-			if err := decks.Notify(tracks); err != nil {
-				fmt.Printf("Error: %v\n", err)
-				return
-			}
-
-			decks.Snapshot = snapshot
-
-			fmt.Println(decks)
-		case err, ok := <-watcher.Errors:
-			if !ok {
-				return
-			}
-
-			fmt.Printf("Error: %v\n", err)
-		}
-	}
 }
 
 func read(filepath string) (*decks.SessionSnapshot, error) {
 	fmt.Printf("Reading %s...\n", filepath)
 
+	// TODO: move serato.ReadSession into decks.NewSessionSnapshot
 	session, err := serato.ReadSession(filepath)
 	if err != nil {
 		return nil, err
