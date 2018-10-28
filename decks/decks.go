@@ -4,21 +4,24 @@ import (
 	"fmt"
 	"sort"
 	"strings"
+	"sync"
 )
 
 // Decks is a set of Serato decks that are playing or have played tracks.
 // Typically there will be 2 or more decks.
 type Decks struct {
-	// TODO: add mutex, since we could receive multiple updates
+	mu       sync.Mutex
 	Snapshot *SessionSnapshot
-
-	decks map[int]*Deck
+	decks    map[int]*Deck
 }
 
 // Notify will notify each deck with a list of the tracks from the session, so
 // the deck can update its own status. Will create any new decks that don't
 // exist.
 func (d *Decks) Notify(tracks Tracks) error {
+	d.mu.Lock()
+	defer d.mu.Unlock()
+
 	for _, track := range tracks {
 		deckID := track.Adat.Deck.Value()
 
