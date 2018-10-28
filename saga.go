@@ -9,7 +9,6 @@ import (
 	"github.com/fsnotify/fsnotify"
 
 	"github.com/tombell/saga/decks"
-	"github.com/tombell/saga/serato"
 	"github.com/tombell/saga/web"
 )
 
@@ -24,27 +23,29 @@ func Run(filepath string) error {
 	}
 	defer watcher.Close()
 
-	snapshot, err := read(filepath)
+	fmt.Printf("Reading %s...\n", filepath)
+
+	snapshot, err := decks.NewSessionSnapshot(filepath)
 	if err != nil {
 		return err
 	}
 
 	// TODO: Update Notify to take a snapshot, and update the internal snapshot
 	// itself.
-	decks := decks.NewDecks()
-	decks.Notify(snapshot.Tracks())
-	decks.Snapshot = snapshot
+	d := decks.NewDecks()
+	d.Notify(snapshot.Tracks())
+	d.Snapshot = snapshot
 
-	fmt.Println(decks)
+	fmt.Println(d)
 
-	go worker(watcher, decks)
+	go worker(watcher, d)
 
 	if err := watcher.Add(filepath); err != nil {
 		return err
 	}
 
 	serverErrCh := make(chan error, 1)
-	server := web.NewServer(decks)
+	server := web.NewServer(d)
 
 	go server.Run(":8080", serverErrCh)
 
@@ -60,16 +61,4 @@ func Run(filepath string) error {
 	}
 
 	return nil
-}
-
-func read(filepath string) (*decks.SessionSnapshot, error) {
-	fmt.Printf("Reading %s...\n", filepath)
-
-	// TODO: move serato.ReadSession into decks.NewSessionSnapshot
-	session, err := serato.ReadSession(filepath)
-	if err != nil {
-		return nil, err
-	}
-
-	return decks.NewSessionSnapshot(session), nil
 }

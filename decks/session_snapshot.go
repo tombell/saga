@@ -60,10 +60,15 @@ func (s *SessionSnapshot) NewOrUpdatedTracks(older *SessionSnapshot) Tracks {
 }
 
 // NewSessionSnapshot returns a new SessionSnapshot for the Serato session.
-func NewSessionSnapshot(session *serato.Session) *SessionSnapshot {
+func NewSessionSnapshot(filepath string) (*SessionSnapshot, error) {
+	session, err := serato.ReadSession(filepath)
+	if err != nil {
+		return nil, err
+	}
+
 	return &SessionSnapshot{
 		Session: session,
-	}
+	}, nil
 }
 
 func diff(a, b []int) []int {

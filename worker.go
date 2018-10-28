@@ -8,7 +8,7 @@ import (
 	"github.com/tombell/saga/decks"
 )
 
-func worker(watcher *fsnotify.Watcher, decks *decks.Decks) {
+func worker(watcher *fsnotify.Watcher, d *decks.Decks) {
 	for {
 		select {
 		case event, ok := <-watcher.Events:
@@ -20,22 +20,24 @@ func worker(watcher *fsnotify.Watcher, decks *decks.Decks) {
 				return
 			}
 
-			snapshot, err := read(event.Name)
+			fmt.Printf("Reading %s...\n", event.Name)
+
+			snapshot, err := decks.NewSessionSnapshot(event.Name)
 			if err != nil {
 				fmt.Printf("Error: %v\n", err)
 				return
 			}
 
-			tracks := snapshot.NewOrUpdatedTracks(decks.Snapshot)
+			tracks := snapshot.NewOrUpdatedTracks(d.Snapshot)
 
-			if err := decks.Notify(tracks); err != nil {
+			if err := d.Notify(tracks); err != nil {
 				fmt.Printf("Error: %v\n", err)
 				return
 			}
 
-			decks.Snapshot = snapshot
+			d.Snapshot = snapshot
 
-			fmt.Println(decks)
+			fmt.Println(d)
 		case err, ok := <-watcher.Errors:
 			if !ok {
 				return
