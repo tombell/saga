@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/tombell/saga"
@@ -38,9 +39,14 @@ func main() {
 		flag.Usage()
 	}
 
-	filepath := args[0]
+	logger := log.New(os.Stderr, "[saga] ", log.LstdFlags)
 
-	if err := saga.Run(filepath); err != nil {
+	cfg := saga.Config{
+		Filepath: args[0],
+		Logger:   logger,
+	}
+
+	if err := saga.Run(cfg); err != nil {
 		panic(err)
 	}
 }
