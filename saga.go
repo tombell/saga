@@ -12,6 +12,9 @@ import (
 	"github.com/tombell/saga/serato"
 )
 
+// Config ...
+type Config struct{}
+
 // Run ...
 func Run(filepath string) error {
 	watcher, err := fsnotify.NewWatcher()
@@ -31,14 +34,14 @@ func Run(filepath string) error {
 
 	fmt.Println(decks)
 
-	c := make(chan os.Signal)
-	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
-
 	go worker(watcher, decks)
 
 	if err := watcher.Add(filepath); err != nil {
 		return err
 	}
+
+	c := make(chan os.Signal)
+	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
 
 	<-c
 
