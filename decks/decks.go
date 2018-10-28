@@ -41,6 +41,9 @@ func (d *Decks) Notify(tracks Tracks) error {
 
 // TODO: this will need cleaning up...
 func (d *Decks) String() string {
+	d.mu.Lock()
+	defer d.mu.Unlock()
+
 	var b strings.Builder
 
 	ids := make([]int, 0)
