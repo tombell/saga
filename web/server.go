@@ -14,9 +14,13 @@ type Server struct {
 }
 
 // Run sets up the server handlers and listens on the host/port.
-func (s *Server) Run(listen string) error {
-	s.mux.HandleFunc("/", s.handler())
-	return http.ListenAndServe(listen, s.mux)
+func (s *Server) Run(listen string, errCh chan error) {
+	s.mux.HandleFunc("/_status", s.handleStatus())
+	s.mux.HandleFunc("/", s.handleIndex())
+
+	if err := http.ListenAndServe(listen, s.mux); err != nil {
+		errCh <- err
+	}
 }
 
 // NewServer returns a new Server for the given decks from the Serato session.
