@@ -38,7 +38,9 @@ func main() {
 		flag.Usage()
 	}
 
-	if err := saga.Run(args[0]); err != nil {
+	filepath := args[0]
+
+	if err := saga.Run(filepath); err != nil {
 		panic(err)
 	}
 }
