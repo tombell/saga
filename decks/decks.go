@@ -86,7 +86,7 @@ func (d *Decks) String() string {
 	for _, deckID := range ids {
 		deck := d.decks[deckID]
 
-		b.WriteString(fmt.Sprintf("Deck %d: [%-7v]", deckID, deck.Status))
+		b.WriteString(fmt.Sprintf("deck %d: [%-7v]", deckID, deck.Status))
 
 		if deck.Status == New || deck.Status == Playing {
 			b.WriteString(fmt.Sprintf(" %s - %s", deck.Current.Artist(), deck.Current.Title()))
@@ -96,9 +96,11 @@ func (d *Decks) String() string {
 			track := deck.History[len(deck.History)-1]
 			b.WriteString(fmt.Sprintf(" %s - %s", track.Artist(), track.Title()))
 		}
+
+		b.WriteString("\n")
 	}
 
-	return b.String()
+	return strings.TrimSuffix(b.String(), "\n")
 }
 
 // NewDecks returns a new Decks model, with no existing decks.
