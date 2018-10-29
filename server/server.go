@@ -10,15 +10,15 @@ import (
 // Config contains configuration and data needed to run the server.
 type Config struct {
 	Logger  *log.Logger
-	Address string
 	Decks   *decks.Decks
+	Address string
 }
 
 // Server serves the status of the decks for the Serato session.
 type Server struct {
 	logger  *log.Logger
-	address string
 	decks   *decks.Decks
+	address string
 	mux     *http.ServeMux
 }
 
@@ -36,8 +36,8 @@ func (s *Server) Run(ch chan error) {
 func New(cfg Config) *Server {
 	return &Server{
 		logger:  cfg.Logger,
-		address: cfg.Address,
 		decks:   cfg.Decks,
+		address: cfg.Address,
 		mux:     http.NewServeMux(),
 	}
 }

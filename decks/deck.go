@@ -23,9 +23,8 @@ var (
 // Deck is a single deck in Serato. The Deck has a currently playing track, and
 // history of played tracks.
 type Deck struct {
-	ID     int
-	Status Status
-
+	ID      int
+	Status  Status
 	Current *Track
 	History []*Track
 
@@ -88,6 +87,8 @@ func (d *Deck) transitionTo(track Track) error {
 func (d *Deck) transitionFromEmpty(track Track) error {
 	to := track.Status()
 
+	d.logger.Printf("transitioning track on deck %d from EMPTY to %v\n", d.ID, to)
+
 	switch to {
 	case Empty:
 		return ErrInvalidTransitionToEmpty
@@ -113,6 +114,8 @@ func (d *Deck) transitionFromEmpty(track Track) error {
 func (d *Deck) transitionFromNew(track Track) error {
 	to := track.Status()
 
+	d.logger.Printf("transitioning track on deck %d from NEW to %v\n", d.ID, to)
+
 	switch to {
 	case Empty:
 		return ErrInvalidTransitionToEmpty
@@ -135,6 +138,8 @@ func (d *Deck) transitionFromNew(track Track) error {
 
 func (d *Deck) transitionFromPlaying(track Track) error {
 	to := track.Status()
+
+	d.logger.Printf("transitioning track on deck %d from PLAYING to %v\n", d.ID, to)
 
 	switch to {
 	case Empty:
@@ -160,6 +165,8 @@ func (d *Deck) transitionFromPlaying(track Track) error {
 func (d *Deck) transitionFromPlayed(track Track) error {
 	to := track.Status()
 
+	d.logger.Printf("transitioning track on deck %d from PLAYED to %v\n", d.ID, to)
+
 	switch to {
 	case Empty:
 		return ErrInvalidTransitionToEmpty
@@ -184,6 +191,8 @@ func (d *Deck) transitionFromPlayed(track Track) error {
 
 func (d *Deck) transitionFromSkipped(track Track) error {
 	to := track.Status()
+
+	d.logger.Printf("transitioning track on deck %d from SKIPPED to %v\n", d.ID, to)
 
 	switch to {
 	case Empty:

@@ -11,16 +11,16 @@ import (
 // Config contains configuration and data needed to run the monitor.
 type Config struct {
 	Logger   *log.Logger
-	Filepath string
 	Decks    *decks.Decks
+	Filepath string
 }
 
 // Monitor monitors the given file for changes, and updates the status of the
 // decks.
 type Monitor struct {
 	logger   *log.Logger
-	filepath string
 	decks    *decks.Decks
+	filepath string
 	watcher  *fsnotify.Watcher
 }
 
@@ -71,8 +71,8 @@ func New(cfg Config) (*Monitor, error) {
 
 	m := &Monitor{
 		logger:   cfg.Logger,
-		filepath: cfg.Filepath,
 		decks:    cfg.Decks,
+		filepath: cfg.Filepath,
 		watcher:  watcher,
 	}
 

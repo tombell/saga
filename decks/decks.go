@@ -51,7 +51,7 @@ func (d *Decks) Notify(snapshot *SessionSnapshot) error {
 		deckID := track.Adat.Deck.Value()
 
 		if _, ok := d.decks[deckID]; !ok {
-			d.logger.Printf("new deck, creating deck %d\n", deckID)
+			d.logger.Printf("creating deck %d\n", deckID)
 			d.decks[deckID] = NewDeck(deckID, d.logger)
 		}
 	}

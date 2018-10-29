@@ -6,8 +6,6 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/fsnotify/fsnotify"
-
 	"github.com/tombell/saga/decks"
 	"github.com/tombell/saga/monitor"
 	"github.com/tombell/saga/server"
@@ -24,12 +22,6 @@ type Config struct {
 // file. It keeps a realtime model of the decks, and the tracks they're
 // playing, and have played.
 func Run(cfg Config) error {
-	watcher, err := fsnotify.NewWatcher()
-	if err != nil {
-		return err
-	}
-	defer watcher.Close()
-
 	cfg.Logger.Printf("reading %s\n", cfg.Filepath)
 
 	snapshot, err := decks.NewSessionSnapshot(cfg.Filepath)
