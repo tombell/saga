@@ -9,6 +9,7 @@ import (
 	"github.com/fsnotify/fsnotify"
 
 	"github.com/tombell/saga/decks"
+	"github.com/tombell/saga/monitor"
 	"github.com/tombell/saga/server"
 )
 
@@ -36,24 +37,31 @@ func Run(cfg Config) error {
 		return err
 	}
 
-	d := decks.NewDecks(cfg.Logger)
+	decks := decks.NewDecks(cfg.Logger)
 
-	if err := d.Notify(snapshot); err != nil {
+	if err := decks.Notify(snapshot); err != nil {
 		return err
 	}
 
-	cfg.Logger.Println(d)
+	cfg.Logger.Println(decks)
 
-	go worker(watcher, d)
-
-	if err := watcher.Add(cfg.Filepath); err != nil {
+	monitor, err := monitor.New(monitor.Config{
+		Logger:   cfg.Logger,
+		Decks:    decks,
+		Filepath: cfg.Filepath,
+	})
+	if err != nil {
 		return err
 	}
+	defer monitor.Close()
+
+	monitorErrCh := make(chan error, 1)
+	go monitor.Run(monitorErrCh)
 
 	server := server.New(server.Config{
 		Logger:  cfg.Logger,
+		Decks:   decks,
 		Address: cfg.Listen,
-		Decks:   d,
 	})
 
 	serverErrCh := make(chan error, 1)
@@ -63,11 +71,14 @@ func Run(cfg Config) error {
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
 
 	select {
+	case err := <-monitorErrCh:
+		cfg.Logger.Printf("error: (monitor) %v\n", err)
+		return err
 	case err := <-serverErrCh:
-		cfg.Logger.Printf("Error: (server) %v\n", err)
+		cfg.Logger.Printf("error: (server) %v\n", err)
 		return err
 	case <-c:
-		cfg.Logger.Println("Shutting down...")
+		cfg.Logger.Println("shutting down...")
 	}
 
 	return nil
