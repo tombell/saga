@@ -18,6 +18,20 @@ type Decks struct {
 	snapshot *SessionSnapshot
 }
 
+// All returns all the known decks.
+func (d *Decks) All() map[int]Deck {
+	d.Lock()
+	defer d.Unlock()
+
+	decks := make(map[int]Deck, 0)
+
+	for _, deck := range d.Decks {
+		decks[deck.ID] = *deck
+	}
+
+	return decks
+}
+
 // Notify will notify each deck with a list of the tracks from the session, so
 // the deck can update its own status. Will create any new decks that don't
 // exist.

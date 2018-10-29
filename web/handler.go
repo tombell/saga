@@ -7,10 +7,7 @@ import (
 
 func (s *Server) handleStatus() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		s.decks.Lock()
-		decks := s.decks.Decks
-		s.decks.Unlock()
-
+		decks := s.decks.All()
 		fmt.Fprintf(w, "%#v", decks)
 	}
 }
