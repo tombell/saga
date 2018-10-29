@@ -6,6 +6,9 @@ import (
 	"github.com/tombell/saga/decks"
 )
 
+// Config ...
+type Config struct{}
+
 // Server is the server that serves the status of the decks for the Serato
 // session.
 type Server struct {

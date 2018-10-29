@@ -14,7 +14,7 @@ type Decks struct {
 	logger *log.Logger
 
 	sync.Mutex
-	Decks    map[int]*Deck
+	decks    map[int]*Deck
 	snapshot *SessionSnapshot
 }
 
@@ -25,7 +25,7 @@ func (d *Decks) All() map[int]Deck {
 
 	decks := make(map[int]Deck, 0)
 
-	for _, deck := range d.Decks {
+	for _, deck := range d.decks {
 		decks[deck.ID] = *deck
 	}
 
@@ -50,13 +50,13 @@ func (d *Decks) Notify(snapshot *SessionSnapshot) error {
 	for _, track := range tracks {
 		deckID := track.Adat.Deck.Value()
 
-		if _, ok := d.Decks[deckID]; !ok {
+		if _, ok := d.decks[deckID]; !ok {
 			d.logger.Printf("new deck, creating deck %d\n", deckID)
-			d.Decks[deckID] = NewDeck(deckID, d.logger)
+			d.decks[deckID] = NewDeck(deckID, d.logger)
 		}
 	}
 
-	for _, deck := range d.Decks {
+	for _, deck := range d.decks {
 		d.logger.Printf("notifying deck %d\n", deck.ID)
 
 		if err := deck.Notify(tracks); err != nil {
@@ -73,9 +73,9 @@ func (d *Decks) String() string {
 	d.Lock()
 	defer d.Unlock()
 
-	ids := make([]int, 0, len(d.Decks))
+	ids := make([]int, 0, len(d.decks))
 
-	for deckID := range d.Decks {
+	for deckID := range d.decks {
 		ids = append(ids, deckID)
 	}
 
@@ -84,7 +84,7 @@ func (d *Decks) String() string {
 	var b strings.Builder
 
 	for _, deckID := range ids {
-		deck := d.Decks[deckID]
+		deck := d.decks[deckID]
 
 		b.WriteString(fmt.Sprintf("Deck %d: [%-7v]", deckID, deck.Status))
 
@@ -104,7 +104,7 @@ func (d *Decks) String() string {
 // NewDecks returns a new Decks model, with no existing decks.
 func NewDecks(logger *log.Logger) *Decks {
 	return &Decks{
-		Decks:  make(map[int]*Deck, 0),
 		logger: logger,
+		decks:  make(map[int]*Deck, 0),
 	}
 }
