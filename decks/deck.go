@@ -2,6 +2,7 @@ package decks
 
 import (
 	"errors"
+	"log"
 	"sort"
 )
 
@@ -28,6 +29,7 @@ type Deck struct {
 	Current *Track
 	History []*Track
 
+	logger *log.Logger
 	maxRow int
 }
 
@@ -239,11 +241,12 @@ func (d *Deck) transitionFromPlayingToPlayed(track Track) {
 }
 
 // NewDeck returns a new Deck with an initial empty state.
-func NewDeck(id int) *Deck {
+func NewDeck(id int, logger *log.Logger) *Deck {
 	return &Deck{
 		ID:      id,
 		Status:  Empty,
 		History: make([]*Track, 0),
+		logger:  logger,
 	}
 }
 

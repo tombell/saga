@@ -39,6 +39,8 @@ func (d *Decks) Notify(snapshot *SessionSnapshot) error {
 	d.Lock()
 	defer d.Unlock()
 
+	d.logger.Println("getting new or updated tracked since last snapshot")
+
 	tracks := snapshot.Tracks()
 
 	if d.snapshot != nil {
@@ -49,11 +51,14 @@ func (d *Decks) Notify(snapshot *SessionSnapshot) error {
 		deckID := track.Adat.Deck.Value()
 
 		if _, ok := d.Decks[deckID]; !ok {
-			d.Decks[deckID] = NewDeck(deckID)
+			d.logger.Printf("new deck, creating deck %d\n", deckID)
+			d.Decks[deckID] = NewDeck(deckID, d.logger)
 		}
 	}
 
 	for _, deck := range d.Decks {
+		d.logger.Printf("notifying deck %d\n", deck.ID)
+
 		if err := deck.Notify(tracks); err != nil {
 			return err
 		}
