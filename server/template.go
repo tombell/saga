@@ -1,4 +1,4 @@
-package web
+package server
 
 const template = `
 <!DOCTYPE html>

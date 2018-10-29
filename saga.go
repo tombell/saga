@@ -9,13 +9,14 @@ import (
 	"github.com/fsnotify/fsnotify"
 
 	"github.com/tombell/saga/decks"
-	"github.com/tombell/saga/web"
+	"github.com/tombell/saga/server"
 )
 
 // Config ...
 type Config struct {
-	Filepath string
 	Logger   *log.Logger
+	Listen   string
+	Filepath string
 }
 
 // Run begins the process of listening for changes to the given Serato session
@@ -49,10 +50,14 @@ func Run(cfg Config) error {
 		return err
 	}
 
-	serverErrCh := make(chan error, 1)
-	server := web.NewServer(d)
+	server := server.New(server.Config{
+		Logger:  cfg.Logger,
+		Address: cfg.Listen,
+		Decks:   d,
+	})
 
-	go server.Run(":8080", serverErrCh)
+	serverErrCh := make(chan error, 1)
+	go server.Run(serverErrCh)
 
 	c := make(chan os.Signal)
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)

@@ -11,12 +11,16 @@ import (
 
 const helpText = `usage: saga [options] session file...
 
+Saga options:
+  --listen   host/port to listen on
+
 Special options:
   --help     show this message, then exit
   --version  show the version number, then exit
 `
 
 var (
+	listen  = flag.String("listen", ":8080", "")
 	version = flag.Bool("version", false, "")
 )
 
@@ -42,8 +46,9 @@ func main() {
 	logger := log.New(os.Stderr, "[saga] ", log.LstdFlags)
 
 	cfg := saga.Config{
-		Filepath: args[0],
 		Logger:   logger,
+		Listen:   *listen,
+		Filepath: args[0],
 	}
 
 	if err := saga.Run(cfg); err != nil {
