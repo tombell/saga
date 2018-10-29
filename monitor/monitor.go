@@ -2,6 +2,7 @@ package monitor
 
 import (
 	"log"
+	"strings"
 
 	"github.com/fsnotify/fsnotify"
 
@@ -46,7 +47,10 @@ func (m *Monitor) Run(ch chan error) {
 				return
 			}
 
-			m.logger.Println(m.decks)
+			// TODO: make nicer, to return slice of statuses
+			for _, deck := range strings.Split(decks.String(), "\n") {
+				m.logger.Println(deck)
+			}
 		case err, ok := <-m.watcher.Errors:
 			if !ok {
 				return
