@@ -28,7 +28,7 @@ func Run(cfg Config) error {
 	}
 	defer watcher.Close()
 
-	cfg.Logger.Printf("Reading %s...\n", cfg.Filepath)
+	cfg.Logger.Printf("reading %s\n", cfg.Filepath)
 
 	snapshot, err := decks.NewSessionSnapshot(cfg.Filepath)
 	if err != nil {
