@@ -48,7 +48,7 @@ func (m *Monitor) Run(ch chan error) {
 			}
 
 			// TODO: make nicer, to return slice of statuses
-			for _, deck := range strings.Split(decks.String(), "\n") {
+			for _, deck := range strings.Split(m.decks.String(), "\n") {
 				m.logger.Println(deck)
 			}
 		case err, ok := <-m.watcher.Errors:
