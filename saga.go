@@ -4,7 +4,6 @@ import (
 	"log"
 	"os"
 	"os/signal"
-	"strings"
 	"syscall"
 
 	"github.com/tombell/saga/decks"
@@ -36,8 +35,7 @@ func Run(cfg Config) error {
 		return err
 	}
 
-	// TODO: make nicer, to return slice of statuses
-	for _, deck := range strings.Split(decks.String(), "\n") {
+	for _, deck := range decks.Statuses() {
 		cfg.Logger.Println(deck)
 	}
 

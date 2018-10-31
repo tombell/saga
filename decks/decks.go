@@ -69,6 +69,11 @@ func (d *Decks) Notify(snapshot *SessionSnapshot) error {
 	return nil
 }
 
+// Statuses returns a slice of status strings for each deck.
+func (d *Decks) Statuses() []string {
+	return strings.Split(d.String(), "\n")
+}
+
 func (d *Decks) String() string {
 	d.Lock()
 	defer d.Unlock()
