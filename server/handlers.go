@@ -2,7 +2,6 @@ package server
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/tombell/saga/decks"
@@ -24,7 +23,7 @@ type deckStatusTrack struct {
 	Title  string `json:"title"`
 }
 
-func (s *Server) handleStatus() http.HandlerFunc {
+func (s *Server) handler() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		status := buildStatusResponse(s.decks.All())
 
@@ -36,13 +35,6 @@ func (s *Server) handleStatus() http.HandlerFunc {
 
 		w.Header().Add("Content-Type", "application/json")
 		w.Write(b)
-	}
-}
-
-func (s *Server) handleIndex() http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Add("Content-Type", "text/html")
-		fmt.Fprintf(w, template)
 	}
 }
 

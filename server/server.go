@@ -24,8 +24,7 @@ type Server struct {
 
 // Run sets up the server handlers and listens on the host/port.
 func (s *Server) Run(ch chan error) {
-	s.mux.HandleFunc("/_status", s.handleStatus())
-	s.mux.HandleFunc("/", s.handleIndex())
+	s.mux.HandleFunc("/", s.handler())
 
 	if err := http.ListenAndServe(s.address, s.mux); err != nil {
 		ch <- err
