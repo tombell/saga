@@ -53,9 +53,9 @@ func Run(cfg Config) error {
 	go monitor.Run(monitorErrCh)
 
 	server := server.New(server.Config{
-		Logger:  cfg.Logger,
-		Decks:   decks,
-		Address: cfg.Listen,
+		Logger: cfg.Logger,
+		Decks:  decks,
+		Listen: cfg.Listen,
 	})
 
 	serverErrCh := make(chan error, 1)
