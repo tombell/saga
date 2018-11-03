@@ -9,19 +9,23 @@ import (
 	"github.com/tombell/saga"
 )
 
-const helpText = `usage: saga [options] session file...
+const helpText = `usage: saga [options]
 
 Saga options:
-  --listen   host/port to listen on
+  --session-dir   path to the sessions directory to watch for the next session file
+  --session-file  path to the session file
+  --listen        host/port to listen on
 
 Special options:
-  --help     show this message, then exit
-  --version  show the version number, then exit
+  --help          show this message, then exit
+  --version       show the version number, then exit
 `
 
 var (
-	listen  = flag.String("listen", ":8080", "")
-	version = flag.Bool("version", false, "")
+	sessionFile = flag.String("session-file", "", "")
+	sessionDir  = flag.String("session-dir", "", "")
+	listen      = flag.String("listen", ":8080", "")
+	version     = flag.Bool("version", false, "")
 )
 
 func usage() {
@@ -38,17 +42,23 @@ func main() {
 		os.Exit(0)
 	}
 
-	args := flag.Args()
-	if len(args) == 0 {
+	if *sessionFile != "" && *sessionDir != "" {
+		fmt.Fprintln(os.Stderr, "cannot use both --session-dir and --session-file\n")
+		flag.Usage()
+	}
+
+	if *sessionFile == "" && *sessionDir == "" {
+		fmt.Fprintln(os.Stderr, "must use either --session-dir or --session-file\n")
 		flag.Usage()
 	}
 
 	logger := log.New(os.Stderr, "[saga] ", log.LstdFlags)
 
 	cfg := saga.Config{
-		Logger:   logger,
-		Listen:   *listen,
-		Filepath: args[0],
+		Logger:      logger,
+		Listen:      *listen,
+		SessionDir:  *sessionDir,
+		SessionFile: *sessionFile,
 	}
 
 	if err := saga.Run(cfg); err != nil {

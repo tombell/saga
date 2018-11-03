@@ -9,40 +9,38 @@ import (
 	"github.com/tombell/saga/decks"
 	"github.com/tombell/saga/monitor"
 	"github.com/tombell/saga/server"
+	"github.com/tombell/saga/watcher"
 )
 
 // Config ...
 type Config struct {
-	Logger   *log.Logger
-	Listen   string
-	Filepath string
+	Logger      *log.Logger
+	Listen      string
+	SessionDir  string
+	SessionFile string
 }
 
 // Run begins the process of listening for changes to the given Serato session
 // file. It keeps a realtime model of the decks, and the tracks they're
 // playing, and have played.
 func Run(cfg Config) error {
-	cfg.Logger.Printf("reading %s\n", cfg.Filepath)
+	if cfg.SessionDir != "" {
+		cfg.Logger.Printf("waiting for new session in %s...\n", cfg.SessionDir)
 
-	snapshot, err := decks.NewSessionSnapshot(cfg.Filepath)
-	if err != nil {
-		return err
+		file, err := watcher.WaitForSession(cfg.SessionDir)
+		if err != nil {
+			return err
+		}
+
+		cfg.SessionFile = file
 	}
 
 	decks := decks.NewDecks(cfg.Logger)
 
-	if err := decks.Notify(snapshot); err != nil {
-		return err
-	}
-
-	for _, deck := range decks.Statuses() {
-		cfg.Logger.Println(deck)
-	}
-
 	monitor, err := monitor.New(monitor.Config{
 		Logger:   cfg.Logger,
 		Decks:    decks,
-		Filepath: cfg.Filepath,
+		Filepath: cfg.SessionFile,
 	})
 	if err != nil {
 		return err

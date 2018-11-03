@@ -26,6 +26,11 @@ type Monitor struct {
 
 // Run ...
 func (m *Monitor) Run(ch chan error) {
+	if err := m.notify(); err != nil {
+		ch <- err
+		return
+	}
+
 	for {
 		select {
 		case event, ok := <-m.watcher.Events:
@@ -33,21 +38,9 @@ func (m *Monitor) Run(ch chan error) {
 				return
 			}
 
-			m.logger.Printf("reading %s...\n", event.Name)
-
-			snapshot, err := decks.NewSessionSnapshot(event.Name)
-			if err != nil {
-				m.logger.Printf("error: %v\n", err)
+			if err := m.notify(); err != nil {
+				ch <- err
 				return
-			}
-
-			if err := m.decks.Notify(snapshot); err != nil {
-				m.logger.Printf("error: %v\n", err)
-				return
-			}
-
-			for _, deck := range m.decks.Statuses() {
-				m.logger.Println(deck)
 			}
 		case err, ok := <-m.watcher.Errors:
 			if !ok {
@@ -62,6 +55,25 @@ func (m *Monitor) Run(ch chan error) {
 // Close closes the file watcher when it's finished being used.
 func (m *Monitor) Close() {
 	m.watcher.Close()
+}
+
+func (m *Monitor) notify() error {
+	m.logger.Printf("reading %s...\n", m.filepath)
+
+	snapshot, err := decks.NewSessionSnapshot(m.filepath)
+	if err != nil {
+		return err
+	}
+
+	if err := m.decks.Notify(snapshot); err != nil {
+		return err
+	}
+
+	for _, deck := range m.decks.Statuses() {
+		m.logger.Println(deck)
+	}
+
+	return nil
 }
 
 // New ...
