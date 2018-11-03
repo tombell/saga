@@ -6,10 +6,11 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/fsnotify/fsnotify"
+
 	"github.com/tombell/saga/decks"
 	"github.com/tombell/saga/monitor"
 	"github.com/tombell/saga/server"
-	"github.com/tombell/saga/watcher"
 )
 
 // Config ...
@@ -27,7 +28,7 @@ func Run(cfg Config) error {
 	if cfg.SessionDir != "" {
 		cfg.Logger.Printf("waiting for new session in %s...\n", cfg.SessionDir)
 
-		file, err := watcher.WaitForSession(cfg.SessionDir)
+		file, err := waitForNewSession(cfg.SessionDir)
 		if err != nil {
 			return err
 		}
@@ -74,4 +75,33 @@ func Run(cfg Config) error {
 	}
 
 	return nil
+}
+
+func waitForNewSession(dir string) (string, error) {
+	watcher, err := fsnotify.NewWatcher()
+	if err != nil {
+		return "", err
+	}
+	defer watcher.Close()
+
+	if err := watcher.Add(dir); err != nil {
+		return "", err
+	}
+
+	for {
+		select {
+		case event, ok := <-watcher.Events:
+			if !ok || event.Op&fsnotify.Create != fsnotify.Create {
+				continue
+			}
+
+			return event.Name, nil
+		case err, ok := <-watcher.Errors:
+			if !ok {
+				continue
+			}
+
+			return "", err
+		}
+	}
 }
