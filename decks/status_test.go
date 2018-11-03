@@ -7,6 +7,8 @@ import (
 )
 
 func TestStatusString(t *testing.T) {
+	var invalid decks.Status = 1000
+
 	tests := []struct {
 		name     string
 		input    decks.Status
@@ -17,6 +19,7 @@ func TestStatusString(t *testing.T) {
 		{"playing", decks.Playing, "PLAYING"},
 		{"played", decks.Played, "PLAYED"},
 		{"skipped", decks.Skipped, "SKIPPED"},
+		{"invalid", invalid, "INVALID"},
 	}
 
 	for _, tc := range tests {

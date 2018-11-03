@@ -15,9 +15,9 @@ func (s Status) String() string {
 		return "PLAYED"
 	case Skipped:
 		return "SKIPPED"
-	default:
-		return "INVALID"
 	}
+
+	return "INVALID"
 }
 
 // All valid deck statuses.
