@@ -35,7 +35,7 @@ func (m *Monitor) Run(ch chan error) {
 		select {
 		case event, ok := <-m.watcher.Events:
 			if !ok || event.Op&fsnotify.Write != fsnotify.Write {
-				return
+				continue
 			}
 
 			if err := m.notify(); err != nil {
@@ -44,7 +44,7 @@ func (m *Monitor) Run(ch chan error) {
 			}
 		case err, ok := <-m.watcher.Errors:
 			if !ok {
-				return
+				continue
 			}
 
 			m.logger.Printf("error: %v\n", err)
