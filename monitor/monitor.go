@@ -24,7 +24,8 @@ type Monitor struct {
 	watcher  *fsnotify.Watcher
 }
 
-// Run ...
+// Run begins monitoring the session file for changes, and notifies the decks
+// when changes occur.
 func (m *Monitor) Run(ch chan error) {
 	if err := m.notify(); err != nil {
 		ch <- err
@@ -76,7 +77,8 @@ func (m *Monitor) notify() error {
 	return nil
 }
 
-// New ...
+// New returns an initialised Monitor ready to watch the session file for
+// changes.
 func New(cfg Config) (*Monitor, error) {
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {

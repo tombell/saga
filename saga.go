@@ -13,7 +13,8 @@ import (
 	"github.com/tombell/saga/server"
 )
 
-// Config ...
+// Config is a data structure for the configuration options passed in from the
+// entry point.
 type Config struct {
 	Logger      *log.Logger
 	Listen      string
