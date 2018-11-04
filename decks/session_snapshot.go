@@ -1,8 +1,6 @@
 package decks
 
-import (
-	"github.com/tombell/saga/serato"
-)
+import "github.com/tombell/go-serato/serato"
 
 // SessionSnapshot is a snapshot of the current Serato session.
 type SessionSnapshot struct {

@@ -1,8 +1,6 @@
 package decks
 
-import (
-	"github.com/tombell/saga/serato/chunk"
-)
+import "github.com/tombell/go-serato/serato/chunk"
 
 // Tracks is an alias for a map of Tracks keyed by the row.
 type Tracks = map[int]Track
