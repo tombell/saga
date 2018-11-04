@@ -11,8 +11,11 @@ import (
 
 const helpText = `usage: saga [options]
 
+You must specify either --session-dir or --session-file. If --session-dir is
+specified, saga will wait until a new session file is created.
+
 Saga options:
-  --session-dir   path to the sessions directory to watch for the next session file
+  --session-dir   path to the sessions directory
   --session-file  path to the session file
   --listen        host/port to listen on
 
@@ -33,6 +36,17 @@ func usage() {
 	os.Exit(2)
 }
 
+func validateFlags() {
+	if *sessionFile != "" && *sessionDir != "" {
+		fmt.Fprintln(os.Stderr, "cannot use both --session-dir and --session-file")
+		os.Exit(2)
+	}
+
+	if *sessionFile == "" && *sessionDir == "" {
+		flag.Usage()
+	}
+}
+
 func main() {
 	flag.Usage = usage
 	flag.Parse()
@@ -42,15 +56,7 @@ func main() {
 		os.Exit(0)
 	}
 
-	if *sessionFile != "" && *sessionDir != "" {
-		fmt.Fprintln(os.Stderr, "cannot use both --session-dir and --session-file\n")
-		flag.Usage()
-	}
-
-	if *sessionFile == "" && *sessionDir == "" {
-		fmt.Fprintln(os.Stderr, "must use either --session-dir or --session-file\n")
-		flag.Usage()
-	}
+	validateFlags()
 
 	logger := log.New(os.Stderr, "[saga] ", log.LstdFlags)
 
