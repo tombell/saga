@@ -8,9 +8,9 @@ import (
 
 	"github.com/fsnotify/fsnotify"
 
+	"github.com/tombell/saga/api"
 	"github.com/tombell/saga/decks"
 	"github.com/tombell/saga/monitor"
-	"github.com/tombell/saga/server"
 )
 
 // Config is a data structure for the configuration options passed in from the
@@ -52,7 +52,7 @@ func Run(cfg Config) error {
 	monitorErrCh := make(chan error, 1)
 	go monitor.Run(monitorErrCh)
 
-	server := server.New(server.Config{
+	server := api.New(api.Config{
 		Logger: cfg.Logger,
 		Decks:  decks,
 		Listen: cfg.Listen,
