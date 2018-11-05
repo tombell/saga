@@ -68,6 +68,6 @@ func main() {
 	}
 
 	if err := saga.Run(cfg); err != nil {
-		panic(err)
+		logger.Fatalf("error from run: (%v)\n", err)
 	}
 }
