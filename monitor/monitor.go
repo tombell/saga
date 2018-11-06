@@ -28,6 +28,7 @@ type Monitor struct {
 // when changes occur.
 func (m *Monitor) Run(ch chan error) {
 	if err := m.notify(); err != nil {
+		m.logger.Printf("error: %v\n", err)
 		ch <- err
 		return
 	}
@@ -40,8 +41,8 @@ func (m *Monitor) Run(ch chan error) {
 			}
 
 			if err := m.notify(); err != nil {
-				ch <- err
-				return
+				m.logger.Printf("error: %v\n", err)
+				continue
 			}
 		case err, ok := <-m.watcher.Errors:
 			if !ok {
