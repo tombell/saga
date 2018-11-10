@@ -1,6 +1,9 @@
 # Saga
 
-Simple niche utility to display now playing and track history for [Serato DJ Pro][serato] for [Twitch][twitch] streams.
+Simple niche API server to serve the current tracks and track history from
+[Serato DJ Pro][serato].
 
 [serato]: https://serato.com
-[twitch]: https://www.twitch.tv
+
+I'm currently rewriting it from scratch and will eventually open source the
+second iteration.
