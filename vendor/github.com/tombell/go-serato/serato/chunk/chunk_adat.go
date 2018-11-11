@@ -36,10 +36,7 @@ func NewAdatChunk(header *Header, r io.Reader) (*Adat, error) {
 		return nil, err
 	}
 
-	fields, err := field.NewFields(data)
-	if err != nil {
-		return nil, err
-	}
+	fields, _ := field.NewFields(data)
 
 	return &Adat{
 		header: header,

@@ -1,6 +1,6 @@
 # github.com/fsnotify/fsnotify v1.4.7
 github.com/fsnotify/fsnotify
-# github.com/tombell/go-serato v0.0.1
+# github.com/tombell/go-serato v0.0.2
 github.com/tombell/go-serato/serato
 github.com/tombell/go-serato/serato/chunk
 github.com/tombell/go-serato/internal/decode

@@ -12,12 +12,9 @@ const (
 	albumID     = 8
 	genreID     = 9
 	lengthID    = 10
-	sizeID      = 11
 	bitrateID   = 13
-	frequencyID = 14
 	bpmID       = 15
 	commentID   = 17
-	languageID  = 18
 	groupingID  = 19
 	remixerID   = 20
 	labelID     = 21

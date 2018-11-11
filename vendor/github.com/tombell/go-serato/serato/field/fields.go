@@ -1,26 +1,21 @@
 package field
 
-import (
-	"bytes"
-)
+import "bytes"
 
 // Fields is a struct containing all possible fields for a single ADAT chunk.
 type Fields struct {
 	Row       *Row
 	FullPath  *FullPath
-	Location  *Location
-	Filename  *Filename
+	Location  *Location // Always empty as of Serato DJ Pro 2.0.5
+	Filename  *Filename // Always empty as of Serato DJ Pro 2.0.5
 	Title     *Title
 	Artist    *Artist
 	Album     *Album
 	Genre     *Genre
-	Length    *Length
-	Size      *Size
-	Bitrate   *Bitrate
-	Frequency *Frequency
+	Length    *Length  // Always empty as of Serato DJ Pro 2.0.5
+	Bitrate   *Bitrate // Always empty as of Serato DJ Pro 2.0.5
 	BPM       *BPM
 	Comment   *Comment
-	Language  *Language
 	Grouping  *Grouping
 	Remixer   *Remixer
 	Label     *Label
@@ -29,17 +24,19 @@ type Fields struct {
 	StartTime *StartTime
 	EndTime   *EndTime
 	Deck      *Deck
-	Field39   *Field39
 	PlayTime  *PlayTime
 	SessionID *SessionID
 	Played    *Played
 	Key       *Key
 	Added     *Added
 	UpdatedAt *UpdatedAt
-	Field68   *Field68
-	Field69   *Field69
-	Field70   *Field70
-	Field72   *Field72
+
+	// Unknown fields
+	Field39 *Field39
+	Field68 *Field68
+	Field69 *Field69
+	Field70 *Field70
+	Field72 *Field72
 }
 
 // NewFields returns an initialised Fields struct after reading the field data
@@ -109,24 +106,12 @@ func NewFields(data []byte) (*Fields, error) {
 				return nil, err
 			}
 			fields.Length = field
-		case 11:
-			field, err := NewSizeField(h, buf)
-			if err != nil {
-				return nil, err
-			}
-			fields.Size = field
 		case 13:
 			field, err := NewBitrateField(h, buf)
 			if err != nil {
 				return nil, err
 			}
 			fields.Bitrate = field
-		case 14:
-			field, err := NewFrequencyField(h, buf)
-			if err != nil {
-				return nil, err
-			}
-			fields.Frequency = field
 		case 15:
 			field, err := NewBPMField(h, buf)
 			if err != nil {
@@ -139,12 +124,6 @@ func NewFields(data []byte) (*Fields, error) {
 				return nil, err
 			}
 			fields.Comment = field
-		case 18:
-			field, err := NewLanguageField(h, buf)
-			if err != nil {
-				return nil, err
-			}
-			fields.Language = field
 		case 19:
 			field, err := NewGroupingField(h, buf)
 			if err != nil {
