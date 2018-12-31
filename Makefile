@@ -3,6 +3,7 @@ COMMIT=$(shell git rev-parse HEAD | cut -c -8)
 
 LDFLAGS=-ldflags "-X main.Version=${VERSION} -X main.Commit=${COMMIT}"
 MODFLAGS=-mod=vendor
+TESTFLAGS=-cover
 
 SAGA_PACKAGE=./cmd/saga
 SAGA_BINARY=saga
@@ -16,6 +17,6 @@ dev:
 	go build ${MODFLAGS} ${LDFLAGS} -o dist/${SAGA_BINARY} ${SAGA_PACKAGE}
 
 test:
-	go test ${MODFLAGS} ./...
+	go test ${MODFLAGS} ${TESTFLAGS} ./...
 
 .PHONY: all clean dev test
