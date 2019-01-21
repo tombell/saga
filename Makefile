@@ -5,8 +5,8 @@ LDFLAGS=-ldflags "-X main.Version=${VERSION} -X main.Commit=${COMMIT}"
 MODFLAGS=-mod=vendor
 TESTFLAGS=-cover
 
-SAGA_PACKAGE=./cmd/saga
-SAGA_BINARY=saga
+BINARY=saga
+PACKAGE=./cmd/saga
 
 all: dev
 
@@ -14,9 +14,20 @@ clean:
 	rm -fr dist/
 
 dev:
-	go build ${MODFLAGS} ${LDFLAGS} -o dist/${SAGA_BINARY} ${SAGA_PACKAGE}
+	go build ${MODFLAGS} ${LDFLAGS} -o dist/${BINARY} ${PACKAGE}
+
+dist: darwin linux windows
+
+darwin:
+	GOOS=darwin GOARCH=amd64 go build ${MODFLAGS} ${LDFLAGS} -o dist/${BINARY}-darwin-amd64 ${PACKAGE}
+
+linux:
+	GOOS=linux GOARCH=amd64 go build ${MODFLAGS} ${LDFLAGS} -o dist/${BINARY}-linux-amd64 ${PACKAGE}
+
+windows:
+	GOOS=windows GOARCH=amd64 go build ${MODFLAGS} ${LDFLAGS} -o dist/${BINARY}-windows-amd64 ${PACKAGE}
 
 test:
 	go test ${MODFLAGS} ${TESTFLAGS} ./...
 
-.PHONY: all clean dev test
+.PHONY: all clean dev dist darwin linux windows test
