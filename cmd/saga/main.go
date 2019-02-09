@@ -12,7 +12,7 @@ import (
 const helpText = `usage: saga [options]
 
 You must specify either --session-dir or --session-file. If --session-dir is
-specified, saga will wait until a new session file is created.
+specified, saga will wait until a new session file is created in that directory.
 
 Saga options:
   --session-dir   path to the sessions directory
