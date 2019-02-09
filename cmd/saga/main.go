@@ -28,7 +28,7 @@ var (
 	sessionFile = flag.String("session-file", "", "")
 	sessionDir  = flag.String("session-dir", "", "")
 	listen      = flag.String("listen", ":8080", "")
-	version     = flag.Bool("version", false, "")
+	vrsn        = flag.Bool("version", false, "")
 )
 
 func usage() {
@@ -51,8 +51,8 @@ func main() {
 	flag.Usage = usage
 	flag.Parse()
 
-	if *version {
-		fmt.Fprintf(os.Stdout, "saga %s (%s)\n", Version, Commit)
+	if *vrsn {
+		fmt.Fprintf(os.Stdout, "saga %s (%s)\n", version, commit)
 		os.Exit(0)
 	}
 
