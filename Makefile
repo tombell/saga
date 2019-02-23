@@ -9,18 +9,20 @@ PLATFORMS:=darwin linux windows
 
 all: dev
 
-clean:
-	rm -fr dist/
-
 dev:
-	go build ${MODFLAGS} ${LDFLAGS} -o dist/saga ./cmd/saga
+	@echo building dist/saga...
+	@go build ${MODFLAGS} ${LDFLAGS} -o dist/saga ./cmd/saga
 
 dist: $(PLATFORMS)
 
 $(PLATFORMS):
-	GOOS=$@ GOARCH=amd64 go build ${MODFLAGS} ${LDFLAGS} -o dist/saga-$@-amd64 ./cmd/saga
+	@echo building dist/saga-$@-amd64...
+	@GOOS=$@ GOARCH=amd64 go build ${MODFLAGS} ${LDFLAGS} -o dist/saga-$@-amd64 ./cmd/saga
+
+clean:
+	@rm -fr dist/
 
 test:
-	go test ${MODFLAGS} ${TESTFLAGS} ./...
+	@go test ${MODFLAGS} ${TESTFLAGS} ./...
 
-.PHONY: all clean dev dist $(PLATFORMS) test
+.PHONY: all dev dist $(PLATFORMS) clean test
