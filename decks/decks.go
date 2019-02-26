@@ -14,26 +14,8 @@ type Decks struct {
 	logger *log.Logger
 
 	sync.Mutex
-	decks     map[int]*Deck
-	snapshot  *SessionSnapshot
-	listeners map[chan bool]bool
-}
-
-// AddNotificationChannel adds a new channel that wishes to be notified when the
-// decks receive a new session snapshot and have updated.
-func (d *Decks) AddNotificationChannel(ch chan bool) {
-	d.Lock()
-	defer d.Unlock()
-
-	d.listeners[ch] = true
-}
-
-// RemoveNotificationChannel remove a channel from the listeners.
-func (d *Decks) RemoveNotificationChannel(ch chan bool) {
-	d.Lock()
-	defer d.Unlock()
-
-	delete(d.listeners, ch)
+	decks    map[int]*Deck
+	snapshot *SessionSnapshot
 }
 
 // All returns all the known decks.
@@ -84,10 +66,6 @@ func (d *Decks) Notify(snapshot *SessionSnapshot) error {
 
 	d.snapshot = snapshot
 
-	for ch := range d.listeners {
-		ch <- true
-	}
-
 	return nil
 }
 
@@ -133,8 +111,7 @@ func (d *Decks) String() string {
 // NewDecks returns a new Decks model, with no existing decks.
 func NewDecks(logger *log.Logger) *Decks {
 	return &Decks{
-		logger:    logger,
-		decks:     make(map[int]*Deck, 0),
-		listeners: make(map[chan bool]bool, 0),
+		logger: logger,
+		decks:  make(map[int]*Deck, 0),
 	}
 }
