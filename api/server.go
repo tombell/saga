@@ -38,6 +38,13 @@ func (s *Server) register(conn *websocket.Conn) {
 
 	s.decks.AddNotificationChannel(ch)
 
+	status := buildStatusResponse(s.decks.All())
+
+	if err := conn.WriteJSON(status); err != nil {
+		conn.Close()
+		return
+	}
+
 	for {
 		select {
 		case <-ch:
