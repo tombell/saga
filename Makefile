@@ -25,4 +25,7 @@ clean:
 test:
 	@go test ${MODFLAGS} ${TESTFLAGS} ./...
 
-.PHONY: all dev dist $(PLATFORMS) clean test
+testv:
+	go test ${MODFLAGS} ${TESTFLAGS} -v ./...
+
+.PHONY: all dev dist $(PLATFORMS) clean test testv
