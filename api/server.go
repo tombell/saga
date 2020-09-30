@@ -4,6 +4,8 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/gorilla/websocket"
+
 	"github.com/tombell/saga/decks"
 )
 
@@ -29,6 +31,34 @@ func (s *Server) Run(ch chan error) {
 	if err := http.ListenAndServe(s.listen, s.mux); err != nil {
 		ch <- err
 	}
+}
+
+func (s *Server) register(conn *websocket.Conn) {
+	ch := make(chan bool, 1)
+
+	s.decks.AddNotificationChannel(ch)
+
+	status := buildStatusResponse(s.decks.All())
+
+	if err := conn.WriteJSON(status); err != nil {
+		conn.Close()
+		return
+	}
+
+	for {
+		select {
+		case <-ch:
+			status := buildStatusResponse(s.decks.All())
+
+			if err := conn.WriteJSON(status); err != nil {
+				// TODO: error logging
+				break
+			}
+		}
+	}
+
+	s.decks.RemoveNotificationChannel(ch)
+	conn.Close()
 }
 
 // New returns a new Server for the given decks from the Serato session.
