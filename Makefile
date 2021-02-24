@@ -25,7 +25,7 @@ clean:
 test:
 	@go test ${MODFLAGS} ${TESTFLAGS} ./...
 
-testv:
-	go test ${MODFLAGS} ${TESTFLAGS} -v ./...
+modules:
+	@go get -u ./... && go mod download && go mod tidy && go mod vendor
 
-.PHONY: all dev dist $(PLATFORMS) clean test testv
+.PHONY: all dev dist $(PLATFORMS) clean test modules
